@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
-  "sourceCommit": "c5d84f5578cd3f510cf2ced980cca68fbf195bed",
-  "sourceTree": "a3c58b5a913673641fe602fc1bbca25e5cae49e7",
+  "sourceCommit": "dfe03c3ca960a76c2ba5aaad4e3a23f9a8b4bf15",
+  "sourceTree": "99af179da304e55266fbb9c5c1a85cbf6aac8b4c",
   "files": [
     {
       "path": ".dockerignore",
@@ -24275,9 +24275,9 @@
     {
       "path": "scripts/vercel-ignore.sh",
       "mode": "100755",
-      "gitBlob": "bf8214159c86b937a097512f9e398dea502958e2",
-      "size": 5452,
-      "sha256": "947ef293ea4df0583119df232036c5baf36cb0a4984ab10318682d144d4665c6"
+      "gitBlob": "685ef038263a8252777c3be6c9c3d8f5f8d12c7f",
+      "size": 5498,
+      "sha256": "817c623f615136320387eca35430f954b39eec3013f321015678679369e7f527"
     },
     {
       "path": "scripts/verify-agent-readiness.mjs",
@@ -51900,6 +51900,13 @@
       "gitBlob": "540e7095f41e0ef254897ab77d25cf5fbfd66b7a",
       "size": 2823,
       "sha256": "d0e0c15657ecb7158989ce05d810267af9a5d988d84d16d0c86f64c2d472fa87"
+    },
+    {
+      "path": "tests/os0x-vercel-ignore.test.mjs",
+      "mode": "100644",
+      "gitBlob": "34cdad6c3bfdffe994dc3826e6d248132391f69a",
+      "size": 3223,
+      "sha256": "fdf40a84c724d88f481fd0723f6b2b7895534d1bb71cf87eda8b724384478144"
     },
     {
       "path": "tests/outage-configuration.test.mts",
