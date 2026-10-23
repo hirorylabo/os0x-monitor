@@ -7,13 +7,16 @@ import { listCryptoQuotes } from '../server/worldmonitor/market/v1/list-crypto-q
 import { listEarthquakes } from '../server/worldmonitor/seismology/v1/list-earthquakes';
 import { listPredictionMarkets } from '../server/worldmonitor/prediction/v1/list-prediction-markets';
 import { listNaturalEvents } from '../server/worldmonitor/natural/v1/list-natural-events';
-import warmHandler, { hasReaderData, resolveWarmOrigin, verifyWarmReader } from '../api/refresh-cache';
+import warmHandler, { hasReaderData, issueWarmReaderAuth, resolveWarmOrigin, verifyWarmReader } from '../api/refresh-cache';
+import { createDomainGateway } from '../server/gateway';
+import { __resetRateLimitForTest } from '../server/_shared/rate-limit';
 
 const oldFetch = globalThis.fetch;
 const oldEnv = { ...process.env };
 afterEach(() => {
   globalThis.fetch = oldFetch;
-  for (const key of ['UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN', 'FINNHUB_API_KEY', 'ALPHA_VANTAGE_API_KEY', 'LOCAL_API_MODE', 'APP_BASE_URL', 'VERCEL_URL', 'NODE_ENV', 'CACHE_WARM_SECRET']) {
+  __resetRateLimitForTest();
+  for (const key of ['UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN', 'FINNHUB_API_KEY', 'ALPHA_VANTAGE_API_KEY', 'LOCAL_API_MODE', 'APP_BASE_URL', 'VERCEL_URL', 'VERCEL_BRANCH_URL', 'VERCEL_ENV', 'NODE_ENV', 'CACHE_WARM_SECRET', 'WM_SESSION_SECRET', 'VERCEL_AUTOMATION_BYPASS_SECRET']) {
     if (oldEnv[key] === undefined) delete process.env[key]; else process.env[key] = oldEnv[key];
   }
 });
@@ -81,7 +84,8 @@ test('empty producer and failed publication do not stamp successful freshness', 
 });
 
 test('warm acceptance rejects HTTP 200 empty/stale payloads and hostile destination origins', async () => {
-  await assert.rejects(verifyWarmReader('https://fixture.test', { name: 'markets', readerPath: '/api/test' }, async () => Response.json({ quotes: [] })), /empty or stale/);
+  process.env.WM_SESSION_SECRET = 'fixture-warm-session-secret-32-characters';
+  await assert.rejects(verifyWarmReader('https://worldmonitor-ja-private.vercel.app', { name: 'markets', readerPath: '/api/market/v1/list-market-quotes' }, async () => Response.json({ quotes: [] })), /empty or stale/);
   assert.equal(hasReaderData('news', { generatedAt: Date.now(), categories: { world: { items: [{ publishedAt: Date.now() - 72 * 3600_000 }] } } }), false);
   assert.equal(hasReaderData('news', { generatedAt: Date.now(), categories: { world: { items: [{ publishedAt: Date.now() - 60_000 }] } } }), true);
   process.env.NODE_ENV = 'production';
@@ -106,4 +110,85 @@ test('warm authentication and GET dry-run never perform producer work', async ()
   assert.equal(body.dryRun, true);
   assert.ok(body.producers.includes('earthquakes'));
   assert.ok(!JSON.stringify(body).includes('fixture-warm-secret'));
+  for (const secret of [undefined, 'too-short']) {
+    if (secret === undefined) delete process.env.WM_SESSION_SECRET; else process.env.WM_SESSION_SECRET = secret;
+    const unavailable = await warmHandler(new Request(endpoint, { method: 'POST', headers: { Authorization: 'Bearer fixture-warm-secret' } }));
+    assert.equal(unavailable.status, 503);
+    assert.deepEqual(await unavailable.json(), { error: 'reader_session_not_configured', required: 'WM_SESSION_SECRET' });
+  }
+});
+
+test('warm readers pass the real gateway session gate while bare requests fail and premium guards remain', async () => {
+  process.env.WM_SESSION_SECRET = 'fixture-warm-session-secret-32-characters';
+  process.env.UPSTASH_REDIS_REST_URL = 'https://redis.fixture.test';
+  process.env.UPSTASH_REDIS_REST_TOKEN = 'fixture';
+  delete process.env.LOCAL_API_MODE;
+  const now = Date.now();
+  const targets = [
+    { name: 'markets', readerPath: '/api/market/v1/list-market-quotes', data: { quotes: [{ price: 100 }] } },
+    { name: 'crypto', readerPath: '/api/market/v1/list-crypto-quotes', data: { quotes: [{ price: 100 }] } },
+    { name: 'earthquakes', readerPath: '/api/seismology/v1/list-earthquakes', data: { earthquakes: [{ occurredAt: now - 60_000 }] } },
+    { name: 'predictions', readerPath: '/api/prediction/v1/list-prediction-markets', data: { dataAvailable: true, markets: [{ id: 'fixture' }] } },
+    { name: 'natural', readerPath: '/api/natural/v1/list-natural-events', data: { dataAvailable: true, events: [{ id: 'fixture' }] } },
+    { name: 'news', readerPath: '/api/news/v1/list-feed-digest?variant=full&lang=ja', data: { generatedAt: now, categories: { world: { items: [{ publishedAt: now - 60_000 }] } } } },
+  ];
+  let dispatched = 0;
+  const premiumPath = '/api/intelligence/v1/get-country-intel-brief';
+  const gateway = createDomainGateway([
+    ...targets.map((target) => ({ method: 'GET', path: target.readerPath.split('?')[0]!, handler: async () => { dispatched++; return Response.json(target.data); } })),
+    { method: 'GET', path: premiumPath, handler: async () => { throw new Error('premium handler must not run'); } },
+  ]);
+  globalThis.fetch = async (input, init) => {
+    assert.equal(new URL(String(input)).hostname, 'redis.fixture.test', 'no external API calls');
+    assert.equal(new URL(String(input)).pathname, '/pipeline');
+    const commands = JSON.parse(String(init?.body)) as unknown[][];
+    return Response.json(commands.map(() => ({ result: [1, 1] })));
+  };
+  const base = 'https://worldmonitor-ja-private.vercel.app';
+  const bare = await gateway(new Request(`${base}${targets[0]!.readerPath}`));
+  assert.equal(bare.status, 401);
+  assert.equal(dispatched, 0);
+  const auth = await issueWarmReaderAuth(base);
+  for (const target of targets) {
+    await verifyWarmReader(base, target, async (input, init) => {
+      const request = new Request(input, init);
+      assert.match(request.headers.get('X-WorldMonitor-Key')!, /^wms_/);
+      assert.equal(request.headers.get('Origin'), base);
+      assert.equal(request.headers.get('Authorization'), null);
+      assert.equal(request.headers.get('Cookie'), null);
+      assert.equal(init?.redirect, 'error');
+      return gateway(request);
+    }, auth);
+  }
+  assert.equal(dispatched, targets.length);
+  const premium = await gateway(new Request(`${base}${premiumPath}`, { headers: { 'X-WorldMonitor-Key': auth.sessionToken } }));
+  assert.ok([401, 403].includes(premium.status));
+});
+
+test('session and preview automation credentials never leave the approved origin and reader paths', async () => {
+  process.env.WM_SESSION_SECRET = 'fixture-warm-session-secret-32-characters';
+  process.env.VERCEL_URL = 'worldmonitor-ja-private-fixture.vercel.app';
+  process.env.VERCEL_BRANCH_URL = 'worldmonitor-ja-private-branch.vercel.app';
+  process.env.VERCEL_ENV = 'preview';
+  const base = `https://${process.env.VERCEL_URL}`;
+  const production = 'https://worldmonitor-ja-private.vercel.app';
+  const target = { name: 'markets', readerPath: '/api/market/v1/list-market-quotes' };
+  const request = new Request(`${base}/api/refresh-cache`, { headers: { 'x-vercel-protection-bypass': 'fixture-bypass', Authorization: 'Bearer never-forward', Cookie: 'never-forward' } });
+  const auth = await issueWarmReaderAuth(base, request);
+  await verifyWarmReader(base, target, async (_input, init) => {
+    const headers = new Headers(init?.headers);
+    assert.equal(headers.get('x-vercel-protection-bypass'), 'fixture-bypass');
+    assert.equal(headers.get('Authorization'), null);
+    assert.equal(headers.get('Cookie'), null);
+    return Response.json({ quotes: [{ price: 100 }] });
+  }, auth);
+  process.env.VERCEL_AUTOMATION_BYPASS_SECRET = 'fixture-env-bypass';
+  assert.equal((await issueWarmReaderAuth(base, request)).protectionBypass, 'fixture-env-bypass');
+  assert.equal((await issueWarmReaderAuth(production, new Request(`${production}/api/refresh-cache`))).protectionBypass, undefined);
+  assert.equal((await issueWarmReaderAuth(base, new Request(`${production}/api/refresh-cache`))).protectionBypass, undefined);
+  const mustNotFetch = async () => { throw new Error('must not fetch'); };
+  await assert.rejects(verifyWarmReader('https://attacker.test', target, mustNotFetch, auth), /not this deployment/);
+  await assert.rejects(verifyWarmReader(base, { ...target, readerPath: '//attacker.test/api/market/v1/list-market-quotes' }, mustNotFetch, auth), /approved warm target/);
+  await assert.rejects(verifyWarmReader(base, { ...target, readerPath: '/api/intelligence/v1/get-country-intel-brief' }, mustNotFetch, auth), /approved warm target/);
+  await assert.rejects(verifyWarmReader(`https://${process.env.VERCEL_BRANCH_URL}`, target, mustNotFetch, auth), /another deployment/);
 });

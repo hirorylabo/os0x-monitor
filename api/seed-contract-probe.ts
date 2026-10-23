@@ -24,7 +24,6 @@ export const config = { runtime: 'edge' };
 import { getCorsHeaders, isHostedAppOrigin } from './_cors.js';
 // @ts-expect-error — JS module, no declaration file
 import { jsonResponse } from './_json-response.js';
-// @ts-expect-error — JS module, no declaration file
 import { issueSessionToken } from './_session.js';
 import { timingSafeEqual } from '../server/_shared/internal-auth';
 

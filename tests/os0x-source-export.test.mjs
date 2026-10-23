@@ -8,7 +8,8 @@ import { exclusionReason, compactArchivePaths, inspectSource, scanCredentialLite
 
 test('export policy excludes local state and notes while retaining build source and environment examples', () => {
   for (const path of ['.env', '.env.local', '.vercel/project.json', '.aws/credentials', 'task/PLAN.md', 'docs/internal/ops.md',
-    'docs/evidence/shot.png', 'CLAUDE.md', 'compound-engineering.local.md', 'pro-test/.env.production']) assert.ok(exclusionReason(path), path);
+    'docs/evidence/shot.png', 'CLAUDE.md', 'compound-engineering.local.md', 'pro-test/.env.production',
+    'artifacts/knowledge-drafts/worldmonitor-vercel-upgrade.md']) assert.ok(exclusionReason(path), path);
   for (const path of ['.env.example', 'AGENTS.md', 'api/translate-ja.js', 'src/assets/a.png', 'shared/schema.json',
     'scripts/lib/main-module.mjs', 'scripts/data/a.json', 'proto/worldmonitor/news.proto', 'convex/companyMonitoring/evidence.ts']) assert.equal(exclusionReason(path), null, path);
   assert.throws(() => exclusionReason('../.env'), /Unsafe/);

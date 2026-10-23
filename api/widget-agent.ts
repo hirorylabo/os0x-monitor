@@ -21,7 +21,6 @@ export const config = { runtime: 'edge' };
 import { getCorsHeaders, isDisallowedOrigin } from './_cors.js';
 // @ts-expect-error — JS module, no declaration file
 import { timingSafeEqualSecret, timingSafeIncludes } from './_crypto.js';
-// @ts-expect-error — JS module, no declaration file
 import { isSessionTokenShape } from './_session.js';
 // @ts-expect-error — JS module, no declaration file
 import { captureSilentError } from './_sentry-edge.js';

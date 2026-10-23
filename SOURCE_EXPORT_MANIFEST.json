@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
-  "sourceCommit": "4fe2159570087b228e611da989efa5e50ccbfb25",
-  "sourceTree": "3b598a4f63b53c95932f010a1ca33388f52240a2",
+  "sourceCommit": "b0c83bf895f66d6d41d1d215b4cd6659b8e5d244",
+  "sourceTree": "35efa0c0a6d94e192dc8999f72167fd735f0acf8",
   "files": [
     {
       "path": ".dockerignore",
@@ -538,9 +538,9 @@
     {
       "path": ".gitignore",
       "mode": "100644",
-      "gitBlob": "828255b8b9c6b36875874b82ff7e598ef897ee2b",
-      "size": 5589,
-      "sha256": "c0b7c15b34a7ef5e08775de9762f9959a7ea2624754e28473f2c02e24b249ed4"
+      "gitBlob": "8fc3520083e61f7d607938f9cd451ffb4d196875",
+      "size": 5685,
+      "sha256": "151ce9e930ca6cdb2cf3c6e5da7d32ad15088d218b5aee09141efdc36434ba9a"
     },
     {
       "path": ".husky/pre-commit",
@@ -1157,6 +1157,13 @@
       "gitBlob": "d054150357b97e30c46f49925c68513703f89689",
       "size": 602,
       "sha256": "79ce793c39115db801bc5aad472011203ec13511a31c00958b8df835e6f2768c"
+    },
+    {
+      "path": "api/_session.d.ts",
+      "mode": "100644",
+      "gitBlob": "5ef033c4f4916620d4510105c2592063b961f158",
+      "size": 220,
+      "sha256": "8a827be740d906a84c982823566a7bb82aa6f57229718b3e7b8db813305c2e8d"
     },
     {
       "path": "api/_session.js",
@@ -2435,9 +2442,9 @@
     {
       "path": "api/refresh-cache.ts",
       "mode": "100644",
-      "gitBlob": "5accd8f3c5cc6ba06d26f0e59784ef6af381bc94",
-      "size": 6140,
-      "sha256": "96458b622499452c592ab84b094ccc9fda12bd866351826e355211a4f0e98be9"
+      "gitBlob": "9519c20e8363e9b0fb8ec794e5f28f3f7b08cf73",
+      "size": 8864,
+      "sha256": "21d6934f7885a57fa2bac374240557757ab0067fee7b25aed53b104e32a09326"
     },
     {
       "path": "api/research/v1/[rpc].ts",
@@ -2561,9 +2568,9 @@
     {
       "path": "api/seed-contract-probe.ts",
       "mode": "100644",
-      "gitBlob": "b89b4fe8196eb3be6d6ba4ab1b0683e0cb19bbba",
-      "size": 16005,
-      "sha256": "6e14d375b368c9b02f23b0e9cd27818f5ce3a61faf6a7f14d02f117de138bfd4"
+      "gitBlob": "6c4307ae74971c8d8de7d5976f5705955d2de831",
+      "size": 15950,
+      "sha256": "96f1843722c197dcbd1a708fd2db80bc415b3b2095bb18bb9c6e0f6e9341cc91"
     },
     {
       "path": "api/seed-health.js",
@@ -2750,9 +2757,9 @@
     {
       "path": "api/widget-agent.ts",
       "mode": "100644",
-      "gitBlob": "23d260203fe0ebf1e245e1d5947e2bc436d3ce42",
-      "size": 23810,
-      "sha256": "4e3fe76a1e6dd97f19813db2046b51411a77e8a6b1735d9aa5f9a2125c4a5301"
+      "gitBlob": "11282cfd0f96ab51b6ded4fd6533b05eedb2f610",
+      "size": 23755,
+      "sha256": "5f36844beca5a18e0b959da328b15bc5c7c9a9e034451241306cd1ce6734b41b"
     },
     {
       "path": "api/wildfire/v1/[rpc].ts",
@@ -19431,9 +19438,9 @@
     {
       "path": "scripts/export-os0x-source.mjs",
       "mode": "100644",
-      "gitBlob": "89f4d433c6d03db0ca0cf5e76509dff18dc4b428",
-      "size": 13917,
-      "sha256": "d183962d6678f0411cb198957fda84ddb001cbb1a953ec041e58f5718e3a24c2"
+      "gitBlob": "2b23f6379cb8d8a1b6e757555ec54dbdafab6e84",
+      "size": 14004,
+      "sha256": "5cea1f395d8f658087fc0bbb5e7cb76b0de1b424179be84aa80283826f6d73f8"
     },
     {
       "path": "scripts/extract-curated-command-surfaces.mjs",
@@ -51820,9 +51827,9 @@
     {
       "path": "tests/os0x-cache-warm.test.mts",
       "mode": "100644",
-      "gitBlob": "6be1703ec2e9bfbf60e847787a0f807180b7396b",
-      "size": 7700,
-      "sha256": "00b0ee27f7dbdc29a1d58563615d5a91be7d18764e82e7e606ef1dbdc3300ac5"
+      "gitBlob": "0ea0207b9891009acd75690b315055d8f2ff8f0e",
+      "size": 13846,
+      "sha256": "8635cf3c46ed6742e84d13128142bef7124fae81acc0e5d6ce094d166b57295c"
     },
     {
       "path": "tests/os0x-prediction-edge.test.mjs",
@@ -51855,9 +51862,9 @@
     {
       "path": "tests/os0x-source-export.test.mjs",
       "mode": "100644",
-      "gitBlob": "7b8f2fb0c1be3b812eee0ad3364904896b71a012",
-      "size": 5309,
-      "sha256": "b22b4994c54e663dfb4a6978f1f21446cfb6c775a17f6a223fec26476fa5b529"
+      "gitBlob": "3d4b4a7ddb1c77d74e73f59580a1add4c8cad0a8",
+      "size": 5374,
+      "sha256": "d4fe7c272b4e15d4e18e5c8c3e5348d14467971c6b8148c1930db2e9b0bdd601"
     },
     {
       "path": "tests/os0x-summary-client.test.mjs",

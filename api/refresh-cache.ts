@@ -2,20 +2,54 @@ import { getCorsHeaders, isDisallowedOrigin } from '../server/cors';
 import { authenticateInternalRequest } from '../server/_shared/internal-auth';
 import { getCachedJson } from '../server/_shared/redis';
 import { produceMarketSeed, produceCryptoSeed, produceEarthquakeSeed, producePredictionSeed, produceNaturalSeed, type WarmSeed } from '../server/_shared/ja-cache-warm';
+import { issueSessionToken } from './_session.js';
 
 export const config = { runtime: 'edge' };
 const PRODUCTION_ORIGIN = 'https://worldmonitor-ja-private.vercel.app';
+const WARM_READER_PATHS: Record<string, string> = {
+  markets: '/api/market/v1/list-market-quotes',
+  crypto: '/api/market/v1/list-crypto-quotes',
+  earthquakes: '/api/seismology/v1/list-earthquakes',
+  predictions: '/api/prediction/v1/list-prediction-markets',
+  natural: '/api/natural/v1/list-natural-events',
+  news: '/api/news/v1/list-feed-digest?variant=full&lang=ja',
+};
 
-export function resolveWarmOrigin(request: Request): string {
-  const origin = new URL(process.env.APP_BASE_URL || request.url).origin;
+function deploymentOrigins(): Set<string> {
   const allowed = new Set([PRODUCTION_ORIGIN]);
   for (const host of [process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL]) {
     if (host && /^[a-z0-9.-]+\.vercel\.app$/i.test(host)) allowed.add(`https://${host}`);
   }
+  return allowed;
+}
+
+function assertWarmOrigin(origin: string): void {
   const url = new URL(origin);
-  if (process.env.NODE_ENV !== 'production' && ['localhost', '127.0.0.1'].includes(url.hostname)) return origin;
-  if (!allowed.has(origin)) throw new Error('Cache warm origin is not this deployment');
+  if (url.origin !== origin || url.username || url.password) throw new Error('Cache warm origin must be an origin');
+  if (process.env.NODE_ENV !== 'production' && ['http:', 'https:'].includes(url.protocol) && ['localhost', '127.0.0.1'].includes(url.hostname)) return;
+  if (!deploymentOrigins().has(origin)) throw new Error('Cache warm origin is not this deployment');
+}
+
+export function resolveWarmOrigin(request: Request): string {
+  const origin = new URL(process.env.APP_BASE_URL || request.url).origin;
+  assertWarmOrigin(origin);
   return origin;
+}
+
+interface WarmReaderAuth { origin: string; sessionToken: string; protectionBypass?: string }
+
+export async function issueWarmReaderAuth(base: string, request?: Request): Promise<WarmReaderAuth> {
+  assertWarmOrigin(base);
+  const { token } = await issueSessionToken();
+  // An automation secret may only accompany a same-origin request back into
+  // this exact preview/branch deployment, never the production alias or a
+  // different allowed deployment. Do not copy browser cookies or Clerk auth.
+  const isOwnPreview = process.env.VERCEL_ENV !== 'production' && base !== PRODUCTION_ORIGIN && deploymentOrigins().has(base)
+    && request != null && new URL(request.url).origin === base;
+  const protectionBypass = isOwnPreview
+    ? process.env.VERCEL_AUTOMATION_BYPASS_SECRET || request.headers.get('x-vercel-protection-bypass') || undefined
+    : undefined;
+  return { origin: base, sessionToken: token, protectionBypass };
 }
 
 export function hasReaderData(name: string, data: any, now = Date.now()): boolean {
@@ -32,9 +66,18 @@ export function hasReaderData(name: string, data: any, now = Date.now()): boolea
   return false;
 }
 
-export async function verifyWarmReader(base: string, seed: Pick<WarmSeed, 'name' | 'readerPath'>, fetcher = globalThis.fetch) {
+export async function verifyWarmReader(base: string, seed: Pick<WarmSeed, 'name' | 'readerPath'>, fetcher = globalThis.fetch, auth?: WarmReaderAuth) {
+  assertWarmOrigin(base);
+  if (WARM_READER_PATHS[seed.name] !== seed.readerPath) throw new Error('Reader path is not an approved warm target');
+  const credentials = auth ?? await issueWarmReaderAuth(base);
+  if (credentials.origin !== base) throw new Error('Reader credentials belong to another deployment');
+  const headers: Record<string, string> = {
+    Accept: 'application/json', 'User-Agent': 'worldmonitor-ja-cache-warm/1.0',
+    Origin: base, 'X-WorldMonitor-Key': credentials.sessionToken,
+  };
+  if (credentials.protectionBypass) headers['x-vercel-protection-bypass'] = credentials.protectionBypass;
   const response = await fetcher(`${base}${seed.readerPath}`, {
-    headers: { Accept: 'application/json', 'User-Agent': 'worldmonitor-ja-cache-warm/1.0' }, signal: AbortSignal.timeout(18_000),
+    headers, signal: AbortSignal.timeout(18_000), redirect: 'error',
   });
   if (!response.ok) throw new Error(`Typed reader HTTP ${response.status}`);
   const data = await response.json();
@@ -66,6 +109,12 @@ export default async function handler(request: Request): Promise<Response> {
   if (new URL(request.url).searchParams.get('dryRun') === '1' || request.method === 'GET') {
     return new Response(JSON.stringify({ dryRun: true, baseUrl: base, producers: ['markets', 'crypto', 'earthquakes', 'predictions', 'natural'], reader: '/api/news/v1/list-feed-digest?variant=full&lang=ja' }), { headers });
   }
+  let readerAuth: WarmReaderAuth;
+  if (!process.env.WM_SESSION_SECRET || process.env.WM_SESSION_SECRET.length < 32) {
+    return new Response(JSON.stringify({ error: 'reader_session_not_configured', required: 'WM_SESSION_SECRET' }), { status: 503, headers });
+  }
+  try { readerAuth = await issueWarmReaderAuth(base, request); }
+  catch { return new Response(JSON.stringify({ error: 'reader_session_unavailable' }), { status: 503, headers }); }
   const producers = [produceMarketSeed, produceCryptoSeed, produceEarthquakeSeed, producePredictionSeed, produceNaturalSeed];
   const names = ['markets', 'crypto', 'earthquakes', 'predictions', 'natural'];
   const startedAt = Date.now();
@@ -74,7 +123,7 @@ export default async function handler(request: Request): Promise<Response> {
       try {
         return await withinWarmDeadline((async () => {
           const seed = await producer();
-          await verifyWarmReader(base, seed);
+          await verifyWarmReader(base, seed, globalThis.fetch, readerAuth);
           const heartbeat = await getCachedJson(seed.metaKey, true) as { fetchedAt?: number } | null;
           if (!heartbeat?.fetchedAt || Date.now() - heartbeat.fetchedAt > 35 * 60_000) throw new Error('Seed freshness verification failed');
           return { name: seed.name, ok: true, records: seed.records, fetchedAt: seed.fetchedAt };
@@ -85,7 +134,7 @@ export default async function handler(request: Request): Promise<Response> {
     }),
     (async () => {
       try {
-        await verifyWarmReader(base, { name: 'news', readerPath: '/api/news/v1/list-feed-digest?variant=full&lang=ja' });
+        await verifyWarmReader(base, { name: 'news', readerPath: WARM_READER_PATHS.news! }, globalThis.fetch, readerAuth);
         return { name: 'news', ok: true };
       } catch (error) { return { name: 'news', ok: false, error: error instanceof Error ? error.message : 'Warm failed' }; }
     })(),

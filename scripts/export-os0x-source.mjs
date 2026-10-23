@@ -32,6 +32,7 @@ export function exclusionReason(path) {
     throw new Error('Unsafe source path');
   }
   if (parts.some((part) => EXCLUDED_PARTS.has(part))) return 'local-state-or-internal-notes';
+  if (path.startsWith('artifacts/knowledge-drafts/')) return 'internal-documentation';
   if (PRIVATE_DOC_DIRS.test(path)) return 'internal-documentation';
   if (parts.some((part) => /^\.env(?:$|[.-])/.test(part) && part !== '.env.example')) return 'environment-file';
   if (parts.some((part) => EXCLUDED_NAMES.test(part))) return 'local-or-task-document';
