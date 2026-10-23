@@ -1,0 +1,49 @@
+name: os0x CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, 'update/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: os0x-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v6
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install locked dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts
+      - name: Prepare repository inventory
+        run: npm run inventory:facts
+      - run: npm run typecheck
+      - run: npm run typecheck:api
+      - run: npm run typecheck:middleware
+      - run: npm run predictions:edge:check
+      - run: npm run lint:boundaries
+      - run: npm run docs:check
+      - name: Verify fork metadata contracts
+        run: node --import tsx --test tests/docs-stats-language-metadata.test.mts
+      - name: Verify Japanese APIs, translation and scheduler contracts
+        run: node --experimental-test-module-mocks --test api/os0x-ai.test.mjs tests/os0x-*.test.mjs
+      - name: Verify cache producers, runtime capabilities and preferences
+        run: node --import tsx --test tests/os0x-*.test.mts
+      - name: Verify Japanese feeds and visible component behavior
+        run: |
+          node --import tsx --test tests/japan-news-feeds.test.mts tests/live-video-chain.test.mts tests/middleware-bot-gate.test.mts api/_cors.test.mjs
+          npm run test:dom -- tests/dom/auto-translate-ja.test.mts tests/dom/os0x-source-cap-language.test.mts tests/dom/fred-panel-capabilities.test.mts tests/dom/monitor-panel.test.mts tests/dom/os0x-svg-map-viewport.test.mts
+      - name: Verify panel defaults, saved choices and lazy mounting
+        run: node --import tsx --test tests/mission-presets.test.mts tests/panel-variant-config.test.mts tests/webmcp-panel-enablement.test.mts tests/panel-mount-deferral.test.mts
+      - name: Build the self-hosted dashboard
+        run: npm run build:os0x

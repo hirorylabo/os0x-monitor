@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "tsBuildInfoFile": "node_modules/.cache/tsconfig.middleware.tsbuildinfo"
+  },
+  "include": ["middleware.ts"],
+  "exclude": []
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://worldmonitor-ja-private.vercel.app/os0x-sitemap.xml
