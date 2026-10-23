@@ -8,7 +8,7 @@ import { describe, it } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { Window } from 'happy-dom';
 
-import { COUNTRY_BRIEF_APP_HTML } from '../api/mcp/ui/country-brief-app';
+import { COUNTRY_BRIEF_APP_HTML } from '../api/_mcp/ui/country-brief-app';
 
 async function render(payload: unknown, projected = false) {
   const win: any = new Window({ url: 'https://worldmonitor.app/' });
@@ -44,7 +44,7 @@ function send(win: any, payload: unknown, projected = false) {
   }));
 }
 
-describe('api/mcp/ui/country-brief-app.ts', () => {
+describe('api/_mcp/ui/country-brief-app.ts', () => {
   it('renders the brief and generation date without the model id', async () => {
     const win = await render({
       countryCode: 'FI',

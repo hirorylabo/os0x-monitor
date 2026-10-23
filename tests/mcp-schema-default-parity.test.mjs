@@ -3,7 +3,7 @@ import { strict as assert } from 'node:assert';
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CACHE_TOOLS, filterConflictPanelEvents } from '../api/mcp/registry/cache-tools.ts';
+import { CACHE_TOOLS, filterConflictPanelEvents } from '../api/_mcp/registry/cache-tools.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 // Registry now lives split across two files. Concatenate them so the
@@ -13,7 +13,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 // Concatenate every registry module (excluding the merge/index file) rather
 // than naming them: a hardcoded list silently stops covering a tool that moves
 // to a new sibling module.
-const REGISTRY_DIR = resolve(HERE, '../api/mcp/registry');
+const REGISTRY_DIR = resolve(HERE, '../api/_mcp/registry');
 const MCP_SRC = readdirSync(REGISTRY_DIR)
   .filter((f) => f.endsWith('.ts') && f !== 'index.ts')
   .sort()

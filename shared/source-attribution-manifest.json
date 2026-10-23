@@ -911,9 +911,9 @@
       "provider": "api.groq.com",
       "kind": "structured",
       "observed": true,
-      "license": "Provider terms for this upstream API/dataset; verify before redistribution",
-      "attribution": "Credit api.groq.com and link to the original upstream API/dataset.",
-      "status": "terms-review",
+      "license": "Excluded: first-party, control-plane, UI, or rendering transport",
+      "attribution": "Excluded from the external-provider count: not an ingested upstream dataset.",
+      "status": "excluded",
       "references": [
         {
           "path": "api/_os0x-llm.js"
@@ -1496,16 +1496,16 @@
       "status": "excluded",
       "references": [
         {
+          "path": "api/_mcp/downstream.ts"
+        },
+        {
+          "path": "api/_mcp/skill-extension/generated.ts"
+        },
+        {
           "path": "api/a2a.ts"
         },
         {
           "path": "api/internal/mcp-grant-mint.ts"
-        },
-        {
-          "path": "api/mcp/downstream.ts"
-        },
-        {
-          "path": "api/mcp/skill-extension/generated.ts"
         },
         {
           "path": "scripts/_widget-data-policy.cjs"
@@ -3600,7 +3600,7 @@
       "status": "terms-review",
       "references": [
         {
-          "path": "api/mcp/skill-extension/generated.ts"
+          "path": "api/_mcp/skill-extension/generated.ts"
         },
         {
           "path": "scripts/seed-earthquakes.mjs"
@@ -4842,9 +4842,9 @@
       "provider": "generativelanguage.googleapis.com",
       "kind": "structured",
       "observed": true,
-      "license": "Provider terms for this upstream API/dataset; verify before redistribution",
-      "attribution": "Credit generativelanguage.googleapis.com and link to the original upstream API/dataset.",
-      "status": "terms-review",
+      "license": "Excluded: first-party, control-plane, UI, or rendering transport",
+      "attribution": "Excluded from the external-provider count: not an ingested upstream dataset.",
+      "status": "excluded",
       "references": [
         {
           "path": "api/_os0x-llm.js"
@@ -5368,7 +5368,7 @@
       "status": "reviewed",
       "references": [
         {
-          "path": "api/mcp/skill-extension/generated.ts"
+          "path": "api/_mcp/skill-extension/generated.ts"
         },
         {
           "path": "scripts/seed-supply-chain-trade.mjs"
@@ -5851,7 +5851,7 @@
       "status": "excluded",
       "references": [
         {
-          "path": "api/mcp/constants.ts"
+          "path": "api/_mcp/constants.ts"
         }
       ]
     },
@@ -7835,7 +7835,7 @@
       "status": "terms-review",
       "references": [
         {
-          "path": "api/mcp/skill-extension/generated.ts"
+          "path": "api/_mcp/skill-extension/generated.ts"
         },
         {
           "path": "scripts/_bet-templates-markets.mjs"
@@ -8098,9 +8098,9 @@
       "provider": "qstash.upstash.io",
       "kind": "structured",
       "observed": true,
-      "license": "Provider terms for this upstream API/dataset; verify before redistribution",
-      "attribution": "Credit qstash.upstash.io and link to the original upstream API/dataset.",
-      "status": "terms-review",
+      "license": "Excluded: first-party, control-plane, UI, or rendering transport",
+      "attribution": "Excluded from the external-provider count: not an ingested upstream dataset.",
+      "status": "excluded",
       "references": [
         {
           "path": "scripts/setup-qstash-schedule.mjs"
@@ -10947,7 +10947,7 @@
       "status": "reviewed",
       "references": [
         {
-          "path": "api/mcp/skill-extension/generated.ts"
+          "path": "api/_mcp/skill-extension/generated.ts"
         },
         {
           "path": "scripts/ais-relay.cjs"
@@ -10979,9 +10979,9 @@
       "provider": "worldmonitor-ja-private.vercel.app",
       "kind": "structured",
       "observed": true,
-      "license": "Provider terms for this upstream API/dataset; verify before redistribution",
-      "attribution": "Credit worldmonitor-ja-private.vercel.app and link to the original upstream API/dataset.",
-      "status": "terms-review",
+      "license": "Excluded: first-party, control-plane, UI, or rendering transport",
+      "attribution": "Excluded from the external-provider count: not an ingested upstream dataset.",
+      "status": "excluded",
       "references": [
         {
           "path": "api/_cors.js"
@@ -11016,6 +11016,9 @@
           "path": "api/_agent-metadata.ts"
         },
         {
+          "path": "api/_mcp/skill-extension/generated.ts"
+        },
+        {
           "path": "api/a2a.ts"
         },
         {
@@ -11023,9 +11026,6 @@
         },
         {
           "path": "api/fwdstart.js"
-        },
-        {
-          "path": "api/mcp/skill-extension/generated.ts"
         },
         {
           "path": "api/miit-news.js"
@@ -12821,9 +12821,9 @@
       "provider": "www.gnu.org",
       "kind": "structured",
       "observed": true,
-      "license": "Provider terms for this upstream API/dataset; verify before redistribution",
-      "attribution": "Credit www.gnu.org and link to the original upstream API/dataset.",
-      "status": "terms-review",
+      "license": "Excluded: first-party, control-plane, UI, or rendering transport",
+      "attribution": "Excluded from the external-provider count: not an ingested upstream dataset.",
+      "status": "excluded",
       "references": [
         {
           "path": "scripts/docs-stats.mjs"
@@ -15304,7 +15304,7 @@
       "status": "terms-review",
       "references": [
         {
-          "path": "api/mcp/skill-extension/generated.ts"
+          "path": "api/_mcp/skill-extension/generated.ts"
         },
         {
           "path": "server/worldmonitor/webcam/v1/get-webcam-image.ts"
@@ -15375,6 +15375,12 @@
           "path": "api/_cors.js"
         },
         {
+          "path": "api/_mcp/skill-extension/generated.ts"
+        },
+        {
+          "path": "api/_mcp/ui/news-dashboard-app.ts"
+        },
+        {
           "path": "api/a2a.ts"
         },
         {
@@ -15382,12 +15388,6 @@
         },
         {
           "path": "api/customer-portal.ts"
-        },
-        {
-          "path": "api/mcp/skill-extension/generated.ts"
-        },
-        {
-          "path": "api/mcp/ui/news-dashboard-app.ts"
         },
         {
           "path": "api/not-found.ts"

@@ -67,7 +67,7 @@ export type PlanLimits = {
    * Daily MCP tool/resource call allowance.
    *
    * `SHARED_API_BUDGET` means the plan has no separate MCP allowance: its MCP
-   * calls charge `apiRequestsPerDay` at a per-tool weight (`api/mcp/quota.ts`).
+   * calls charge `apiRequestsPerDay` at a per-tool weight (`api/_mcp/quota.ts`).
    * Only plans that own a real REST budget may declare it — Pro and Pro
    * Business are `apiAccess: false` with `apiRequestsPerDay: 0`, so they must
    * keep a number of their own.
@@ -217,7 +217,7 @@ const FREE_FEATURES: PlanFeatures = {
     apiBurstRequestsPerMinute: 0,
     // #6716: stays 0. The free-account allowance is NOT a plan allowance — it
     // is a paid-funnel taste metered at the MCP call site against its own Redis
-    // counters, and `FREE_ACCOUNT_CALLS_PER_DAY` (api/mcp/upgrade-constants.ts)
+    // counters, and `FREE_ACCOUNT_CALLS_PER_DAY` (api/_mcp/upgrade-constants.ts)
     // is its single source of truth. Publishing 5 here bought nothing —
     // dispatch ignores `mcpDailyLimit` entirely on the free branch — and cost a
     // real bug: it made the settings endpoint advertise a ceiling it reads the

@@ -5,7 +5,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 import { PRODUCT_CATALOG, SHARED_API_BUDGET } from '../convex/config/productCatalog.ts';
 
 describe('MCP free-tier discovery parity', () => {

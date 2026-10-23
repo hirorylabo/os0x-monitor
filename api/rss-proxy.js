@@ -101,7 +101,7 @@ function closeOpenElements(xml) {
  * keys on that stack, so unfingerprinted captures collapse into whatever
  * catch-all shares it — WORLDMONITOR-ZR absorbed a feed error next to six
  * events from an unrelated subsystem. Same remedy as
- * `api/mcp/error-fingerprint.ts`.
+ * `api/_mcp/error-fingerprint.ts`.
  *
  * Keyed on the error class, never the feed URL: the allowlist carries 428
  * hosts, and a URL-keyed fingerprint would mint 428 issues for one outage.

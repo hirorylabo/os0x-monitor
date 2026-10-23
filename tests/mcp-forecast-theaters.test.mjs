@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { mcpHandler } from '../api/mcp.ts';
 import { HMAC_SECRET, callBody, makeProDeps, proReq } from './helpers/mcp-pro-deps.mjs';
-import { TOOL_REGISTRY, toolAccess } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY, toolAccess } from '../api/_mcp/registry/index.ts';
 
 const theaters = [{ theaterId: 'T1', theaterLabel: 'Original theater', stateKind: 'pressure', topPaths: [
   { pathId: 'P1', label: 'Original path', summary: 'Original assessment', confidence: null, keyActors: ['Actor'], keyActorRoles: ['Mediator'] },

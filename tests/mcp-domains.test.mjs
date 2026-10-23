@@ -1,6 +1,6 @@
 // Tool categories and the generated domain summary (plan 2026-10-13-001, U3/U4).
 //
-// api/mcp/domains.ts is the one source for which domain each MCP tool belongs
+// api/_mcp/domains.ts is the one source for which domain each MCP tool belongs
 // to and for the domain list that discovery surfaces quote. The
 // product-facts generator renders both into the server card and into the
 // sentinel/locator spans of the markdown and JSON discovery files; these tests
@@ -15,8 +15,8 @@ import {
   MCP_TAGS,
   MCP_TOOL_CATEGORIES,
   TOOL_CATEGORY_BY_NAME,
-} from '../api/mcp/domains.ts';
-import { TOOL_LIST_RESPONSE, TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+} from '../api/_mcp/domains.ts';
+import { TOOL_LIST_RESPONSE, TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 import {
   JSON_DOMAIN_SURFACES,
   MARKDOWN_DOMAIN_SURFACES,
@@ -36,7 +36,7 @@ describe('MCP tool categories (U3)', () => {
   it('maps every registry tool, and only registry tools, to a category', () => {
     const registryNames = TOOL_REGISTRY.map((tool) => tool.name);
     const unmapped = registryNames.filter((name) => !Object.hasOwn(TOOL_CATEGORY_BY_NAME, name));
-    assert.deepEqual(unmapped, [], `tools without a category in api/mcp/domains.ts: ${unmapped.join(', ')}`);
+    assert.deepEqual(unmapped, [], `tools without a category in api/_mcp/domains.ts: ${unmapped.join(', ')}`);
     const unknown = Object.keys(TOOL_CATEGORY_BY_NAME).filter((name) => !registryNames.includes(name));
     assert.deepEqual(unknown, [], `category map names tools not in TOOL_REGISTRY: ${unknown.join(', ')}`);
   });

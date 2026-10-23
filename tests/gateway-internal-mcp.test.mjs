@@ -409,7 +409,7 @@ describe('gateway internal-MCP HMAC verify — happy paths', () => {
 
   it('HMAC-signed user_key request cannot increment rl:apikey:day even when REST enforcement is on', async () => {
     process.env.API_RATE_LIMIT_ENFORCE = 'true';
-    const { buildAuthHeaders } = await import(`../api/mcp/auth.ts?t=${Date.now()}`);
+    const { buildAuthHeaders } = await import(`../api/_mcp/auth.ts?t=${Date.now()}`);
     const url = 'https://example.test/api/news/v1/summarize-article';
     const body = JSON.stringify({ provider: 'auto', mode: 'brief' });
     const headers = await buildAuthHeaders(
@@ -453,7 +453,7 @@ describe('gateway internal-MCP HMAC verify — happy paths', () => {
     );
     assert.match(raw.dailyIncrements[0], new RegExp(`rl:apikey:day:${API_KEY_OWNER_ID}:`));
 
-    const { buildAuthHeaders } = await import(`../api/mcp/auth.ts?t=${Date.now()}`);
+    const { buildAuthHeaders } = await import(`../api/_mcp/auth.ts?t=${Date.now()}`);
     const headers = await buildAuthHeaders(
       { kind: 'user_key', apiKey: USER_API_KEY, userId: API_KEY_OWNER_ID },
       'GET',

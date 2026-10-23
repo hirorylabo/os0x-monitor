@@ -3,9 +3,9 @@ import { afterEach, beforeEach, describe, it } from 'node:test';
 import Ajv2020 from 'ajv/dist/2020.js';
 
 import handler from '../api/mcp.ts';
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { TOOL_REGISTRY, buildPublicTool, toolAccess, toolWeight } from '../api/mcp/registry/index.ts';
-import { validateToolArgs } from '../api/mcp/_validate-args.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { TOOL_REGISTRY, buildPublicTool, toolAccess, toolWeight } from '../api/_mcp/registry/index.ts';
+import { validateToolArgs } from '../api/_mcp/_validate-args.ts';
 
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };

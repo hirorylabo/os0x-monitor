@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 import { Ratelimit } from '@upstash/ratelimit';
 import { HMAC_SECRET, callBody, makeProDeps, proReq } from './helpers/mcp-pro-deps.mjs';
 import { readFixture } from './helpers/mcp-output-budget.mjs';
-import { TOOL_ALIASES } from '../api/mcp/registry/index.ts';
+import { TOOL_ALIASES } from '../api/_mcp/registry/index.ts';
 
 // generate_forecasts is retired (unlisted) but still callable, so its cases stay.
 const budgetOf = name => {

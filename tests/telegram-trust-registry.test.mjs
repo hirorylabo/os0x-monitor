@@ -32,7 +32,7 @@ import {
   describePropagandaBadge,
 } from '../shared/source-provenance.ts';
 import { SOURCE_TIERS, getSourceTier } from '../server/_shared/source-tiers.ts';
-import { SOURCE_TOOLS } from '../api/mcp/registry/source-tools.ts';
+import { SOURCE_TOOLS } from '../api/_mcp/registry/source-tools.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(__dirname, '..');

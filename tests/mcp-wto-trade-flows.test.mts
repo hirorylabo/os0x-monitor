@@ -6,7 +6,7 @@
 import { describe, it, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { TOOL_LIST_RESPONSE, TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { TOOL_LIST_RESPONSE, TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 
 const originalFetch = globalThis.fetch;
 const originalEnv = {

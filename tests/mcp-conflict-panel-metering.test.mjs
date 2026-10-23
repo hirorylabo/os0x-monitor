@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { HMAC_SECRET, callBody, makeProDeps, proReq } from './helpers/mcp-pro-deps.mjs';
-import { authorizePanelRead, admitConflictPanel, admitMarketPanel } from '../api/mcp/panel-requests.ts';
+import { authorizePanelRead, admitConflictPanel, admitMarketPanel } from '../api/_mcp/panel-requests.ts';
 import { dailyCounterKey } from '../server/_shared/pro-mcp-token.ts';
 
 const originalFetch = globalThis.fetch;

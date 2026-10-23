@@ -99,7 +99,7 @@ function appendDeprecationPolicyLink(headers) {
 //     the Worker's origin echo (or canonical fallback) and break CORS.
 //
 // Keep this list in sync with:
-//   - api/oauth/register.js, api/oauth/token.ts, api/mcp/handler.ts
+//   - api/oauth/register.js, api/oauth/token.ts, api/_mcp/handler.ts
 //     (use getPublicCorsHeaders() with ACAO: '*' + their own Claude origin
 //     validation in the handler body)
 //   - api/oauth/authorize.js, api/oauth-protected-resource.ts

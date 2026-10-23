@@ -3,7 +3,7 @@ import { build } from 'vite';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
-import { NEWS_DASHBOARD_META } from '../api/mcp/ui/news-dashboard-app';
+import { NEWS_DASHBOARD_META } from '../api/_mcp/ui/news-dashboard-app';
 test.use({ launchOptions: { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'] } });
 
 let dist: string;

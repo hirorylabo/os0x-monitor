@@ -150,7 +150,7 @@ The paid-plan notification scanner reads usage from the same observability surfa
 |--------|----------|----------|------------------|
 | Axiom query API | `AXIOM_QUERY_TOKEN` or `AXIOM_API_TOKEN` (`AXIOM_QUERY_URL` optional) | API daily requests and API sustained burst rollups from `wm_api_usage` | Scanner reports `missing_axiom_query_token`; it does not assume zero usage |
 | Upstash Redis | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Existing Pro MCP daily counters | Scanner reports `missing_upstash_credentials`; it does not assume zero usage |
-| MCP limiter-hit telemetry | `mcp.rate_limit_hit` log event from `api/mcp/auth.ts` | MCP sustained burst notices | No notice is emitted without durable hit buckets |
+| MCP limiter-hit telemetry | `mcp.rate_limit_hit` log event from `api/_mcp/auth.ts` | MCP sustained burst notices | No notice is emitted without durable hit buckets |
 | Resend | `RESEND_API_KEY`, optional `PLAN_LIMIT_EMAIL_FROM` | Customer notification emails | Notice remains pending/failed; hard enforcement readiness stays blocked |
 
 Operators can inspect the hard-enforcement preflight with the internal Convex query:

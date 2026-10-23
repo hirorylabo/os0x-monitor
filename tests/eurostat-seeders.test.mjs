@@ -193,7 +193,7 @@ describe('Registry wiring (issue #3028)', () => {
   });
 
   it('MCP tool registry exposes the three new EU overlay tools', async () => {
-    const src = await readFile(resolve(ROOT, 'api/mcp/registry/cache-tools.ts'), 'utf8');
+    const src = await readFile(resolve(ROOT, 'api/_mcp/registry/cache-tools.ts'), 'utf8');
     assert.match(src, /name: 'get_eu_housing_cycle'/);
     assert.match(src, /name: 'get_eu_quarterly_gov_debt'/);
     assert.match(src, /name: 'get_eu_industrial_production'/);

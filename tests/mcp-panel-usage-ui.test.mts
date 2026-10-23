@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { Window } from 'happy-dom';
-import { UI_RESOURCE_REGISTRY } from '../api/mcp/ui/registry';
+import { UI_RESOURCE_REGISTRY } from '../api/_mcp/ui/registry';
 
 const usage = { used: 1, limit: 50, remaining: 49, resetsAt: '2026-10-03T00:00:00.000Z', unit: 'requests' };
 describe('remaining usage in every static embedded panel', () => {

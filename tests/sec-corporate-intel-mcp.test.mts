@@ -6,7 +6,7 @@ import { EDGAR_UPSTREAM_TIMEOUT_MS } from '../server/_shared/sec-edgar';
 import {
   COMPANY_INTEL_SEARCH_TIMEOUT_MS,
   COMPANY_INTEL_TOOL,
-} from '../api/mcp/registry/company-intel-tools';
+} from '../api/_mcp/registry/company-intel-tools';
 
 const originalFetch = globalThis.fetch;
 const toolContext = { kind: 'env_key', apiKey: 'wm-test-key' } as never;

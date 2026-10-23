@@ -14,8 +14,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { utf8ByteLength } from '../../api/mcp.ts';
-import { presentDefaultMarketData } from '../../api/mcp/registry/cache-tools.ts';
-import { TOOL_ALIASES } from '../../api/mcp/registry/index.ts';
+import { presentDefaultMarketData } from '../../api/_mcp/registry/cache-tools.ts';
+import { TOOL_ALIASES } from '../../api/_mcp/registry/index.ts';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const FIXTURES_DIR = path.resolve(HERE, '..', 'fixtures', 'jmespath-samples');

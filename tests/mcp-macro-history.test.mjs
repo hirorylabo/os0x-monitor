@@ -3,7 +3,7 @@ import { afterEach, describe, it } from 'node:test';
 import Ajv2020 from 'ajv/dist/2020.js';
 
 import handler from '../api/mcp.ts';
-import { TOOL_REGISTRY, buildPublicTool, toolAccess, toolWeight } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY, buildPublicTool, toolAccess, toolWeight } from '../api/_mcp/registry/index.ts';
 import { buildUsCpiMonths } from '../server/worldmonitor/economic/v1/us-cpi-monthly.ts';
 import { buildUsInterestRates } from '../server/worldmonitor/economic/v1/us-interest-rates.ts';
 import { getUsCpiMonthly } from '../server/worldmonitor/economic/v1/get-us-cpi-monthly.ts';

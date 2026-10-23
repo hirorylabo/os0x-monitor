@@ -9,7 +9,7 @@
 // is small and whose auth makes per-context keys affordable.
 //
 // The grounding assembly mirrors the MCP `get_country_brief` tool
-// (api/mcp/registry/rpc-tools.ts), which already built the same
+// (api/_mcp/registry/rpc-tools.ts), which already built the same
 // "Brief source articles / Headlines" block from the news digest — the
 // server is simply the right place to do it once for everyone.
 

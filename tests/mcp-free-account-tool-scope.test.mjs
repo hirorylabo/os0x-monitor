@@ -122,7 +122,7 @@ describe('free-account allowance — tool scope', () => {
     assert.equal(res.status, 403);
     assert.equal((await res.json()).error?.data?.reason, 'upgrade-required');
     assert.equal(pipe.count, 0);
-    const { TOOL_REGISTRY, toolAccess } = await import('../api/mcp/registry/index.ts');
+    const { TOOL_REGISTRY, toolAccess } = await import('../api/_mcp/registry/index.ts');
     assert.equal(toolAccess(TOOL_REGISTRY.find(t => t.name === 'get_sanctions_data')), 'subscription');
   });
 

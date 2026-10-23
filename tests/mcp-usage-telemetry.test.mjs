@@ -419,7 +419,7 @@ describe('api/mcp — usage telemetry (#4866)', () => {
   });
 
   it('response without Content-Length does not record res_bytes: 0 (#8403)', async () => {
-    const { emitMcpRequestEvent, createMcpUsage } = await import('../api/mcp/usage.ts');
+    const { emitMcpRequestEvent, createMcpUsage } = await import('../api/_mcp/usage.ts');
     const events = [];
     globalThis.fetch = async (url, init) => {
       if (String(url).includes('axiom.co')) {
@@ -454,7 +454,7 @@ describe('api/mcp — usage telemetry (#4866)', () => {
   });
 
   it('Content-Length when present is recorded as res_bytes (#8403)', async () => {
-    const { emitMcpRequestEvent, createMcpUsage } = await import('../api/mcp/usage.ts');
+    const { emitMcpRequestEvent, createMcpUsage } = await import('../api/_mcp/usage.ts');
     const events = [];
     globalThis.fetch = async (url, init) => {
       if (String(url).includes('axiom.co')) {

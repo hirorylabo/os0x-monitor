@@ -6,8 +6,8 @@ import { hasCompleteWorldwideWildfireCoverage, mergeWildfireSourcesWithBc } from
 import { compactWildfireDashboardPayload, WILDFIRE_CANONICAL_DETECTION_LIMIT } from '../scripts/_wildfire-dashboard.mjs';
 
 import { __testing__ } from '../api/health.js';
-import { evaluateFreshness } from '../api/mcp/freshness.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { evaluateFreshness } from '../api/_mcp/freshness.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 import {
   COUNT_SOURCE_KEYS,
   TEMPORAL_ANOMALIES_TTL,

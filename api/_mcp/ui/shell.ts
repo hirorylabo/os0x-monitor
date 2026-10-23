@@ -3,7 +3,7 @@
 //
 // The first shipped widget (get_country_risk, v1.11.0) inlined its whole HTML —
 // DOCTYPE, CSP, dark-mode CSS vars, and the ~150-line postMessage bridge — in
-// api/mcp/ui/country-risk-app.ts. That file stays as the reference widget; this
+// api/_mcp/ui/country-risk-app.ts. That file stays as the reference widget; this
 // module factors the parts that MUST be identical across every widget (the
 // bridge protocol, the 4-category CSP, uppercase DOCTYPE + color-scheme meta,
 // the dark-mode theme handling, and the size-reporting handshake) into one
@@ -468,7 +468,7 @@ export function buildAppHtml(spec: AppShellSpec): string {
      light/dark correctly (orank mcp-apps-ui-quality + mcp-view-domain checks). -->
 <meta name="color-scheme" content="light dark">
 <!-- MCP Apps view CSP (orank mcp-view-csp): all 4 required directive categories
-     scoped. Shared across the widget fleet via api/mcp/ui/shell.ts. -->
+     scoped. Shared across the widget fleet via api/_mcp/ui/shell.ts. -->
 <meta http-equiv="Content-Security-Policy" content="${SHARED_CSP}">
 <title>${spec.title}</title>
 <style>${SHARED_STYLE_TOKENS}${spec.styles}</style>

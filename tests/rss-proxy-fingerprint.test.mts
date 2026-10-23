@@ -7,7 +7,7 @@ import { after, describe, it } from 'node:test';
 // frames are all anonymous `(vc/edge/function` with no source map and
 // `in_app=false`. Sentry's default grouping keys on that stack, so every
 // capture sharing it collapses together — the pathology
-// `api/mcp/error-fingerprint.ts` was written to close for `api/mcp`, and which
+// `api/_mcp/error-fingerprint.ts` was written to close for `api/mcp`, and which
 // `tests/mcp-pro-token-fingerprint.test.mts` already pins for the Pro-token
 // gate.
 //

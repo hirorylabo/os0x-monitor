@@ -91,7 +91,7 @@ function describedSectionArguments(section: CountryReader): Record<string, unkno
   const properties = { ...((schema.properties as Record<string, Record<string, unknown>> | undefined) ?? {}) };
   for (const field of Object.keys(properties)) {
     const text = docs.args[field];
-    if (!text) throw new Error(`api/mcp/registry/country-view.ts: section "${section}" argument "${field}" has no description in COUNTRY_SECTION_DOCS`);
+    if (!text) throw new Error(`api/_mcp/registry/country-view.ts: section "${section}" argument "${field}" has no description in COUNTRY_SECTION_DOCS`);
     properties[field] = { ...properties[field], description: text };
   }
   return { ...schema, description: `Arguments for the ${section} section.`, properties };

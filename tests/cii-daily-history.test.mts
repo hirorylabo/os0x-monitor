@@ -8,7 +8,7 @@ import { persistCiiDailyHistory } from '../server/worldmonitor/intelligence/v1/g
 import { CII_COUNTRY_CODES } from '../shared/cii-weights';
 import { CII_FORMULA_VERSION } from '../server/worldmonitor/intelligence/v1/_risk-config';
 import { buildCiiHistory, buildCiiMovers, parseCiiDailyPoints } from '../shared/cii-daily-history';
-import { readCiiMovers, readCountryCiiHistory } from '../api/mcp/_cii-history';
+import { readCiiMovers, readCountryCiiHistory } from '../api/_mcp/_cii-history';
 
 const DAY = 86_400_000;
 const now = Date.UTC(2026, 9, 18, 12);

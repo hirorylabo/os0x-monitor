@@ -1,4 +1,4 @@
-// Shared type declarations for the MCP server modules under api/mcp/.
+// Shared type declarations for the MCP server modules under api/_mcp/.
 // Pure types only — no runtime exports — so this module is safe to import
 // from anywhere without creating evaluation-order surprises or cycles.
 
@@ -406,7 +406,7 @@ export interface PublicToolShape {
 // `error` exists because Upstash reports per-command failures inside an
 // otherwise-successful 200 — the shape readExistsFlags branches on. While this
 // omitted `error`, a consumer could not read that field without a local cast
-// (api/mcp/dispatch.ts carried one, with a comment saying so, until #6152).
+// (api/_mcp/dispatch.ts carried one, with a comment saying so, until #6152).
 //
 // PRECONDITION (#7674): the production binding (PRODUCTION_DEPS.redisPipeline)
 // sends commands VERBATIM (raw = true default) because the MCP quota and

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, describe, it } from 'node:test';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
-import { createMcpToolExecutionContext } from '../api/mcp/downstream.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
+import { createMcpToolExecutionContext } from '../api/_mcp/downstream.ts';
 import { verifyInternalMcpRequest } from '../server/_shared/mcp-internal-hmac.ts';
 import { HMAC_SECRET } from './helpers/mcp-pro-deps.mjs';
 
@@ -56,7 +56,7 @@ for (const origin of ['http://127.0.0.1:46123', 'https://api.worldmonitor.app'])
 describe('downstream transport boundaries', () => {
   for (const origin of ['http://localhost:46123', 'http://[::1]:46123']) {
     it(`recognizes the expected loopback origin ${origin}`, async () => {
-      const { fetchMcpDownstream } = await import('../api/mcp/downstream.ts');
+      const { fetchMcpDownstream } = await import('../api/_mcp/downstream.ts');
       process.env.LOCAL_API_TOKEN = 'test-local-token';
       globalThis.fetch = async (_url, init) => {
         assert.equal(new Headers(init.headers).get('X-WorldMonitor-Local-Token'), 'test-local-token');
@@ -106,7 +106,7 @@ describe('downstream transport boundaries', () => {
     assert.equal(auditSource('fixture.ts', 'async function t() { await fetchMcpDownstream(url, init, execution); }'), 1);
     assert.equal(auditSource('fixture.ts', 'async function h(base: string, execution: X | undefined) { await fetchMcpDownstream(url, init, execution); }'), 1);
     let calls = 0;
-    const registryDir = new URL('../api/mcp/registry/', import.meta.url);
+    const registryDir = new URL('../api/_mcp/registry/', import.meta.url);
     for (const filename of readdirSync(registryDir, { recursive: true }).filter((name) => name.endsWith('.ts'))) {
       calls += auditSource(filename, readFileSync(new URL(filename, registryDir), 'utf8'));
     }
@@ -114,7 +114,7 @@ describe('downstream transport boundaries', () => {
   });
 
   it('excludes tokens outside the expected loopback origin and preserves request options', async () => {
-    const { fetchMcpDownstream } = await import('../api/mcp/downstream.ts');
+    const { fetchMcpDownstream } = await import('../api/_mcp/downstream.ts');
     process.env.LOCAL_API_TOKEN = 'test-local-token';
     const execution = createMcpToolExecutionContext('http://127.0.0.1:46123/mcp');
     const controller = new AbortController();
@@ -134,7 +134,7 @@ describe('downstream transport boundaries', () => {
   it('does not follow a redirect carrying the local token to a second origin', async () => {
     const { createServer } = await import('node:http');
     const { once } = await import('node:events');
-    const { fetchMcpDownstream } = await import('../api/mcp/downstream.ts');
+    const { fetchMcpDownstream } = await import('../api/_mcp/downstream.ts');
     process.env.LOCAL_API_TOKEN = 'test-local-token';
     let remoteHits = 0;
     const remote = createServer((req, res) => { remoteHits++; res.end('remote'); });

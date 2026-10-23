@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { afterEach, it } from 'node:test';
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
 import { makePipelineMock } from './helpers/mcp-pro-deps.mjs';
 import { installRedis } from './helpers/fake-upstash-redis.mts';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
-import { validateToolArgs } from '../api/mcp/_validate-args.ts';
-import { RpcValidationError } from '../api/mcp/billing-denial.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
+import { validateToolArgs } from '../api/_mcp/_validate-args.ts';
+import { RpcValidationError } from '../api/_mcp/billing-denial.ts';
 
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };

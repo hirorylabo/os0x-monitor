@@ -324,7 +324,7 @@ describe('DeckGLMap pendingCenter — eager center cache', () => {
   it('getCenter reports the pending target while the flight is in progress, not the camera', async () => {
     const { map, fake } = await mapWith();
     map.setView('eu');
-    expect(fake.getCenter()).toEqual({ lng: 0, lat: 20 });
+    expect(fake.getCenter()).toEqual({ lng: 138, lat: 36.5 });
     expect(map.getCenter()).toEqual({ lat: 50, lon: 15 });
   });
 

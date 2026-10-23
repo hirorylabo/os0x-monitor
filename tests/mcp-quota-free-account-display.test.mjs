@@ -2,7 +2,7 @@
  * #6716 — the Settings quota endpoint must read the meter that actually
  * enforces the caller's limit.
  *
- * `api/mcp/quota.ts` states the invariant this file defends: `resolveDailyLimit`
+ * `api/_mcp/quota.ts` states the invariant this file defends: `resolveDailyLimit`
  * is exported specifically so the settings-UI reader DISPLAYS exactly the limit
  * the reservation ENFORCES, because a second source of that number is drift.
  * The free-account allowance introduced a second METER — `mcp:free-acct:calls:*`
@@ -13,7 +13,7 @@
 import { describe, it, beforeEach, afterEach } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { quotaHandler } from '../api/user/mcp-quota.ts';
-import { FREE_ACCOUNT_CALLS_PER_DAY, freeAccountCallsKey } from '../api/mcp/free-account-allowance.ts';
+import { FREE_ACCOUNT_CALLS_PER_DAY, freeAccountCallsKey } from '../api/_mcp/free-account-allowance.ts';
 import { dailyCounterKey } from '../server/_shared/pro-mcp-token.ts';
 
 const USER = 'user_free_display';

@@ -342,7 +342,7 @@ describe('api/mcp.ts — prompts capability + JMESPath-vs-schema parity', () => 
   // registry so a new prompt cannot ship undiscoverable there.
   it('the initialize instructions name exactly the registered prompts, in order', () => {
     const constantsSrc = readFileSync(
-      path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'api', 'mcp', 'constants.ts'),
+      path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'api', '_mcp', 'constants.ts'),
       'utf8',
     );
     const line = constantsSrc.split('\n').find((l) => l.includes('Issue prompts/list to discover'));
@@ -553,7 +553,7 @@ describe('api/mcp.ts — prompts capability + JMESPath-vs-schema parity', () => 
     }),
     // Tariff fixtures mirror the route bodies plus the MCP-layer `coverage`
     // object (tests/mcp-tariff-tools.test.mts, buildCoverage in
-    // api/mcp/registry/tariff-tools.ts).
+    // api/_mcp/registry/tariff-tools.ts).
     get_us_import_duty: () => ({
       hsCode: '870380',
       partnerCountry: '156',

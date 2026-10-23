@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 
 const tool = CACHE_TOOLS.find(entry => entry.name === 'get_news_intelligence');
 const serverCard = JSON.parse(

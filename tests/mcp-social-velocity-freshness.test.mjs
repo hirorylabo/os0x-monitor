@@ -8,8 +8,8 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { __testing__ } from '../api/health.js';
-import { evaluateFreshness } from '../api/mcp/freshness.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { evaluateFreshness } from '../api/_mcp/freshness.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 
 const SEED_META_KEY = 'seed-meta:intelligence:social-reddit';
 const tool = CACHE_TOOLS.find((t) => t.name === 'get_social_velocity');

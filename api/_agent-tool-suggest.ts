@@ -9,7 +9,7 @@
 // neither endpoint's cold-start depends on the OTHER endpoint's module-level
 // guards (Greptile review on #4838).
 
-import { TOOL_REGISTRY } from './mcp/registry/index';
+import { TOOL_REGISTRY } from './_mcp/registry/index';
 
 const QUERY_STOPWORDS = new Set([
   'the', 'and', 'for', 'with', 'what', 'which', 'who', 'how', 'where', 'when',

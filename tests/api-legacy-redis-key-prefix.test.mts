@@ -263,7 +263,7 @@ describe('isAppOwnedRedisKey (#7674)', () => {
 
 describe('mcp get_keyword_spikes reads and writes the preview namespace (#7674)', () => {
   it('accumulator, story rows, and the spike cache all carry the deployment prefix', async () => {
-    const { NLP_TOOLS } = await import('../api/mcp/registry/nlp-tools.ts');
+    const { NLP_TOOLS } = await import('../api/_mcp/registry/nlp-tools.ts');
     const tool = NLP_TOOLS.find((t) => t.name === 'get_keyword_spikes');
     assert.ok(tool, 'get_keyword_spikes must stay registered');
 
@@ -494,8 +494,8 @@ describe('getRiskScores reads the app-owned temporal snapshot prefixed (#7674)',
 
 describe('PRODUCTION_DEPS.redisPipeline sends pre-prefixed quota keys verbatim (#7674)', () => {
   it('raw=true default keeps the envPrefix()-built counters single-prefixed', async () => {
-    const { PRODUCTION_DEPS } = await import('../api/mcp/auth.ts');
-    const { freeAccountCallsKey } = await import('../api/mcp/free-account-allowance.ts');
+    const { PRODUCTION_DEPS } = await import('../api/_mcp/auth.ts');
+    const { freeAccountCallsKey } = await import('../api/_mcp/free-account-allowance.ts');
     const sent: string[][] = [];
     const originalFetch = globalThis.fetch;
     globalThis.fetch = (async (_input, init = {}) => {

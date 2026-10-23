@@ -11,7 +11,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 import { PUBLISHER_FAMILIES } from '../shared/publisher-families.js';
 
 const newsTool = CACHE_TOOLS.find((tool) => tool.name === 'get_news_intelligence');

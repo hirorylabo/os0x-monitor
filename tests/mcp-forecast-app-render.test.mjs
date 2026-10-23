@@ -2,7 +2,7 @@ import { afterEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { Window } from 'happy-dom';
-import { FORECASTS_APP_HTML } from '../api/mcp/ui/forecasts-app.ts';
+import { FORECASTS_APP_HTML } from '../api/_mcp/ui/forecasts-app.ts';
 
 const windows = [];
 const forecast = {

@@ -130,15 +130,15 @@ Important limitation: `frame-ancestors` inside a meta CSP is advisory only. Brow
 
 ## Adding A New MCP App
 
-1. Add the self-contained app shell under `api/mcp/ui/*-app.ts`.
-2. Reuse `buildAppHtml()` from `api/mcp/ui/shell.ts` unless there is a protocol reason not to.
-3. Add a canonical `*_UI_URI` constant and registry entry in `api/mcp/ui/registry.ts`.
-4. Set `_uiResourceUri` on exactly one backing tool in `api/mcp/registry/rpc-tools.ts` or `api/mcp/registry/cache-tools.ts`.
+1. Add the self-contained app shell under `api/_mcp/ui/*-app.ts`.
+2. Reuse `buildAppHtml()` from `api/_mcp/ui/shell.ts` unless there is a protocol reason not to.
+3. Add a canonical `*_UI_URI` constant and registry entry in `api/_mcp/ui/registry.ts`.
+4. Set `_uiResourceUri` on exactly one backing tool in `api/_mcp/registry/rpc-tools.ts` or `api/_mcp/registry/cache-tools.ts`.
 5. Update `docs/mcp-apps.mdx`, the short [MCP overview](/mcp-overview#mcp-apps-interactive-ui), and `public/.well-known/mcp/server-card.json`.
 6. Run `npm run inventory:facts:check` to validate the build-owned inventory snapshot.
 7. Run `npm run docs:check` and the focused MCP resource/tool tests.
 
-The docs-stat gate derives the app inventory from `api/mcp/ui/registry.ts` and the tool registries. It fails when:
+The docs-stat gate derives the app inventory from `api/_mcp/ui/registry.ts` and the tool registries. It fails when:
 
 - `docs/mcp-apps.mdx`, `docs/mcp-overview.mdx`, or `public/mcp-server.md` omits a linked tool or `ui://` URI.
 - `public/.well-known/mcp/server-card.json.metadata.mcpApps` drifts from the code-derived app list, spec version, or MIME type.
@@ -148,11 +148,11 @@ The docs-stat gate derives the app inventory from `api/mcp/ui/registry.ts` and t
 
 | Source | Owns |
 |---|---|
-| `api/mcp/ui/shell.ts` | Shared HTML builder, protocol bridge, MIME type, spec version, CSP, theme, soft-error handling. |
-| `api/mcp/ui/registry.ts` | Canonical `ui://` resource inventory and `resources/read` response builder. |
-| `api/mcp/registry/rpc-tools.ts` | UI links for RPC-backed tools such as `get_world_brief`, `get_country_brief`, and `get_country_risk`. |
-| `api/mcp/registry/cache-tools.ts` | UI links for cache-backed tools such as `get_market_data` and `get_chokepoint_status`. |
-| `api/mcp/handler.ts` | Public `ui://` read promotion, `resources/list`, `resources/read`, and `initialize` capability advertisement. |
+| `api/_mcp/ui/shell.ts` | Shared HTML builder, protocol bridge, MIME type, spec version, CSP, theme, soft-error handling. |
+| `api/_mcp/ui/registry.ts` | Canonical `ui://` resource inventory and `resources/read` response builder. |
+| `api/_mcp/registry/rpc-tools.ts` | UI links for RPC-backed tools such as `get_world_brief`, `get_country_brief`, and `get_country_risk`. |
+| `api/_mcp/registry/cache-tools.ts` | UI links for cache-backed tools such as `get_market_data` and `get_chokepoint_status`. |
+| `api/_mcp/handler.ts` | Public `ui://` read promotion, `resources/list`, `resources/read`, and `initialize` capability advertisement. |
 | `public/.well-known/mcp/server-card.json` | Static pre-connection discovery metadata for scanners and agents. |
 | `scripts/docs-stats.mjs` | Drift guard for docs, server-card metadata, navigation, and app inventory. |
 

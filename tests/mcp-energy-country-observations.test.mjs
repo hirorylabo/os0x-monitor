@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import { afterEach, beforeEach, it } from 'node:test';
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 import { buildCountriesPayload } from '../scripts/seed-gas-storage-countries.mjs';
 import Ajv2020 from 'ajv/dist/2020.js';
-import { buildPublicTool } from '../api/mcp/registry/index.ts';
+import { buildPublicTool } from '../api/_mcp/registry/index.ts';
 
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };

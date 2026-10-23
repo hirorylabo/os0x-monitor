@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { createRedisFetch } from './helpers/fake-upstash-redis.mts';
 import { listNaturalEvents } from '../server/worldmonitor/natural/v1/list-natural-events.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 import { sanitizeBootstrapValue } from '../api/_bootstrap-public-payload.js';
 import { projectNaturalEventsRetention } from '../api/_natural-events-dashboard.js';
 import { __testing__ as health } from '../api/health.js';

@@ -442,14 +442,14 @@ function validatePromptRegistry(): void {
   const namesSeen = new Set<string>();
   for (const prompt of PROMPT_REGISTRY) {
     if (namesSeen.has(prompt.name)) {
-      throw new Error(`api/mcp/prompts/index.ts: duplicate prompt name "${prompt.name}".`);
+      throw new Error(`api/_mcp/prompts/index.ts: duplicate prompt name "${prompt.name}".`);
     }
     namesSeen.add(prompt.name);
 
     const argNames = new Set<string>();
     for (const arg of prompt.arguments) {
       if (argNames.has(arg.name)) {
-        throw new Error(`api/mcp/prompts/index.ts: prompt "${prompt.name}" declares duplicate argument "${arg.name}".`);
+        throw new Error(`api/_mcp/prompts/index.ts: prompt "${prompt.name}" declares duplicate argument "${arg.name}".`);
       }
       argNames.add(arg.name);
     }
@@ -463,7 +463,7 @@ function validatePromptRegistry(): void {
     const validateTokensIn = (where: string, s: string): void => {
       for (const tok of collectTokens(s)) {
         if (!argNames.has(tok) && !introTokens.has(tok)) {
-          throw new Error(`api/mcp/prompts/index.ts: prompt "${prompt.name}" ${where} references unknown token "\${${tok}}". Declared args: [${[...argNames].join(', ')}]${introTokens.size ? `; intro substitutions: [${[...introTokens].join(', ')}]` : ''}.`);
+          throw new Error(`api/_mcp/prompts/index.ts: prompt "${prompt.name}" ${where} references unknown token "\${${tok}}". Declared args: [${[...argNames].join(', ')}]${introTokens.size ? `; intro substitutions: [${[...introTokens].join(', ')}]` : ''}.`);
         }
       }
     };
@@ -475,12 +475,12 @@ function validatePromptRegistry(): void {
         // permitted — synthetic names cannot reference each other.
         for (const tok of collectTokens(spec.when_present)) {
           if (!argNames.has(tok)) {
-            throw new Error(`api/mcp/prompts/index.ts: prompt "${prompt.name}" intro_substitutions.${name}.when_present references unknown token "\${${tok}}".`);
+            throw new Error(`api/_mcp/prompts/index.ts: prompt "${prompt.name}" intro_substitutions.${name}.when_present references unknown token "\${${tok}}".`);
           }
         }
         for (const tok of collectTokens(spec.when_absent)) {
           if (!argNames.has(tok)) {
-            throw new Error(`api/mcp/prompts/index.ts: prompt "${prompt.name}" intro_substitutions.${name}.when_absent references unknown token "\${${tok}}".`);
+            throw new Error(`api/_mcp/prompts/index.ts: prompt "${prompt.name}" intro_substitutions.${name}.when_absent references unknown token "\${${tok}}".`);
           }
         }
       }
@@ -490,7 +490,7 @@ function validatePromptRegistry(): void {
       collectTokensFromValue(step.args, sink);
       for (const tok of sink) {
         if (!argNames.has(tok)) {
-          throw new Error(`api/mcp/prompts/index.ts: prompt "${prompt.name}" step ${i + 1} (${step.tool}) args reference unknown token "\${${tok}}".`);
+          throw new Error(`api/_mcp/prompts/index.ts: prompt "${prompt.name}" step ${i + 1} (${step.tool}) args reference unknown token "\${${tok}}".`);
         }
       }
       validateTokensIn(`step ${i + 1} (${step.tool}) purpose`, step.purpose);

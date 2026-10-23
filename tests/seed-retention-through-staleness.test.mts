@@ -4,9 +4,9 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 import { __testing__ } from '../api/health.js';
-import { ANALYSIS_TOOLS } from '../api/mcp/registry/analysis-tools.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
-import { evaluateFreshness } from '../api/mcp/freshness.ts';
+import { ANALYSIS_TOOLS } from '../api/_mcp/registry/analysis-tools.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
+import { evaluateFreshness } from '../api/_mcp/freshness.ts';
 import { getOceanIceData } from '../server/worldmonitor/climate/v1/get-ocean-ice-data';
 import * as oceanIce from '../scripts/seed-climate-ocean-ice.mjs';
 import * as submarineCables from '../scripts/seed-submarine-cables.mjs';

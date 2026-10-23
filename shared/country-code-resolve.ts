@@ -156,8 +156,8 @@ function resolveDesignator(value: string): string | null {
  * ahead of the regex. One gate closes both. The longest real designator in the
  * shipped data is 32 characters (`democratic republic of the congo`), so this
  * is generous. Mirrors the repo's other untrusted-string caps —
- * `JMESPATH_MAX_EXPR_BYTES` (api/mcp/constants.ts) and `MAX_JSON_RPC_ID_BYTES`
- * (api/mcp/handler.ts).
+ * `JMESPATH_MAX_EXPR_BYTES` (api/_mcp/constants.ts) and `MAX_JSON_RPC_ID_BYTES`
+ * (api/_mcp/handler.ts).
  */
 const MAX_DESIGNATOR_LENGTH = 128;
 

@@ -1,5 +1,5 @@
 // Discovery surfaces that quote the MCP domain list, and the transforms that
-// render MCP_DOMAIN_SUMMARY (api/mcp/domains.ts) into them. Only the list is
+// render MCP_DOMAIN_SUMMARY (api/_mcp/domains.ts) into them. Only the list is
 // generated; the sentence around it stays hand-written per surface.
 //
 // Markdown and MDX bodies bound the list with one sentinel pair. JSON values

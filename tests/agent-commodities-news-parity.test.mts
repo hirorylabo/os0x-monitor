@@ -23,7 +23,7 @@ describe('commodities news agent parity (#5889)', () => {
   });
 
   it('keeps the MCP category enums aligned with each agent-addressable digest variant', () => {
-    const nlpSrc = readFileSync(join(ROOT, 'api/mcp/registry/nlp-tools.ts'), 'utf8');
+    const nlpSrc = readFileSync(join(ROOT, 'api/_mcp/registry/nlp-tools.ts'), 'utf8');
     const expectations = [
       {
         constant: 'FULL_DIGEST_CATEGORIES',

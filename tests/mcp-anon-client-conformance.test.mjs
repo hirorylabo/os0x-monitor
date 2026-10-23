@@ -148,7 +148,7 @@ describe('api/mcp.ts — anonymous strict-client conformance (#4937)', () => {
       assert.ok(capability in CAPABILITY_METHODS,
         `capability "${capability}" (${JSON.stringify(value)}) is advertised on the ANONYMOUS initialize but has no ` +
         `anon-exercisability mapping in CAPABILITY_METHODS. Add the mapping AND make its methods anonymously ` +
-        `servable (PUBLIC_MCP_METHODS in api/mcp/handler.ts) — an advertised-but-gated method hangs strict SDK ` +
+        `servable (PUBLIC_MCP_METHODS in api/_mcp/handler.ts) — an advertised-but-gated method hangs strict SDK ` +
         `clients and gets the server marked unstable (#4937).`);
       const methods = CAPABILITY_METHODS[capability];
       if (!methods) continue;

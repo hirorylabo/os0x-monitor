@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { afterEach, test } from 'node:test';
-import { COUNTRY_HISTORY_TOOL } from '../api/mcp/registry/country-history-tool';
+import { COUNTRY_HISTORY_TOOL } from '../api/_mcp/registry/country-history-tool';
 
 const originalFetch = globalThis.fetch;
 afterEach(() => { globalThis.fetch = originalFetch; });

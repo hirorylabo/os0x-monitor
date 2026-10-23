@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { Window } from 'happy-dom';
-import { CHOKEPOINT_MONITOR_APP_HTML } from '../api/mcp/ui/chokepoint-monitor-app.ts';
-import { buildStructuredContent } from '../api/mcp/structured-content.ts';
-import { summarizeData } from '../api/mcp/filters.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
-import { buildUiResourceRead, isUiResourceUri, UI_RESOURCE_LIST_RESPONSE } from '../api/mcp/ui/registry.ts';
+import { CHOKEPOINT_MONITOR_APP_HTML } from '../api/_mcp/ui/chokepoint-monitor-app.ts';
+import { buildStructuredContent } from '../api/_mcp/structured-content.ts';
+import { summarizeData } from '../api/_mcp/filters.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
+import { buildUiResourceRead, isUiResourceUri, UI_RESOURCE_LIST_RESPONSE } from '../api/_mcp/ui/registry.ts';
 import { mcpHandler } from '../api/mcp.ts';
 import { makeProDeps } from './helpers/mcp-pro-deps.mjs';
 

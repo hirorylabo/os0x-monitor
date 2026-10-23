@@ -1,4 +1,4 @@
-// Unit tests for api/mcp/billing-denial.ts — the typed propagation layer that
+// Unit tests for api/_mcp/billing-denial.ts — the typed propagation layer that
 // keeps gateway billing denials from flattening into generic -32603 errors.
 // Locks the allowlist boundary (unknown marker values must NOT become typed
 // denials) and the structural-Response tolerances the module documents.
@@ -10,7 +10,7 @@ import {
   RpcValidationError,
   ToolBackoffError,
   throwIfBillingDenial,
-} from '../api/mcp/billing-denial.ts';
+} from '../api/_mcp/billing-denial.ts';
 
 function response(status, headerMap = {}) {
   return {
@@ -53,7 +53,7 @@ describe('billing-denial propagation helpers', () => {
   });
 
   it('entitlement_verification_unavailable throws a typed retryable denial', () => {
-    // env_key tool fetches sign with X-WorldMonitor-Key (api/mcp/auth.ts
+    // env_key tool fetches sign with X-WorldMonitor-Key (api/_mcp/auth.ts
     // buildAuthHeaders); user_key and OAuth use the internal HMAC path. The
     // gateway's backend-unreachable 503 still reaches this layer on either
     // door and must keep its billing contract instead of flattening into the
@@ -232,7 +232,7 @@ describe('assertToolFetchOk RPC validation 400s', () => {
 
 describe('internal signature failure classification', () => {
   it('preserves confirmed signature failures across tools for fingerprinting', async () => {
-    const { mcpErrorFingerprint } = await import('../api/mcp/error-fingerprint.ts');
+    const { mcpErrorFingerprint } = await import('../api/_mcp/error-fingerprint.ts');
     for (const operation of ['list-global-tenders', 'get-country-risk', 'deduct-situation']) {
       await assert.rejects(
         () => assertToolFetchOk(new Response(JSON.stringify({ error: 'invalid_internal_mcp_signature' }), {
@@ -247,7 +247,7 @@ describe('internal signature failure classification', () => {
   });
 
   it('keeps entitlement, unknown, malformed and empty 401s out of the signature group', async () => {
-    const { mcpErrorFingerprint } = await import('../api/mcp/error-fingerprint.ts');
+    const { mcpErrorFingerprint } = await import('../api/_mcp/error-fingerprint.ts');
     for (const body of [
       JSON.stringify({ error: 'insufficient_entitlement' }),
       JSON.stringify({ error: 'invalid_api_key' }),

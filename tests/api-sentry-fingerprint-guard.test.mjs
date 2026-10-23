@@ -149,7 +149,7 @@ test('every API capture has an explicit stable fingerprint', async () => {
     /fingerprint\s*:\s*rssProxyErrorFingerprint\(/,
     'existing RSS fingerprint helper must remain in use',
   );
-  for (const path of ['api/mcp/auth.ts', 'api/mcp/dispatch.ts']) {
+  for (const path of ['api/_mcp/auth.ts', 'api/_mcp/dispatch.ts']) {
     const source = await readFile(join(root, path), 'utf8');
     assert.match(source, /fingerprint\s*:\s*mcpErrorFingerprint\(/, `${path} must retain its MCP fingerprint helper`);
   }

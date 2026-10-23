@@ -69,7 +69,7 @@ export const RETRY_ATTEMPT_MS = 3_000;
 // `err instanceof DOMException` to survive cross-realm cases in test
 // runners where undici's DOMException may differ from globalThis.
 //
-// Exported as a test seam (like `executeTool` in api/mcp/dispatch.ts) so
+// Exported as a test seam (like `executeTool` in api/_mcp/dispatch.ts) so
 // the retry semantics can be asserted directly without standing up Clerk
 // JWT validation + Convex entitlement reads.
 export async function readWithOneRetry<T>(

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { afterEach, describe, it } from 'node:test';
 import Ajv2020 from 'ajv/dist/2020.js';
 import handler from '../api/mcp.ts';
-import { TOOL_REGISTRY, buildPublicTool, toolAccess, toolWeight } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY, buildPublicTool, toolAccess, toolWeight } from '../api/_mcp/registry/index.ts';
 import { createSupplyChainServiceRoutes } from '../src/generated/server/worldmonitor/supply_chain/v1/service_server.ts';
 import { getMultiSectorCostShock } from '../server/worldmonitor/supply-chain/v1/get-multi-sector-cost-shock.ts';
 import { getCountryCostShock } from '../server/worldmonitor/supply-chain/v1/get-country-cost-shock.ts';

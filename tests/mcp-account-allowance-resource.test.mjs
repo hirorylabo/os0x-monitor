@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import { strict as assert } from 'node:assert';
 
-import { mcpHandler } from '../api/mcp/handler.ts';
+import { mcpHandler } from '../api/_mcp/handler.ts';
 import {
   FREE_ACCOUNT_CALLS_PER_DAY,
   FREE_ACCOUNT_IDLE_GAP_MS,
@@ -9,8 +9,8 @@ import {
   freeAccountCallsKey,
   freeAccountLastActivityKey,
   freeAccountRequestsKey,
-} from '../api/mcp/free-account-allowance.ts';
-import { SHARED_API_BUDGET } from '../api/mcp/quota.ts';
+} from '../api/_mcp/free-account-allowance.ts';
+import { SHARED_API_BUDGET } from '../api/_mcp/quota.ts';
 import { apiKeyDailyKey } from '../server/_shared/api-key-rate-limit.ts';
 import { dailyCounterKey, envPrefix } from '../server/_shared/pro-mcp-token.ts';
 import {

@@ -452,13 +452,13 @@ describe('#7081 consumers — FADING stays wire-compatible', () => {
   });
 
   it('MCP passes the phase through untouched', () => {
-    const rpc = read('api', 'mcp', 'registry', 'rpc-tools.ts');
+    const rpc = read('api', '_mcp', 'registry', 'rpc-tools.ts');
     assert.match(rpc, /storyPhase = item\.storyMeta\.phase/);
     assert.match(rpc, /STORY_PHASE_FADING/, 'the MCP schema must keep advertising the enum value');
   });
 
   it('the MCP description states that the digest does not emit it', () => {
-    const rpc = read('api', 'mcp', 'registry', 'rpc-tools.ts');
+    const rpc = read('api', '_mcp', 'registry', 'rpc-tools.ts');
     assert.match(rpc, /STORY_PHASE_FADING is reserved and is not currently emitted/,
       'agents must be told the value never arrives from this surface');
   });

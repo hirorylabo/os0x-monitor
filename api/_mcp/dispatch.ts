@@ -430,7 +430,7 @@ export async function dispatchToolsCall(
   body: { id?: unknown; params?: unknown },
   corsHeaders: Record<string, string>,
   ctx?: { waitUntil: (p: Promise<unknown>) => void },
-  // Budget resolved by the context pre-check (api/mcp/auth.ts) from the
+  // Budget resolved by the context pre-check (api/_mcp/auth.ts) from the
   // entitlement it already fetched: which counter to charge and its ceiling.
   // Omitted → the dedicated Pro counter at `PRO_DAILY_QUOTA_LIMIT`, so a caller
   // that skips the pre-check inherits the plan default rather than a wider cap.
@@ -561,7 +561,7 @@ export async function dispatchToolsCall(
   // same classifier as the advertised catalog and are denied before metering.
   // A tool with `_execute` fans out to server/gateway.ts, which runs its own
   // checkProMcpAccess re-check that this feature deliberately does not relax
-  // (see api/mcp/types.ts's `freeAccountAllowance` note). Admitting one would
+  // (see api/_mcp/types.ts's `freeAccountAllowance` note). Admitting one would
   // charge a free slot and then hand the caller a gateway 401 — burning the
   // day's allowance on errors it can never convert into data. Refuse BEFORE the
   // reservation so no slot is spent.
@@ -1205,7 +1205,7 @@ export async function dispatchToolsCall(
       } : {}),
       ctx,
       // Split the api/mcp catch-all (WORLDMONITOR-T8) into per-tool,
-      // per-status groups — see api/mcp/error-fingerprint.ts.
+      // per-status groups — see api/_mcp/error-fingerprint.ts.
       fingerprint: mcpErrorFingerprint('tool-execution', tool.name, err),
       ...(isClient4xx || isExpectedDenial || isExpectedSourceOutage ? { level: 'warning' as const } : {}),
     });

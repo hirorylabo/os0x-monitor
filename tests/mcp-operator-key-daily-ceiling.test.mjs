@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, describe, it } from 'node:test';
 
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
 import { OPERATOR_KEY_DAILY_CEILINGS } from '../server/_shared/high-usage-alarm.ts';
 import { hashKeySync } from '../server/_shared/usage-identity.ts';
 import { makePipelineMock } from './helpers/mcp-pro-deps.mjs';

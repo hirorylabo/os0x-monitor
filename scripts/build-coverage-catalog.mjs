@@ -21,7 +21,7 @@ export const COVERAGE_INPUT_PATHS = Object.freeze([
   'src/config/map-layer-definitions.ts',
   'src/locales/en.json',
   SERVER_FEEDS_PATH,
-  'api/mcp/registry',
+  'api/_mcp/registry',
 ]);
 
 const VARIANTS = Object.freeze([
@@ -242,7 +242,7 @@ export async function loadCoverageCatalog({ importModule, readJson }) {
   const [panels, layers, mcp, serverFeeds] = await Promise.all([
     importModule('src/config/panels.ts'),
     importModule('src/config/map-layer-definitions.ts'),
-    importModule('api/mcp/registry/index.ts'),
+    importModule('api/_mcp/registry/index.ts'),
     importModule(SERVER_FEEDS_PATH),
   ]);
   const locale = readJson('src/locales/en.json');
@@ -405,7 +405,7 @@ ${renderLayerTable(catalog.layers, escapeHtml)}
       <h2 id="mcp-tools">MCP tools for AI agents</h2>
       <p>Agents reach the same data through the <a href="/docs/mcp">World Monitor MCP server</a>. Call <code>tools/list</code> for the live inventory and <code>describe_tool</code> for a tool's full definition.</p>
 ${renderToolTable(catalog.tools, escapeHtml)}
-      <p class="source">Generated from src/config/panels.ts, src/config/map-layer-definitions.ts, src/locales/en.json and api/mcp/registry at build time. Open the <a href="/dashboard">live dashboard</a> to use any of them.</p>`;
+      <p class="source">Generated from src/config/panels.ts, src/config/map-layer-definitions.ts, src/locales/en.json and api/_mcp/registry at build time. Open the <a href="/dashboard">live dashboard</a> to use any of them.</p>`;
   return pageDocument({
     baseUrl,
     path: COVERAGE_PAGE_PATH,

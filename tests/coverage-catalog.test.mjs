@@ -21,7 +21,7 @@ import {
 } from '../scripts/build-coverage-catalog.mjs';
 import { ALL_PANELS } from '../src/config/panels.ts';
 import { getCompleteLayerCatalogKeys } from '../src/config/map-layer-definitions.ts';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 
 const repoRoot = resolve(fileURLToPath(new URL('..', import.meta.url)));
 

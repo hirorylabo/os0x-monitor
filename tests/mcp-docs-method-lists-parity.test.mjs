@@ -11,12 +11,12 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => readFileSync(join(root, p), 'utf8');
 
-const handler = read('api/mcp/handler.ts');
+const handler = read('api/_mcp/handler.ts');
 const CANONICAL_MCP_ENDPOINT = new URL('https://worldmonitor.app/mcp');
 const MCP_TRANSPORT_PATHS = new Set(['/mcp', '/api/mcp']);
 
 const publicMethodsBlock = handler.match(/const PUBLIC_MCP_METHODS[^=]*= new Set\(\[([\s\S]*?)\]\)/);
-assert.ok(publicMethodsBlock, 'PUBLIC_MCP_METHODS literal not found in api/mcp/handler.ts');
+assert.ok(publicMethodsBlock, 'PUBLIC_MCP_METHODS literal not found in api/_mcp/handler.ts');
 const PUBLIC_METHODS = [...publicMethodsBlock[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
 
 const DISPATCHED_METHODS = [...handler.matchAll(/^ {4}case '([^']+)':/gm)].map((m) => m[1]);
@@ -47,7 +47,7 @@ function publishedMcpTransportUrls(content) {
     .filter((url) => MCP_TRANSPORT_PATHS.has(url.pathname));
 }
 
-describe('MCP docs method lists match api/mcp/handler.ts', () => {
+describe('MCP docs method lists match api/_mcp/handler.ts', () => {
   it('publishes only the canonical product transport endpoint', () => {
     for (const file of [
       'docs/usage-quickstart.mdx',

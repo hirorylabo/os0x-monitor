@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 import { __testing__ as health } from '../api/health.js';
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 import { accumulateHistory, parseSseIndexResponse, parseBdiIndices, parseFredShippingIndex, SHIPPING_SERIES } from '../scripts/seed-supply-chain-trade.mjs';
 import { validate } from './helpers/json-schema-mini.mjs';
 
@@ -54,14 +54,14 @@ async function run(params, shipping = freightFixture(), gscpi = null, meta = {})
 
 describe('shippingIndexBaseline', () => {
   it('excludes the latest point and uses population standard deviation', async () => {
-    const { shippingIndexBaseline } = await import('../api/mcp/registry/_shipping-freight.ts');
+    const { shippingIndexBaseline } = await import('../api/_mcp/registry/_shipping-freight.ts');
     const result = shippingIndexBaseline(points(13));
     assert.equal(result.baselinePoints, 12);
     assert.equal(result.baselineStart, '2025-01-01');
     assert.ok(Math.abs(result.zScore - (13 - 6.5) / Math.sqrt(143 / 12)) < 1e-10);
   });
   it('returns null with fewer than 12 baseline points or zero variance', async () => {
-    const { shippingIndexBaseline } = await import('../api/mcp/registry/_shipping-freight.ts');
+    const { shippingIndexBaseline } = await import('../api/_mcp/registry/_shipping-freight.ts');
     assert.equal(shippingIndexBaseline(points(12)).zScore, null);
     assert.equal(shippingIndexBaseline(points(13, () => 7)).zScore, null);
     assert.deepEqual(shippingIndexBaseline([]), { zScore: null, baselinePoints: 0, baselineStart: null });

@@ -3,7 +3,7 @@
   "schema_version": 1,
   "exceptions": [
     {
-      "path": "api/mcp/registry/country-history-tool.ts",
+      "path": "api/_mcp/registry/country-history-tool.ts",
       "category": "external-protocol",
       "reason": "MCP country-history tool definition. It forwards to the generated intelligence RPC with the verified caller's credential and exports no HTTP route.",
       "owner": "@SebastienMelki",
@@ -17,14 +17,14 @@
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/public-domain-tools.ts",
+      "path": "api/_mcp/registry/public-domain-tools.ts",
       "category": "external-protocol",
       "reason": "MCP tool definitions for gold enrichment and internet observations. Fixed existing sebuf RPCs retain source schemas and gateway access; this module exports no HTTP route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/country-view.ts",
+      "path": "api/_mcp/registry/country-view.ts",
       "category": "external-protocol",
       "reason": "MCP country-view tool definitions and fixed section readers. The external MCP protocol defines the tool/resource envelopes; this module exports no HTTP route and reads existing sebuf RPCs plus fixed bootstrap datasets.",
       "owner": "@koala73",
@@ -47,252 +47,252 @@
     {
       "path": "api/mcp.ts",
       "category": "external-protocol",
-      "reason": "MCP streamable-HTTP transport — JSON-RPC 2.0 envelope dictated by the Model Context Protocol spec, not something we can or should redefine as proto. After the api/mcp.ts → api/mcp/ structural split, this file is a thin re-export shim that preserves the Vercel edge route URL and the public export surface; the actual handler and supporting modules live under api/mcp/ (each listed below).",
+      "reason": "MCP streamable-HTTP transport — JSON-RPC 2.0 envelope dictated by the Model Context Protocol spec, not something we can or should redefine as proto. After the api/mcp.ts → api/_mcp/ structural split, this file is a thin re-export shim that preserves the Vercel edge route URL and the public export surface; the actual handler and supporting modules live under api/_mcp/ (each listed below).",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/handler.ts",
+      "path": "api/_mcp/handler.ts",
       "category": "external-protocol",
       "reason": "MCP transport handler — mcpHandler + default Vercel entry. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/alias.ts",
+      "path": "api/_mcp/alias.ts",
       "category": "external-protocol",
       "reason": "MCP tool-alias table and resolve() for renamed tools/call names. Not an HTTP route. Same external-protocol constraint as the MCP dispatcher.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/auth.ts",
+      "path": "api/_mcp/auth.ts",
       "category": "external-protocol",
       "reason": "MCP auth resolution (Bearer + X-WorldMonitor-Key), Pro pre-checks, rate-limiter init, and PRODUCTION_DEPS bundle for the MCP handler. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/quota.ts",
+      "path": "api/_mcp/quota.ts",
       "category": "external-protocol",
       "reason": "MCP Pro daily-quota INCR-first reservation + F4 clamp loop. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/panel-requests.ts",
+      "path": "api/_mcp/panel-requests.ts",
       "category": "internal-helper",
       "reason": "Bounded paid country-request admission, signed reader scope, and response reuse for the MCP JSON-RPC dispatcher. Exports no HTTP route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/dispatch.ts",
+      "path": "api/_mcp/dispatch.ts",
       "category": "external-protocol",
       "reason": "MCP tools/call dispatcher — executeTool (cache-tool path), dispatchToolsCall, per-tool budget gate, telemetry emission, F6 cache_all_null guard. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/error-fingerprint.ts",
+      "path": "api/_mcp/error-fingerprint.ts",
       "category": "external-protocol",
       "reason": "MCP Sentry grouping helper for tools/call capture sites. Keeps MCP external-protocol failures grouped by step, tool, and stable inner error signature without introducing a sebuf product API.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/billing-denial.ts",
+      "path": "api/_mcp/billing-denial.ts",
       "category": "internal-helper",
       "reason": "Typed billing-denial propagation for MCP tool _execute fetches (#4770): BillingDenialError + header-detection helpers so a gateway 403/503 billing denial survives dispatch's catch-all instead of flattening into a generic -32603. Pure helper module for the external-protocol MCP handler family above — exports no route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/bounded-body.ts",
+      "path": "api/_mcp/bounded-body.ts",
       "category": "internal-helper",
       "reason": "Bounded sibling-response body reader shared by MCP billing-denial and downstream error classification (#6559), plus the shared JSON-RPC request-body reader used by the MCP entry-point size cap (#7406). Pure helper module for the external-protocol MCP handler family above — exports no route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/bounded-json.ts",
+      "path": "api/_mcp/bounded-json.ts",
       "category": "internal-helper",
       "reason": "MCP proxy JSON nesting guard for untrusted request bodies, streamable responses, and legacy SSE messages (#7556). Pure helper module for the external-protocol MCP proxy — exports no route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/body-limits.ts",
+      "path": "api/_mcp/body-limits.ts",
       "category": "internal-helper",
-      "reason": "Leaf MCP JSON-RPC POST body-size constant (#7406). Kept outside api/mcp/constants.ts so Edge facades (docs-mcp, mcp-proxy) can import the number without the MCP upgrade/attribution module graph. Pure constant module — exports no route.",
+      "reason": "Leaf MCP JSON-RPC POST body-size constant (#7406). Kept outside api/_mcp/constants.ts so Edge facades (docs-mcp, mcp-proxy) can import the number without the MCP upgrade/attribution module graph. Pure constant module — exports no route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/downstream.ts",
+      "path": "api/_mcp/downstream.ts",
       "category": "internal-helper",
       "reason": "Canonical sibling-request routing and credential-safe downstream error classification for MCP RPC tools (#5514). Pure helper module for the external-protocol MCP handler family above — exports no route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/source-unavailable.ts",
+      "path": "api/_mcp/source-unavailable.ts",
       "category": "internal-helper",
       "reason": "Typed analysis-source outage propagation for MCP composite tools: preserves bounded cache-key diagnostics in JSON-RPC error.data without exposing source payloads. Pure helper module for the external-protocol MCP handler family above — exports no route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/skill-extension/generated.ts",
+      "path": "api/_mcp/skill-extension/generated.ts",
       "category": "external-protocol",
-      "reason": "Generated skill catalog + resource metadata consumed by api/mcp/skill-extension/index.ts for skills/list and skills/get. Generated by scripts/build-agent-skills-index.mjs; same external-protocol constraint as the extension entrypoint above.",
+      "reason": "Generated skill catalog + resource metadata consumed by api/_mcp/skill-extension/index.ts for skills/list and skills/get. Generated by scripts/build-agent-skills-index.mjs; same external-protocol constraint as the extension entrypoint above.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/skill-extension/index.ts",
+      "path": "api/_mcp/skill-extension/index.ts",
       "category": "external-protocol",
       "reason": "MCP skills extension registry + skills/list + skills/get JSON-RPC responses. Shape is dictated by the MCP Skills extension spec; exports no JSON data route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/usage.ts",
+      "path": "api/_mcp/usage.ts",
       "category": "external-protocol",
       "reason": "MCP wm_api_usage emission (#4866) — phase-to-reason mapper + ctx.waitUntil RequestEvent emitter for the /mcp funnel. Ops/observability plumbing for the same external-protocol handler, not a JSON data API; reuses server/_shared/usage.ts builders.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/cache-tools.ts",
+      "path": "api/_mcp/registry/cache-tools.ts",
       "category": "external-protocol",
       "reason": "MCP TOOL_REGISTRY cache-tool entries (no _execute). Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/news-dashboard.ts",
+      "path": "api/_mcp/registry/news-dashboard.ts",
       "category": "external-protocol",
       "reason": "MCP tool definitions for the WorldMonitor news dashboard and analysis adapter. Uses existing sebuf news RPCs; tool metadata and execution envelopes follow the external MCP protocol. No HTTP handler.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/analysis-tools.ts",
+      "path": "api/_mcp/registry/analysis-tools.ts",
       "category": "external-protocol",
       "reason": "MCP TOOL_REGISTRY composite-analysis tool entries and their cache orchestration. Extracted from rpc-tools.ts to keep the external-protocol registry maintainable; exports no JSON data route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/rpc-tools.ts",
+      "path": "api/_mcp/registry/rpc-tools.ts",
       "category": "external-protocol",
       "reason": "MCP TOOL_REGISTRY RPC-tool entries (with _execute, incl. describe_tool). Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/company-intel-tools.ts",
+      "path": "api/_mcp/registry/company-intel-tools.ts",
       "category": "external-protocol",
       "reason": "MCP TOOL_REGISTRY corporate-intelligence tool entry and its nested output schema. Extracted from rpc-tools.ts to keep the external-protocol registry maintainable; exports no JSON data route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/nlp-tools.ts",
+      "path": "api/_mcp/registry/nlp-tools.ts",
       "category": "external-protocol",
       "reason": "MCP TOOL_REGISTRY on-demand NLP tool entries (classify_event, extract_entities, get_news_clusters, get_keyword_spikes, verify_claim). Extracted from rpc-tools.ts so the registry file is not also the home of digest adaptation, entity aggregation, and story-accumulator key knowledge; same external-protocol constraint as its sibling registry modules.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/source-tools.ts",
+      "path": "api/_mcp/registry/source-tools.ts",
       "category": "external-protocol",
       "reason": "MCP TOOL_REGISTRY source-discovery tool entry (get_sources). Reads the committed shared/ source-attribution manifest and source-tiers registry to report coverage, licensing status, editorial tier, and provenance; exports no JSON data route and performs no network I/O. Same external-protocol constraint as its sibling registry modules.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/macro-tools.ts",
+      "path": "api/_mcp/registry/macro-tools.ts",
       "category": "external-protocol",
       "reason": "MCP TOOL_REGISTRY macro-history tool entry (get_macro_history) over the existing sebuf economic RPCs (US CPI, US interest rates, US Treasury and government yield curves, world CPI). Tool metadata and execution envelopes follow the external MCP protocol; exports no JSON data route. Same external-protocol constraint as its sibling registry modules.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/stock-tools.ts",
+      "path": "api/_mcp/registry/stock-tools.ts",
       "category": "external-protocol",
       "reason": "MCP stock-research tool definition and fixed MarketService dispatch. Exports no standalone JSON data route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/cost-shock-tools.ts",
+      "path": "api/_mcp/registry/cost-shock-tools.ts",
       "category": "external-protocol",
       "reason": "MCP cost-shock tool definition and fixed SupplyChainService dispatch. Exports no standalone JSON data route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/tariff-tools.ts",
+      "path": "api/_mcp/registry/tariff-tools.ts",
       "category": "external-protocol",
       "reason": "MCP tariff tool definitions and fixed TradeService dispatch to get-tariff-trends, get-bilateral-tariff and get-us-import-duty. Exports no standalone JSON data route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/registry/index.ts",
+      "path": "api/_mcp/registry/index.ts",
       "category": "external-protocol",
       "reason": "MCP TOOL_REGISTRY merge + buildPublicTool + SUMMARY_SCHEMA + TOOL_LIST_RESPONSE precompute + collision guard. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/telemetry.ts",
+      "path": "api/_mcp/telemetry.ts",
       "category": "external-protocol",
       "reason": "MCP per-tools/call + per-initialize structured-log emission and the two closed-key telemetry allowlists (MCP_TOOLCALL_TELEMETRY_KEYS, MCP_TOOLS_LIST_TELEMETRY_KEYS). Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/constants.ts",
+      "path": "api/_mcp/constants.ts",
       "category": "external-protocol",
       "reason": "MCP protocol version negotiation (env-at-call-time), SERVER_NAME, SERVER_VERSION, SERVER_INSTRUCTIONS, MCP_LOG_LEVELS, byte caps. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/domains.ts",
+      "path": "api/_mcp/domains.ts",
       "category": "internal-helper",
       "reason": "One source for each MCP tool's category, the server card toolCategories and tags, and the domain list the discovery surfaces quote. Read at build time by scripts/generate-public-product-facts.mjs and by tests; exports no HTTP route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/upgrade.ts",
+      "path": "api/_mcp/upgrade.ts",
       "category": "external-protocol",
       "reason": "MCP paid-funnel (#6716) structured denial builders and upgrade-URL re-exports. Part of the streamable-HTTP MCP surface — not a JSON data API.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/checkout.ts",
+      "path": "api/_mcp/checkout.ts",
       "category": "external-protocol",
       "reason": "MCP start_upgrade tool (#9144): plan mapping and the server-side relay to the existing Convex create-checkout action, with its JSON-RPC refusal mapping. Part of the streamable-HTTP MCP surface — not a JSON data API.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/upgrade-constants.ts",
+      "path": "api/_mcp/upgrade-constants.ts",
       "category": "external-protocol",
-      "reason": "MCP free-account allowance numeric constants (#6716). Supporting module for the MCP transport; listed so the sebuf contract script accepts the api/mcp/ tree.",
+      "reason": "MCP free-account allowance numeric constants (#6716). Supporting module for the MCP transport; listed so the sebuf contract script accepts the api/_mcp/ tree.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/free-account-allowance.ts",
+      "path": "api/_mcp/free-account-allowance.ts",
       "category": "external-protocol",
-      "reason": "MCP free-account idle-gap + call-ceiling meter (#6716). Redis-backed reservation used only by api/mcp/dispatch.ts — not a public HTTP route.",
+      "reason": "MCP free-account idle-gap + call-ceiling meter (#6716). Redis-backed reservation used only by api/_mcp/dispatch.ts — not a public HTTP route.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
@@ -304,161 +304,161 @@
       "removal_issue": null
     },
     {
-      "path": "api/mcp/freshness.ts",
+      "path": "api/_mcp/freshness.ts",
       "category": "external-protocol",
       "reason": "MCP cache-tool freshness evaluation (evaluateFreshness) — drives the per-response cached_at + stale envelope fields. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/jmespath.ts",
+      "path": "api/_mcp/jmespath.ts",
       "category": "external-protocol",
       "reason": "MCP universal JMESPath projection (applyJmespath + JMESPATH_SCHEMA) — two-gate input/output byte cap, soft-failure envelopes. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/filters.ts",
+      "path": "api/_mcp/filters.ts",
       "category": "external-protocol",
       "reason": "MCP cache-tool _postFilter helpers (argStr/argNum/narrowNested/etc.), summarizeData, and cacheEnvelope schema builder. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/utils.ts",
+      "path": "api/_mcp/utils.ts",
       "category": "external-protocol",
       "reason": "MCP utf8ByteLength + compressDescription — UTF-8 byte counting and the tools/list description-cap backstop. Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/rpc.ts",
+      "path": "api/_mcp/rpc.ts",
       "category": "external-protocol",
       "reason": "MCP JSON-RPC 2.0 envelope helpers (rpcOk + rpcError). Extracted from api/mcp.ts during the structural split; same external-protocol constraint as the parent shim.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/structured-content.ts",
+      "path": "api/_mcp/structured-content.ts",
       "category": "external-protocol",
       "reason": "MCP tools/call structuredContent builder + the anyOf outputSchema it is advertised under (#8328). Pure helper imported by the MCP dispatcher and registry, not a route; same external-protocol constraint as the parent shim.",
       "owner": "@koala73",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/types.ts",
+      "path": "api/_mcp/types.ts",
       "category": "external-protocol",
-      "reason": "MCP shared type declarations (McpAuthContext, McpHandlerDeps, ToolDef union, etc.). Pure types — no runtime behaviour — but lives under api/mcp/ so the contract script requires a listing.",
+      "reason": "MCP shared type declarations (McpAuthContext, McpHandlerDeps, ToolDef union, etc.). Pure types — no runtime behaviour — but lives under api/_mcp/ so the contract script requires a listing.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/prompts/index.ts",
+      "path": "api/_mcp/prompts/index.ts",
       "category": "external-protocol",
       "reason": "MCP PROMPT_REGISTRY + buildPromptResponse + prompts/list public-shape projection. Workflow templates surfaced via prompts/list + prompts/get JSON-RPC methods, shape dictated by the MCP spec.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/resources/index.ts",
+      "path": "api/_mcp/resources/index.ts",
       "category": "external-protocol",
       "reason": "MCP resource registries (PUBLIC_RESOURCE_REGISTRY + TEMPLATE_RESOURCE_REGISTRY) + buildResourceResponse/buildPublicResourceResponse + resources/list + resources/templates/list public-shape projections. Read-only addressable URIs surfaced via the resources/list, resources/templates/list, and resources/read JSON-RPC methods, shape dictated by the MCP spec. Concrete public resources (metadata-only freshness probes) read anonymously + quota-free; data-bearing template instantiations route resources/read through dispatchToolsCall for auth-symmetric Pro daily-quota deduction.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/resources/slugs.ts",
+      "path": "api/_mcp/resources/slugs.ts",
       "category": "external-protocol",
       "reason": "Hand-curated kebab-case slug → matcher table for the worldmonitor://chokepoints/{slug}/status MCP resource URI. The stability contract: bookmarked URIs survive cache refreshes / upstream renames. Same external-protocol constraint as the resources index it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/registry.ts",
+      "path": "api/_mcp/ui/registry.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (extension io.modelcontextprotocol/ui) ui:// resource registry + buildUiResourceRead + resources/list public-shape projection. Serves static, data-free HTML app shells whose shape is dictated by the MCP Apps spec (mimeType text/html;profile=mcp-app); linked from tools via _meta.ui.resourceUri. Same external-protocol constraint as the sibling resources/index.ts.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/country-risk-app.ts",
+      "path": "api/_mcp/ui/country-risk-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/country-risk.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/shell.ts",
+      "path": "api/_mcp/ui/shell.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) shared app-shell builder — factors the DOCTYPE / 4-category CSP / dark-mode tokens / postMessage bridge every ui:// widget inlines. Exports HTML/meta builder functions (no HTTP handler); the bridge protocol + view CSP shape are dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/world-brief-app.ts",
+      "path": "api/_mcp/ui/world-brief-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/world-brief.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/country-brief-app.ts",
+      "path": "api/_mcp/ui/country-brief-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/country-brief.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/market-radar-app.ts",
+      "path": "api/_mcp/ui/market-radar-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/market-radar.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/chokepoint-monitor-app.ts",
+      "path": "api/_mcp/ui/chokepoint-monitor-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/chokepoint-monitor.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/news-intelligence-app.ts",
+      "path": "api/_mcp/ui/news-intelligence-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/news-intelligence.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/news-dashboard-app.ts",
+      "path": "api/_mcp/ui/news-dashboard-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps HTML resource loader for the compiled WorldMonitor dashboard. The ui:// resource envelope and CSP metadata follow the external MCP Apps protocol. No standalone HTTP data endpoint.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/conflict-events-app.ts",
+      "path": "api/_mcp/ui/conflict-events-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/conflict-events.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/natural-disasters-app.ts",
+      "path": "api/_mcp/ui/natural-disasters-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/natural-disasters.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/prediction-markets-app.ts",
+      "path": "api/_mcp/ui/prediction-markets-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/prediction-markets.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },
     {
-      "path": "api/mcp/ui/forecasts-app.ts",
+      "path": "api/_mcp/ui/forecasts-app.ts",
       "category": "external-protocol",
       "reason": "MCP Apps (io.modelcontextprotocol/ui) self-contained HTML app shell served verbatim as the ui://worldmonitor/forecasts.html resource. Exports an HTML string constant (no HTTP handler); the postMessage bridge protocol is dictated by the MCP Apps spec. Same external-protocol constraint as the ui/registry.ts it backs.",
       "owner": "@SebastienMelki",
@@ -845,7 +845,7 @@
     {
       "path": "api/user/mcp-quota.ts",
       "category": "internal-helper",
-      "reason": "Settings-UI-only read of the caller's Pro MCP daily-quota counter (plan 2026-05-10-001 U9). Clerk-authenticated; reads the SAME `mcp:pro-usage:<userId>:<YYYY-MM-DD>` Redis key that api/mcp.ts U7 writes via INCR-first reservation. Returns `{used, limit, resetsAt}` where `limit` is the caller's plan allowance resolved through api/mcp/quota.ts's `resolveDailyLimit` (`null` = unlimited, plan 2026-07-25-001 U3b) — informational, not authoritative; the hard cap is enforced server-side at INCR time. Shape exists purely so the Connected MCP clients tab can show `X / <plan limit> used today, resets in <countdown>` without exposing the underlying Redis schema. Modeling as a sebuf RPC would publish a per-user counter implementation detail as user-facing API surface for a single-feature display widget.",
+      "reason": "Settings-UI-only read of the caller's Pro MCP daily-quota counter (plan 2026-05-10-001 U9). Clerk-authenticated; reads the SAME `mcp:pro-usage:<userId>:<YYYY-MM-DD>` Redis key that api/mcp.ts U7 writes via INCR-first reservation. Returns `{used, limit, resetsAt}` where `limit` is the caller's plan allowance resolved through api/_mcp/quota.ts's `resolveDailyLimit` (`null` = unlimited, plan 2026-07-25-001 U3b) — informational, not authoritative; the hard cap is enforced server-side at INCR time. Shape exists purely so the Connected MCP clients tab can show `X / <plan limit> used today, resets in <countdown>` without exposing the underlying Redis schema. Modeling as a sebuf RPC would publish a per-user counter implementation detail as user-facing API surface for a single-feature display widget.",
       "owner": "@SebastienMelki",
       "removal_issue": null
     },

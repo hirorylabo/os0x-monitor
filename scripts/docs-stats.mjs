@@ -265,10 +265,10 @@ function parseLayerRegistry(source) {
 }
 
 function parseMcpAppsInventory({
-  uiRegistrySource = read('api/mcp/ui/registry.ts'),
-  shellSource = read('api/mcp/ui/shell.ts'),
-  rpcToolsSource = read('api/mcp/registry/rpc-tools.ts'),
-  cacheToolsSource = read('api/mcp/registry/cache-tools.ts'),
+  uiRegistrySource = read('api/_mcp/ui/registry.ts'),
+  shellSource = read('api/_mcp/ui/shell.ts'),
+  rpcToolsSource = read('api/_mcp/registry/rpc-tools.ts'),
+  cacheToolsSource = read('api/_mcp/registry/cache-tools.ts'),
 } = {}) {
   const uiConstToUri = new Map(
     [...uiRegistrySource.matchAll(/^export\s+const\s+(\w+_UI_URI)\s*=\s*'([^']+)';/gm)]
@@ -283,7 +283,7 @@ function parseMcpAppsInventory({
     throw new Error('docs-stats: could not parse UI_RESOURCE_REGISTRY');
   }
   const registryBody = [registryBlockMatch[1], ...[...uiRegistrySource.matchAll(/UI_RESOURCE_LIST_RESPONSE\.push\(\{([\s\S]*?)\}\);/g)].map(match => match[1])].join('\n');
-  const loaderSource = read('api/mcp/ui/news-dashboard-app.ts');
+  const loaderSource = read('api/_mcp/ui/news-dashboard-app.ts');
   for (const [, name, uri] of loaderSource.matchAll(/^export\s+const\s+(\w+_UI_URI)\s*=\s*'([^']+)';/gm)) {
     if (new RegExp(`\\b${name}\\b`).test(registryBody)) uiConstToUri.set(name, uri);
   }
@@ -305,8 +305,8 @@ function parseMcpAppsInventory({
 
   const toolLinks = [];
   const compiledToolSources = [];
-  if (uiConstToUri.has('NEWS_DASHBOARD_UI_URI')) compiledToolSources.push(read('api/mcp/registry/news-dashboard.ts'));
-  if (uiConstToUri.has('COUNTRY_VIEW_UI_URI')) compiledToolSources.push(read('api/mcp/registry/country-view.ts'));
+  if (uiConstToUri.has('NEWS_DASHBOARD_UI_URI')) compiledToolSources.push(read('api/_mcp/registry/news-dashboard.ts'));
+  if (uiConstToUri.has('COUNTRY_VIEW_UI_URI')) compiledToolSources.push(read('api/_mcp/registry/country-view.ts'));
   for (const source of [rpcToolsSource, cacheToolsSource, ...compiledToolSources]) {
     for (const block of (compiledToolSources.includes(source) ? source.split(/(?=^ {2}name:)/m) : findTopLevelObjectBlocks(source))) {
       const name = block.match(/^\s+name:\s*'([^']+)'/m)?.[1];

@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { RETIRED_TOOLS, TOOL_ALIASES, TOOL_LIST_RESPONSE, TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { RETIRED_TOOLS, TOOL_ALIASES, TOOL_LIST_RESPONSE, TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 
 describe('retired MCP tools', () => {
   it('lists only generate_forecasts, and that name is not registered', () => {

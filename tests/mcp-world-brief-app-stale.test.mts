@@ -4,7 +4,7 @@
 // labelled — but the label lived in JSON fields no human ever sees. An MCP
 // Apps host renders this tool through `_uiResourceUri`, and the card's footer
 // showed provider, model and a raw timestamp while never reading `stale` or
-// `ageMinutes` (`api/mcp/ui/world-brief-app.ts`). A two-hour-old brief was
+// `ageMinutes` (`api/_mcp/ui/world-brief-app.ts`). A two-hour-old brief was
 // therefore presented identically to a fresh one — on the one surface where a
 // person, not an agent, is doing the weighing (review, PR #7271).
 //
@@ -16,7 +16,7 @@ import { describe, it, before, after } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { Window } from 'happy-dom';
 
-import { WORLD_BRIEF_APP_HTML } from '../api/mcp/ui/world-brief-app';
+import { WORLD_BRIEF_APP_HTML } from '../api/_mcp/ui/world-brief-app';
 
 function briefPayload(overrides: Record<string, unknown> = {}) {
   return {
@@ -66,7 +66,7 @@ async function render(payload: Record<string, unknown>) {
   return win;
 }
 
-describe('api/mcp/ui/world-brief-app.ts — surfaces staleness to a human', () => {
+describe('api/_mcp/ui/world-brief-app.ts — surfaces staleness to a human', () => {
   let freshWin: any;
   let staleWin: any;
 

@@ -167,7 +167,7 @@ describe("first activation stamps attributionSource onto the subscription (#6716
 });
 
 describe("an agent-created checkout through the relay (#9144)", () => {
-  // The body api/mcp/checkout.ts relayMcpCheckout sends.
+  // The body api/_mcp/checkout.ts relayMcpCheckout sends.
   const relay = (t: ReturnType<typeof convexTest>) =>
     t.fetch("/relay/create-checkout", {
       method: "POST",

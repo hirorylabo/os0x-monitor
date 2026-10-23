@@ -7,7 +7,7 @@ import { withOpenApiByteSize } from '../scripts/build-openapi-json.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = resolve(dirname(__filename), '..');
-const REGISTRY_DIR = join(ROOT, 'api/mcp/registry');
+const REGISTRY_DIR = join(ROOT, 'api/_mcp/registry');
 const LLMS_FILES = ['public/llms.txt', 'public/llms-full.txt', 'public/api/llms.txt'];
 const LLMS_TEXTS = new Map(
   LLMS_FILES.map((rel) => [rel, readFileSync(join(ROOT, rel), 'utf-8')]),
@@ -66,7 +66,7 @@ describe('agent readiness: llms.txt MCP tool citations', () => {
       );
     });
 
-    it(`${rel} only cites MCP tools that exist in api/mcp/registry`, () => {
+    it(`${rel} only cites MCP tools that exist in api/_mcp/registry`, () => {
       const unknown = cited.filter((t) => !registry.has(t));
       assert.deepEqual(
         unknown,

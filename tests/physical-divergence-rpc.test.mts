@@ -5,7 +5,7 @@ import { createMarketServiceRoutes } from '../src/generated/server/worldmonitor/
 import { marketHandler } from '../server/worldmonitor/market/v1/handler.ts';
 import { drainResponseHeaders } from '../server/_shared/response-headers.ts';
 import { serverOptions } from '../server/gateway.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 import {
   METHODOLOGY_VERSION,
   buildPhysicalDivergenceReading,

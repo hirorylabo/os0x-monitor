@@ -22,7 +22,7 @@ it.each([401, 403])('clears prior family observations after actual website HTTP 
   } finally { vi.unstubAllGlobals(); }
 });
 it.each([401, 403])('clears prior observations through the actual MCP HTTP %i carrier and native adapter', async status => {
-  const { COUNTRY_VIEW_TOOLS } = await import('../../api/mcp/registry/country-view');
+  const { COUNTRY_VIEW_TOOLS } = await import('../../api/_mcp/registry/country-view');
   const tool = COUNTRY_VIEW_TOOLS.find(value => value.name === 'get_country_brief_section')!;
   vi.stubEnv('MCP_INTERNAL_HMAC_SECRET', 'controlled-country-signals-denial-fixture-secret-0123456789abcdef');
   const previous = projectQualifiedCountrySignals('IR', qualifiedFixtureOutcomes());

@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 import { STATIC_ROUTE_MANIFEST } from '../scripts/build-sitemap.mjs';
 import { UMAMI_SCRIPT_TAG } from '../scripts/build-research-reports.mjs';
-import { TOOL_LIST_RESPONSE } from '../api/mcp/registry/index.ts';
+import { TOOL_LIST_RESPONSE } from '../api/_mcp/registry/index.ts';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (path) => readFileSync(join(ROOT, path), 'utf8');

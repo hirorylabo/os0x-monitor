@@ -91,7 +91,7 @@ describe("issueProMcpToken", () => {
   });
 
   // #6716 — a CONFIRMED free account may hold a token. The row proves IDENTITY:
-  // validateProMcpToken returns only {userId, lastUsedAt}, and api/mcp/auth.ts
+  // validateProMcpToken returns only {userId, lastUsedAt}, and api/_mcp/auth.ts
   // re-derives the entitlement on every gated call, admitting a non-subscriber
   // onto the metered allowance over cache-backed tools only. Inside Convex a
   // missing row is unambiguous — this is a direct ctx.db read, so there is no

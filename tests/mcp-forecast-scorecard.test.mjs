@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
-import { projectForecastScorecard } from '../api/mcp/registry/cache-tools.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
+import { projectForecastScorecard } from '../api/_mcp/registry/cache-tools.ts';
 import { FORECAST_ACCURACY_AUDIT_OVERRIDE, STANDING_ACCURACY_AUDIT, forecastAccuracyAudit } from '../shared/forecast-accuracy-audit.js';
 
 const tool = CACHE_TOOLS.find((entry) => entry.name === 'get_forecast_scorecard');

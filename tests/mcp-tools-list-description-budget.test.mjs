@@ -3,9 +3,9 @@ import { strict as assert } from 'node:assert';
 import { readFileSync } from 'node:fs';
 import Ajv2020 from 'ajv/dist/2020.js';
 
-import { SERVER_VERSION, TOOL_DESCRIPTION_MAX_BYTES, TOOL_DESCRIPTIONS_TOTAL_MAX_BYTES } from '../api/mcp/constants.ts';
-import { TOOL_REGISTRY, toolAccess } from '../api/mcp/registry/index.ts';
-import { TOOL_CATEGORY_BY_NAME } from '../api/mcp/domains.ts';
+import { SERVER_VERSION, TOOL_DESCRIPTION_MAX_BYTES, TOOL_DESCRIPTIONS_TOTAL_MAX_BYTES } from '../api/_mcp/constants.ts';
+import { TOOL_REGISTRY, toolAccess } from '../api/_mcp/registry/index.ts';
+import { TOOL_CATEGORY_BY_NAME } from '../api/_mcp/domains.ts';
 
 const originalEnv = { ...process.env };
 
@@ -688,7 +688,7 @@ describe('api/mcp.ts — tools/list description budget (v1.34.0)', () => {
 
       // tools[] must be a name+description projection of the live registry,
       // plus the same access marker and MCP Apps link tools/list emits and the
-      // card-only category from api/mcp/domains.ts, in the same order.
+      // card-only category from api/_mcp/domains.ts, in the same order.
       const expected = TOOL_REGISTRY.map((t) => ({
         name: t.name,
         description: t.description,
@@ -701,7 +701,7 @@ describe('api/mcp.ts — tools/list description budget (v1.34.0)', () => {
       assert.deepEqual(
         card.tools,
         expected,
-        'server-card tools[] drifted from api/mcp/registry — regenerate the tools array in ' +
+        'server-card tools[] drifted from api/_mcp/registry — regenerate the tools array in ' +
           'public/.well-known/mcp/server-card.json from TOOL_REGISTRY (see comment above this test)',
       );
     });

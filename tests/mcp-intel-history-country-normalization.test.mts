@@ -7,7 +7,7 @@
  * `^([A-Z]{2})?$`. #7105 fixed this defect for the dashboard deep-dive panel
  * (`src/app/country-intel.ts`) and its commit message notes the siblings are
  * tracked separately — the MCP surface is one of them. Eight `country_code`
- * tools in `api/mcp/registry/rpc-tools.ts` already normalize at their call
+ * tools in `api/_mcp/registry/rpc-tools.ts` already normalize at their call
  * sites; the three intel-history tools take `country` instead and forwarded
  * it verbatim, so an LLM sending the documented-but-unenforced lowercase code
  * got a 400 round-trip (WORLDMONITOR-10R, -10Q, 2026-08-26).
@@ -28,7 +28,7 @@
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 import { validateGeneratedRequest } from '../server/request-validator.ts';
 
 const BASE_URL = 'https://worldmonitor.app';

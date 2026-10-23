@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { afterEach, beforeEach, describe, it, mock } from 'node:test';
 
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 import { normalizePhysicalDivergenceSnapshot } from '../server/_shared/physical-divergence-snapshot.ts';
 import { buildProducerBackedPhysicalComparisonFixture } from './helpers/mcp-producer-fixtures.mjs';
 

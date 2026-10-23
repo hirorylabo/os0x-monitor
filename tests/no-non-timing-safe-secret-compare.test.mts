@@ -120,7 +120,7 @@ function buildSecretComparePattern(fragments: readonly string[] = SECRET_VARS): 
  * Today it is the identity function, deliberately: the previous version of this
  * guard stripped comments here and the naive stripper ate 30.2% of api/ by bytes
  * (a `/*`-containing glob inside a `//` comment read as a block-comment opener
- * and swallowed 4160 bytes of api/mcp/types.ts including real exported code), so
+ * and swallowed 4160 bytes of api/_mcp/types.ts including real exported code), so
  * violations in swallowed regions were invisible and the guard passed vacuously.
  *
  * Anything that ever transforms source before matching MUST go here rather than
@@ -337,7 +337,7 @@ describe('no non-timing-safe secret comparison in api/ (#3803)', () => {
     // hypothetical: this test previously ran `pattern.test(stripComments(source))`,
     // and the naive stripper deleted 30.2% of api/ by bytes — a glob like
     // `/*.openapi.json` inside a `//` comment reads as a block-comment OPENER and
-    // ate 4160 bytes of api/mcp/types.ts including `export interface RpcToolDef`,
+    // ate 4160 bytes of api/_mcp/types.ts including `export interface RpcToolDef`,
     // while `//` inside a URL literal truncated the rest of the line. A violation
     // landing in a swallowed region was invisible.
     //

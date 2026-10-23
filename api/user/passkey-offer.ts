@@ -56,7 +56,7 @@ export interface PasskeyOfferDeps {
  * WORLDMONITOR-10E held 32 `reserve` events, one `clerk-mirror` and one
  * `api/fwdstart` `scrape`, so the 2026-08-31 13:31–14:08 burst could not be
  * attributed to Clerk or to Redis without reading the code. Same derivation as
- * `mcpErrorFingerprint` (api/mcp/error-fingerprint.ts): scope, subject, then the
+ * `mcpErrorFingerprint` (api/_mcp/error-fingerprint.ts): scope, subject, then the
  * stable `err.name` so distinct faults on one upstream stay separable.
  */
 export function passkeyOfferFingerprint(step: PasskeyOfferFailureStep, err: unknown): string[] {

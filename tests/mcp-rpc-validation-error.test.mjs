@@ -6,10 +6,10 @@ import { afterEach, describe, it } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { readdirSync, readFileSync } from 'node:fs';
 
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
-import { RpcValidationError } from '../api/mcp/billing-denial.ts';
-import { downstreamErrorTags } from '../api/mcp/downstream.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
+import { RpcValidationError } from '../api/_mcp/billing-denial.ts';
+import { downstreamErrorTags } from '../api/_mcp/downstream.ts';
 
 const ORIGINAL_FETCH = globalThis.fetch;
 process.env.MCP_TELEMETRY = 'false';
@@ -400,7 +400,7 @@ describe('MCP RPC ValidationError preservation on the observed-downstream path',
   });
 
   it('every assertMcpToolFetchOk call site in the registry is covered by this contract', () => {
-    const source = readFileSync(new URL('../api/mcp/registry/rpc-tools.ts', import.meta.url), 'utf8');
+    const source = readFileSync(new URL('../api/_mcp/registry/rpc-tools.ts', import.meta.url), 'utf8');
     const scanned = new Set();
     for (const match of source.matchAll(/assertMcpToolFetchOk\(/g)) {
       const before = source.slice(0, match.index);

@@ -42,7 +42,7 @@ jobs:
       - name: Verify Japanese feeds and visible component behavior
         run: |
           node --import tsx --test tests/japan-news-feeds.test.mts tests/live-video-chain.test.mts tests/middleware-bot-gate.test.mts api/_cors.test.mjs
-          npm run test:dom -- tests/dom/auto-translate-ja.test.mts tests/dom/os0x-source-cap-language.test.mts tests/dom/fred-panel-capabilities.test.mts tests/dom/monitor-panel.test.mts tests/dom/os0x-svg-map-viewport.test.mts
+          npm run test:dom -- tests/dom/auto-translate-ja.test.mts tests/dom/os0x-source-cap-language.test.mts tests/dom/fred-panel-capabilities.test.mts tests/dom/monitor-panel.test.mts tests/dom/os0x-svg-map-viewport.test.mts tests/dom/deckgl-map-state.test.mts
       - name: Verify panel defaults, saved choices and lazy mounting
         run: node --import tsx --test tests/mission-presets.test.mts tests/panel-variant-config.test.mts tests/webmcp-panel-enablement.test.mts tests/panel-mount-deferral.test.mts
       - name: Build the self-hosted dashboard

@@ -110,12 +110,12 @@ function userKeyReq(body) {
 // reserveQuota — the limit contract at the unit boundary
 // ---------------------------------------------------------------------------
 
-describe('api/mcp/quota.ts — reserveQuota honours the resolved plan limit', () => {
+describe('api/_mcp/quota.ts — reserveQuota honours the resolved plan limit', () => {
   let reserveQuota;
   let PRO_DAILY_QUOTA_LIMIT;
 
   beforeEach(async () => {
-    ({ reserveQuota } = await import(`../api/mcp/quota.ts?t=${Date.now()}-${Math.random()}`));
+    ({ reserveQuota } = await import(`../api/_mcp/quota.ts?t=${Date.now()}-${Math.random()}`));
     ({ PRO_DAILY_QUOTA_LIMIT } = await import('../server/_shared/pro-mcp-token.ts'));
   });
 
@@ -271,7 +271,7 @@ describe('api/mcp/quota.ts — reserveQuota honours the resolved plan limit', ()
   });
 
   it('reservation recovery is a single EVAL, not a post-rollback probe clamp', () => {
-    const source = readFileSync(fileURLToPath(new URL('../api/mcp/quota.ts', import.meta.url)), 'utf8');
+    const source = readFileSync(fileURLToPath(new URL('../api/_mcp/quota.ts', import.meta.url)), 'utf8');
     assert.match(source, /RESERVE_QUOTA_SCRIPT/, 'reserveQuota must ship a Redis script');
     assert.match(source, /dailyQuotaFloorKey/, 'clamp floor must be a sibling of the daily counter');
     assert.match(MCP_QUOTA_RESERVE_SCRIPT, /redis\.call\('INCRBY', KEYS\[1\], weight\)/, 'script must increment by the call weight first');
@@ -314,7 +314,7 @@ describe('api/mcp/quota.ts — reserveQuota honours the resolved plan limit', ()
     assert.ok(allowlist[1].includes('RESERVE_FREE_ACCOUNT_ALLOWANCE_SCRIPT'), 'the reserve script must be allowlisted');
     assert.ok(allowlist[1].includes('READ_FREE_ACCOUNT_ALLOWANCE_SCRIPT'), 'the read script must be allowlisted');
     assert.doesNotMatch(
-      readFileSync(fileURLToPath(new URL('../api/mcp/free-account-allowance.ts', import.meta.url)), 'utf8'),
+      readFileSync(fileURLToPath(new URL('../api/_mcp/free-account-allowance.ts', import.meta.url)), 'utf8'),
       /const RESERVE_FREE_ACCOUNT_ALLOWANCE_SCRIPT = `/,
       'the reserve script must not live only in the handler — the proxy cannot see it there',
     );

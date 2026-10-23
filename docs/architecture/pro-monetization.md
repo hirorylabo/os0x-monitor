@@ -17,7 +17,7 @@ Factual snapshot of the repository architecture for authentication, payments, en
 
 ## Tier model
 
-The authoritative lifecycle, plan, price, visibility, and checkout metadata lives in `convex/config/productCatalog.ts`. The MCP capability count comes from `api/mcp/registry/index.ts`. `npm run product:facts` combines those sources into committed Edge, Railway, static, structured-data, and agent-discovery artifacts; normal production build commands run it automatically. `npm run product:facts:check` is the non-mutating freshness gate.
+The authoritative lifecycle, plan, price, visibility, and checkout metadata lives in `convex/config/productCatalog.ts`. The MCP capability count comes from `api/_mcp/registry/index.ts`. `npm run product:facts` combines those sources into committed Edge, Railway, static, structured-data, and agent-discovery artifacts; normal production build commands run it automatically. `npm run product:facts:check` is the non-mutating freshness gate.
 
 Products are served at runtime from `https://api.worldmonitor.app/api/product-catalog`; generated client configuration lives in `pro-test/src/generated/tiers.json`:
 

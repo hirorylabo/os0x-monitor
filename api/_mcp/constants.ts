@@ -155,7 +155,7 @@ export const SERVER_NAME = 'worldmonitor';
 //       worldmonitor://seed-meta/freshness
 //       worldmonitor://markets/{symbol}/quote
 //     Chokepoint slugs are pinned in a hand-curated kebab-case table
-//     (api/mcp/resources/slugs.ts) so a cache refresh / upstream rename
+//     (api/_mcp/resources/slugs.ts) so a cache refresh / upstream rename
 //     never breaks a bookmarked URI.
 //   - Auth-symmetric: resources/read routes through dispatchToolsCall and
 //     inherits the Pro daily-quota reservation identical to the equivalent
@@ -274,7 +274,7 @@ export const SERVER_NAME = 'worldmonitor';
 //       * ui://worldmonitor/chokepoint-monitor.html (get_chokepoint_status)
 //     Each is linked from its backing tool via `_meta.ui.resourceUri` (+ the
 //     deprecated flat `ui/resourceUri` alias) and registered in
-//     api/mcp/ui/registry.ts. A shared shell (api/mcp/ui/shell.ts) factors the
+//     api/_mcp/ui/registry.ts. A shared shell (api/_mcp/ui/shell.ts) factors the
 //     DOCTYPE / 4-category CSP / dark-mode tokens / postMessage bridge so the
 //     fleet can't drift on the orank quality/CSP signals. resources/read of a
 //     ui:// URI stays public + quota-exempt (static, data-free template); DATA
@@ -290,7 +290,7 @@ export const SERVER_NAME = 'worldmonitor';
 //       * ui://worldmonitor/natural-disasters-v3.html   (get_natural_disasters)
 //       * ui://worldmonitor/prediction-markets.html  (get_prediction_markets)
 //       * ui://worldmonitor/forecasts.html           (get_forecast_predictions)
-//     Each renders through the shared shell (api/mcp/ui/shell.ts) and links from
+//     Each renders through the shared shell (api/_mcp/ui/shell.ts) and links from
 //     its backing cache tool via `_meta.ui.resourceUri`. Purely additive: `_meta`
 //     appears on five newly-linked tools; every ui:// read stays anonymously
 //     servable, quota-exempt, and data-free. No input/output schema, envelope,
@@ -334,7 +334,7 @@ export const SERVER_NAME = 'worldmonitor';
 //     projection>, <_budget_exceeded>, <_jmespath_error>] }`, because the same
 //     client also validates `structuredContent` against it (-32602) and those
 //     responses are not the documented shape. `content[0].text` is
-//     byte-identical to before. See api/mcp/structured-content.ts.
+//     byte-identical to before. See api/_mcp/structured-content.ts.
 // Keep aligned with public/.well-known/mcp/server-card.json::serverInfo.version
 // — discovery scanners cross-check both values.
 // Bumped 1.32.0 → 1.33.0 for verify_claim (#9092).

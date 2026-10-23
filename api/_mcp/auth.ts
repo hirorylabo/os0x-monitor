@@ -564,7 +564,7 @@ export async function validateProMcpAuthorization(
     // anonymous frames with every other `api/mcp` capture, so Sentry's default
     // stack grouping merges it into the WORLDMONITOR-T8 catch-all. `threw`
     // keeps the defect arm in its own group, separable from the fail-soft
-    // `transient` arm below — see api/mcp/error-fingerprint.ts.
+    // `transient` arm below — see api/_mcp/error-fingerprint.ts.
     captureSilentError(err, {
       tags: { route: 'api/mcp', step: 'pro-token-validate' },
       fingerprint: mcpErrorFingerprint('pro-token-validate', 'threw', err),

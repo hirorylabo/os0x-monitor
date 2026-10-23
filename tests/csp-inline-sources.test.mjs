@@ -35,7 +35,7 @@ const EXEMPT = {
   'market.html': null,
   'country.html': null,
 };
-const EXEMPT_DIRS = ['api/mcp/ui/'];
+const EXEMPT_DIRS = ['api/_mcp/ui/'];
 
 // Handlers whose inline scripts are allowed by hash under their own route CSP.
 // Their scripts are checked against that CSP from the rendered page below.

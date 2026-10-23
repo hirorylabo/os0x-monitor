@@ -38,7 +38,7 @@ import { PUBLIC_FAMILY_OUTCOME_FIELDS, PUBLIC_RECEIPT_FIELDS, SKILL_MIN_FAMILIES
 import { FORECAST_ACCURACY_AUDIT_OVERRIDE, STANDING_ACCURACY_AUDIT, accuracyAuditOverride, forecastAccuracyAudit, headlineFamilyGate, isAccuracyAudit } from '../shared/forecast-accuracy-audit.js';
 import { computeScorecard } from '../scripts/_forecast-scorecard.mjs';
 import { accuracyDatasetDownload, accuracyStateAudit, classifyAccuracyState, renderAccuracyLlmsSection } from '../scripts/build-accuracy-page.mjs';
-import { forecastReliability, forecastScorecardDescription, projectForecastScorecard } from '../api/mcp/registry/cache-tools.ts';
+import { forecastReliability, forecastScorecardDescription, projectForecastScorecard } from '../api/_mcp/registry/cache-tools.ts';
 
 const originalFetch = globalThis.fetch;
 const originalConsoleError = console.error;

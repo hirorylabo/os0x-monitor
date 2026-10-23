@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { buildPluginShell } from '../api/mcp/ui/_plugin-loader';
+import { buildPluginShell } from '../api/_mcp/ui/_plugin-loader';
 
 const origin = 'https://www.worldmonitor.app';
 const headers = { 'Access-Control-Allow-Origin': '*' };

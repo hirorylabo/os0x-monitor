@@ -4,10 +4,10 @@ import { readFileSync } from 'node:fs';
 import { Window } from 'happy-dom';
 import * as predictionScoring from '../scripts/_prediction-scoring.mjs';
 import { buildBootstrapPools } from '../scripts/_prediction-classify.mjs';
-import { PREDICTION_MARKETS_APP_HTML } from '../api/mcp/ui/prediction-markets-app.ts';
-import { buildStructuredContent } from '../api/mcp/structured-content.ts';
-import { summarizeData } from '../api/mcp/filters.ts';
-import { applyJmespath } from '../api/mcp/jmespath.ts';
+import { PREDICTION_MARKETS_APP_HTML } from '../api/_mcp/ui/prediction-markets-app.ts';
+import { buildStructuredContent } from '../api/_mcp/structured-content.ts';
+import { summarizeData } from '../api/_mcp/filters.ts';
+import { applyJmespath } from '../api/_mcp/jmespath.ts';
 
 const windows = [];
 const market = { title: 'Controlled contract', source: 'polymarket', yesPrice: 62, volume: 1250000, url: 'https://polymarket.com/event/controlled', endDate: '2026-12-31T12:00:00Z' };

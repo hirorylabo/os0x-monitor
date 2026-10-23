@@ -1816,7 +1816,7 @@ export function filterRiskScoresResponse(
 // methodology payloads cannot survive deploy via Redis. Bump propagated to
 // every reader: get-country-risk.ts, chat-analyst-context.ts,
 // brief-story-context.ts, server/_shared/cache-keys.ts, api/bootstrap.js,
-// api/health.js, api/mcp/registry/cache-tools.ts, scripts/seed-cross-source-signals.mjs,
+// api/health.js, api/_mcp/registry/cache-tools.ts, scripts/seed-cross-source-signals.mjs,
 // scripts/seed-forecasts.mjs, scripts/regional-snapshot/*. The seed-meta key
 // (`seed-meta:intelligence:risk-scores`) is unchanged — that's freshness tracking,
 // not the payload itself.

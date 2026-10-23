@@ -173,7 +173,7 @@ function logScopedRateLimitMissingConfig(scope: string): void {
 
 // One-per-isolate latch for edge-proof rejections. Spoofed cf-connecting-ip
 // headers are caller-controlled on a direct origin hit; reporting every 403
-// would create an amplification path (mirrors api/mcp/auth.ts). (#8402)
+// would create an amplification path (mirrors api/_mcp/auth.ts). (#8402)
 const EDGE_PROOF_RATE_LIMIT_LATCH = Symbol.for('worldmonitor.rate-limit.edge-proof-reported.v1');
 
 function reportEdgeProofRequiredOnce(stage: string, err: Error): void {

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {
   applySectorValuationFreshness,
   CACHE_TOOLS,
-} from '../api/mcp/registry/cache-tools';
+} from '../api/_mcp/registry/cache-tools';
 
 describe('get_market_data sector valuation coverage contract', () => {
   it('declares the valuation coverage agents receive from market:sectors:v2', () => {

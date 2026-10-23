@@ -21,12 +21,12 @@ import jmespath from 'jmespath';
  * merged AFTER `jmespath.search` — no expression can name it, reach it, or
  * remove it.
  *
- * Both surfaces import this module: `api/mcp/dispatch.ts` (keyed on the tool's
+ * Both surfaces import this module: `api/_mcp/dispatch.ts` (keyed on the tool's
  * `_attribution`) and `server/gateway.ts` (keyed on the request pathname, via
  * `REST_ATTRIBUTION_EXPRESSIONS`).
  *
  * It lives in `shared/`, not `server/_shared/`, because `shared/` is the only
- * directory reachable from every surface that needs the policy. `api/mcp/`
+ * directory reachable from every surface that needs the policy. `api/_mcp/`
  * could import `server/_shared/` — 13 of its modules already do — but the
  * Railway seeder images build with `root_dir=scripts` and package only
  * `scripts/` and `shared/`, so a relative import that escapes into `server/`

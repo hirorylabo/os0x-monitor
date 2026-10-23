@@ -4,8 +4,8 @@ import { afterEach, describe, test } from 'node:test';
 
 import jmespath from 'jmespath';
 
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 import { torontoSafetySourceById } from '../shared/toronto-safety.js';
 import {
   TPS_CALLS_ATTRIBUTION,

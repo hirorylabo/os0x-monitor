@@ -8,23 +8,23 @@ description: "WorldMonitor MCP 服务器可能返回的每一种错误形态的�
   本页中的每个 code/envelope 都应对应到下面某一行；下面的每个
   emission 站点也都应出现在本页中。
 
-  - JSON-RPC envelope helpers           api/mcp/rpc.ts (rpcOk, rpcError)
-  - Method gate (405 + Allow)           api/mcp/handler.ts (mcpHandler method check)
-  - Top-level dispatch / -32600/-32601  api/mcp/handler.ts (POST body parse and dispatch switch)
-  - Auth -32001 / -32603 emitters       api/mcp/auth.ts (resolveAuthContext and entitlement checks)
-  - Billing -32002 / -32603 denials     api/mcp/auth.ts (getMcpBillingVerificationDenial) + api/mcp/dispatch.ts (BillingDenialError re-emit)
-  - Per-minute -32029 + hit telemetry   api/mcp/auth.ts (applyPerMinuteLimit, applyAnonDiscoveryLimit, emitMcpRateLimitHit)
-  - Pro daily-cap -32029 (HTTP 429)     api/mcp/dispatch.ts (reserveDailyQuotaForRequest)
-  - Free tool-scope -32002 (HTTP 403)   api/mcp/dispatch.ts (upgrade-required guard)
-  - Tool exec -32603                    api/mcp/dispatch.ts (dispatchToolsCall)
-  - Source-unavailable -32003           api/mcp/dispatch.ts (McpSourceUnavailableError re-emit)
-  - SSE replay -32004 / -32600          api/mcp/handler.ts (handleSseReplay + replay cursor check)
-  - Alias-host retirement -32000 / 410  shared/mcp-host-policy.ts (MCP_CANONICAL_ENDPOINT_ERROR_CODE) + api/mcp/handler.ts (mcpAliasRpcError)
-  - _budget_exceeded envelope           api/mcp/dispatch.ts (budget cap handling)
-  - _jmespath_error envelope            api/mcp/jmespath.ts (applyJmespath)
-  - JMESPath caps                       api/mcp/constants.ts (JMESPATH_LIMITS)
-  - Prompts -32602                      api/mcp/prompts/index.ts (listPrompts, getPrompt)
-  - Resources -32602 / -32603           api/mcp/resources/index.ts (listResources, readResource)
+  - JSON-RPC envelope helpers           api/_mcp/rpc.ts (rpcOk, rpcError)
+  - Method gate (405 + Allow)           api/_mcp/handler.ts (mcpHandler method check)
+  - Top-level dispatch / -32600/-32601  api/_mcp/handler.ts (POST body parse and dispatch switch)
+  - Auth -32001 / -32603 emitters       api/_mcp/auth.ts (resolveAuthContext and entitlement checks)
+  - Billing -32002 / -32603 denials     api/_mcp/auth.ts (getMcpBillingVerificationDenial) + api/_mcp/dispatch.ts (BillingDenialError re-emit)
+  - Per-minute -32029 + hit telemetry   api/_mcp/auth.ts (applyPerMinuteLimit, applyAnonDiscoveryLimit, emitMcpRateLimitHit)
+  - Pro daily-cap -32029 (HTTP 429)     api/_mcp/dispatch.ts (reserveDailyQuotaForRequest)
+  - Free tool-scope -32002 (HTTP 403)   api/_mcp/dispatch.ts (upgrade-required guard)
+  - Tool exec -32603                    api/_mcp/dispatch.ts (dispatchToolsCall)
+  - Source-unavailable -32003           api/_mcp/dispatch.ts (McpSourceUnavailableError re-emit)
+  - SSE replay -32004 / -32600          api/_mcp/handler.ts (handleSseReplay + replay cursor check)
+  - Alias-host retirement -32000 / 410  shared/mcp-host-policy.ts (MCP_CANONICAL_ENDPOINT_ERROR_CODE) + api/_mcp/handler.ts (mcpAliasRpcError)
+  - _budget_exceeded envelope           api/_mcp/dispatch.ts (budget cap handling)
+  - _jmespath_error envelope            api/_mcp/jmespath.ts (applyJmespath)
+  - JMESPath caps                       api/_mcp/constants.ts (JMESPATH_LIMITS)
+  - Prompts -32602                      api/_mcp/prompts/index.ts (listPrompts, getPrompt)
+  - Resources -32602 / -32603           api/_mcp/resources/index.ts (listResources, readResource)
 */}
 
 本页是实用参考：收到一个负载后，你可以查阅它，从而知道下一步该怎么做。服务器在三个独立层面发出失败信号 —— **HTTP 状态码**、**JSON-RPC `error.code`**，以及 **`result.content[0].text` 中的软行为信封** —— 一次失败可能触及其中一个、两个或全部三个层面。请由外向内排查：HTTP 状态码 → JSON-RPC 代码 → 软信封。
@@ -58,7 +58,7 @@ description: "WorldMonitor MCP 服务器可能返回的每一种错误形态的�
 
 ### `-32000` —— 必须使用规范端点
 
-已列出的生产别名（`www`、`api`、`tech`、`finance`、`commodity`、`happy`、`energy`，均在 `worldmonitor.app` 下）是客户端迁移面，不是额外的服务器。这些主机上的传输层 POST、SSE 与 replay 已退役：handler 在鉴权、配额、会话或分发之前以 HTTP **410** 和 JSON-RPC `-32000` 作答。常量位于 `shared/mcp-host-policy.ts`（`MCP_CANONICAL_ENDPOINT_ERROR_CODE = -32000`）；发出站点是 `api/mcp/handler.ts`（`mcpAliasRpcError`）。
+已列出的生产别名（`www`、`api`、`tech`、`finance`、`commodity`、`happy`、`energy`，均在 `worldmonitor.app` 下）是客户端迁移面，不是额外的服务器。这些主机上的传输层 POST、SSE 与 replay 已退役：handler 在鉴权、配额、会话或分发之前以 HTTP **410** 和 JSON-RPC `-32000` 作答。常量位于 `shared/mcp-host-policy.ts`（`MCP_CANONICAL_ENDPOINT_ERROR_CODE = -32000`）；发出站点是 `api/_mcp/handler.ts`（`mcpAliasRpcError`）。
 
 POST 故意**不是** 308。对 POST 做 308 会变成 GET（#4938），从而丢掉 JSON-RPC 请求体并破坏握手。这些主机上的普通 GET/HEAD 发现是可缓存的 308，指向 `https://worldmonitor.app/mcp`（或规范源上对应的 well-known 路径），不属于本代码。
 
@@ -95,7 +95,7 @@ Content-Type: application/json
 
 ### `-32001` —— 未鉴权 / 凭证无效
 
-由 `api/mcp/auth.ts` 的鉴权解析路径触发，总是配对 HTTP **401** 和 `WWW-Authenticate` 头。用户可见的触发点按客户端命中顺序如下：
+由 `api/_mcp/auth.ts` 的鉴权解析路径触发，总是配对 HTTP **401** 和 `WWW-Authenticate` 头。用户可见的触发点按客户端命中顺序如下：
 
 1. **既无 `Authorization` bearer 也无 `X-WorldMonitor-Key`** —— 客户端在 `/mcp` 上调用受限方法时未携带任何凭证。传输端点上未认证的 `initialize` 即属此类：它是交互式 MCP 客户端收到的第一个响应，其 `WWW-Authenticate` 质询正是触发 OAuth 登录的信号。
 2. **`Authorization: Bearer <token>` 但 `<token>` 无效或已过期** —— 令牌无法解析到上下文（被撤销 / TTL 过期 / 从未由 `/api/oauth/token` 签发）。
@@ -129,7 +129,7 @@ Content-Type: application/json
 
 权益拒绝通常为 HTTP **403**，带 `Cache-Control: no-store`，且**不带** `WWW-Authenticate`：凭证仍有效，但当前权益不允许该调用，重新鉴权无法改变结果。`error.data.reason` 区分两种情况：
 
-- **`lapsed-subscription`**：这是一个罕见的执行中竞态：订阅在权益预检查通过之后、Pro 工具的下游抓取之前失效。如果权益预检查时已有服务方确认的失效结果，账户会被重新分类到受限免费账户路径，不会在预检查中发出此拒绝。较晚出现的下游 `BillingDenialError` 会由 `api/mcp/dispatch.ts` 重新发出，并带 `X-Billing-Verification: subscription_lapsed`，因为该次执行中的 Pro 操作已无法完成。
+- **`lapsed-subscription`**：这是一个罕见的执行中竞态：订阅在权益预检查通过之后、Pro 工具的下游抓取之前失效。如果权益预检查时已有服务方确认的失效结果，账户会被重新分类到受限免费账户路径，不会在预检查中发出此拒绝。较晚出现的下游 `BillingDenialError` 会由 `api/_mcp/dispatch.ts` 重新发出，并带 `X-Billing-Verification: subscription_lapsed`，因为该次执行中的 Pro 操作已无法完成。
 - **`upgrade-required`**：免费额度账户调用了 `subscription` 工具，或经确认的非免费权益不足（例如已过期或停用的付费权益行）。这类拒绝发生在额度预留之前，不消耗调用槽位。
 
 ```json
@@ -148,7 +148,7 @@ Content-Type: application/json
 }
 ```
 
-**结账提示。** 由 `api/mcp/dispatch.ts` 发出的 `upgrade-required`，以及 `-32029` 下的 `allowance-exhausted` 和 `quota-exceeded`，在调用方持有绑定用户的凭据且存在高一级的自助套餐时，会额外带上 `recommendedPlan`。`recommendedPlan` 的对应关系为：免费 → `pro_monthly`，Pro → `pro_business_monthly`，API Starter → `api_business`。`checkoutTool: "start_upgrade"` 只出现在免费账户上，因为只有它能通过新结账购买该套餐：Pro → Pro Business 需要先取消 Pro，API Starter → API Business 是在账单门户中按比例变更套餐，所以付费调用方只收到 `recommendedPlan`。Pro Business、API Business、Enterprise、运营方密钥和匿名调用方不带这两个字段。`message` 与 `upgradeUrl` 保持不变。
+**结账提示。** 由 `api/_mcp/dispatch.ts` 发出的 `upgrade-required`，以及 `-32029` 下的 `allowance-exhausted` 和 `quota-exceeded`，在调用方持有绑定用户的凭据且存在高一级的自助套餐时，会额外带上 `recommendedPlan`。`recommendedPlan` 的对应关系为：免费 → `pro_monthly`，Pro → `pro_business_monthly`，API Starter → `api_business`。`checkoutTool: "start_upgrade"` 只出现在免费账户上，因为只有它能通过新结账购买该套餐：Pro → Pro Business 需要先取消 Pro，API Starter → API Business 是在账单门户中按比例变更套餐，所以付费调用方只收到 `recommendedPlan`。Pro Business、API Business、Enterprise、运营方密钥和匿名调用方不带这两个字段。`message` 与 `upgradeUrl` 保持不变。
 
 **`start_upgrade` 拒绝。** 以下情况不会创建结账会话，均为 **HTTP 200** 内的 `-32002`，带 `data.reason` 和 `data.nextStep`：账户已持有同一系列套餐时为 `already-subscribed`（附 `data.subscription`）；存在待处理付款时为 `payment-in-progress`，待付款完成或失效后会自行解除，稍后可再次调用。触发结账限流时返回 HTTP 429 的 `-32029`，`data.reason` 为 `checkout-rate-limited`，并带 `Retry-After`。
 
@@ -189,7 +189,7 @@ Content-Type: application/json
 
 每分钟与每日上限触发条件共用此代码；由 HTTP 状态码区分。
 
-**每分钟节流 —— HTTP 200。** 滑动窗口限流器按旧版运营方（`env_`）密钥、按用户（该用户的 OAuth 令牌与控制面板签发的 `wm_…` key 合计为一份额度，不可叠加）或按 IP（用于匿名公开发现）键控。按用户的阈值由 `planLimits.mcpBurstRequestsPerMinute` 按套餐解析：Pro、Pro Business 与 API Starter 为 **60 次 / 分钟**，API Business 为 **300**，Enterprise 为 **1,000**；当该值缺失、或不是大于等于 1 的有限数时一律回退为 60，即宁可落在更低的上限上。元数据方法与免费层方法是付费调用方拿不到套餐速率的唯一情形：它们在权益预检查之前就已被服务，限流器手上没有套餐可读，因此按 60 评估（`api/mcp/handler.ts` 中的公开方法分支调用 `applyPerMinuteLimit` 时不传上限）。两者用的是同一个按用户的池，因此在 API Business 上，`tools/list` 的突发会在 60 处被拒，而 `tools/call` 仍可跑到 300。运营方密钥限流器和匿名发现限流器保持固定的 **60 次 / 分钟**。已鉴权请求在鉴权之后受限。无凭证的公开发现方法（`initialize` 仅限机器发现别名 `/.well-known/mcp` 与 `/.well-known/mcp.json`——在传输端点上它会在任何限流器之前被 `-32001` 质询；以及在所有路径上的 `notifications/initialized`、`ping`、`tools/list`、`prompts/list`、`prompts/get`、`skills/list`、`skills/get`、`resources/list`、`resources/templates/list`、`logging/setLevel`）与匿名公开资源读取无需鉴权即可服务，但仍会经过匿名发现限流器。无凭证的数据 / 配额方法，或该公开集合之外的元数据方法，**不**使用匿名发现 —— 它们以 `-32001` / HTTP 401 故障关闭。唯一的例外是无需凭证的 `get_sources` 工具：它可匿名调用，但受独立的、故障关闭的**每 IP 每分钟 10 次**上限约束，超限时返回 `-32029` / HTTP 429。以 HTTP 200 内的 JSON-RPC 错误返回，并回显被拒绝请求的 `id`。在 Upstash 瞬时错误时**故障开放** —— 限流器后端的偶发延迟尖峰不会拖垮整个 API。
+**每分钟节流 —— HTTP 200。** 滑动窗口限流器按旧版运营方（`env_`）密钥、按用户（该用户的 OAuth 令牌与控制面板签发的 `wm_…` key 合计为一份额度，不可叠加）或按 IP（用于匿名公开发现）键控。按用户的阈值由 `planLimits.mcpBurstRequestsPerMinute` 按套餐解析：Pro、Pro Business 与 API Starter 为 **60 次 / 分钟**，API Business 为 **300**，Enterprise 为 **1,000**；当该值缺失、或不是大于等于 1 的有限数时一律回退为 60，即宁可落在更低的上限上。元数据方法与免费层方法是付费调用方拿不到套餐速率的唯一情形：它们在权益预检查之前就已被服务，限流器手上没有套餐可读，因此按 60 评估（`api/_mcp/handler.ts` 中的公开方法分支调用 `applyPerMinuteLimit` 时不传上限）。两者用的是同一个按用户的池，因此在 API Business 上，`tools/list` 的突发会在 60 处被拒，而 `tools/call` 仍可跑到 300。运营方密钥限流器和匿名发现限流器保持固定的 **60 次 / 分钟**。已鉴权请求在鉴权之后受限。无凭证的公开发现方法（`initialize` 仅限机器发现别名 `/.well-known/mcp` 与 `/.well-known/mcp.json`——在传输端点上它会在任何限流器之前被 `-32001` 质询；以及在所有路径上的 `notifications/initialized`、`ping`、`tools/list`、`prompts/list`、`prompts/get`、`skills/list`、`skills/get`、`resources/list`、`resources/templates/list`、`logging/setLevel`）与匿名公开资源读取无需鉴权即可服务，但仍会经过匿名发现限流器。无凭证的数据 / 配额方法，或该公开集合之外的元数据方法，**不**使用匿名发现 —— 它们以 `-32001` / HTTP 401 故障关闭。唯一的例外是无需凭证的 `get_sources` 工具：它可匿名调用，但受独立的、故障关闭的**每 IP 每分钟 10 次**上限约束，超限时返回 `-32029` / HTTP 429。以 HTTP 200 内的 JSON-RPC 错误返回，并回显被拒绝请求的 `id`。在 Upstash 瞬时错误时**故障开放** —— 限流器后端的偶发延迟尖峰不会拖垮整个 API。
 
 当每分钟限流器拒绝时，handler 会发出一条持久的 `mcp.rate_limit_hit` 遥测事件，其身份形态经过允许列表过滤。套餐限制扫描器用该事件做持续突发通知；它不会从原始 Upstash 限流器内部推断面向客户的 MCP 突发通知。
 
@@ -197,9 +197,9 @@ Content-Type: application/json
 
 | 鉴权上下文                              | `message`                                                                           | 站点                                                    |
 |-------------------------------------------|-------------------------------------------------------------------------------------|---------------------------------------------------------|
-| 旧版运营方（`env_`）密钥                  | `Rate limit exceeded. Max 60 requests per minute per API key.`                      | `api/mcp/auth.ts` `applyPerMinuteLimit` env-key 分支  |
-| OAuth bearer 或控制面板签发的 `wm_…` key  | `Rate limit exceeded. Max <limit> requests per minute per user.`                    | `api/mcp/auth.ts` `applyPerMinuteLimit` 按用户分支      |
-| 匿名发现路径上无凭证 | `Rate limit exceeded. Max 60 unauthenticated discovery requests per minute per IP.` | `api/mcp/auth.ts` `applyAnonDiscoveryLimit`             |
+| 旧版运营方（`env_`）密钥                  | `Rate limit exceeded. Max 60 requests per minute per API key.`                      | `api/_mcp/auth.ts` `applyPerMinuteLimit` env-key 分支  |
+| OAuth bearer 或控制面板签发的 `wm_…` key  | `Rate limit exceeded. Max <limit> requests per minute per user.`                    | `api/_mcp/auth.ts` `applyPerMinuteLimit` 按用户分支      |
+| 匿名发现路径上无凭证 | `Rate limit exceeded. Max 60 unauthenticated discovery requests per minute per IP.` | `api/_mcp/auth.ts` `applyAnonDiscoveryLimit`             |
 
 按用户字符串里的 `<limit>` 是你自己套餐的突发额度，不是常量。Pro、Pro Business 与 API Starter 为 **60**，API Business 为 **300**，Enterprise 为 **1,000**；权益无法读取、以及在预检查之前被服务的元数据方法，都回退为 **60**。需要该数值时可从 message 中解析，或查阅[套餐与限制](/zh/mcp-overview#套餐与限制)。另外两个字符串确实固定为 60，因为旧版运营方密钥限流器和匿名发现限流器都不按套餐解析。
 
@@ -256,7 +256,7 @@ Content-Type: application/json
 
 ### `-32600` —— 请求信封无效
 
-当请求体不是合法 JSON，或是合法 JSON 但缺少字符串类型的 `method` 字段时触发。位于 `api/mcp/handler.ts` 的两个站点。严格来说是客户端编码器 bug —— 格式良好的 JSON-RPC 客户端在生产中永远不会看到它。
+当请求体不是合法 JSON，或是合法 JSON 但缺少字符串类型的 `method` 字段时触发。位于 `api/_mcp/handler.ts` 的两个站点。严格来说是客户端编码器 bug —— 格式良好的 JSON-RPC 客户端在生产中永远不会看到它。
 
 ```json
 {
@@ -288,12 +288,12 @@ Content-Type: application/json
 
 | 触发条件                                                | 站点                              | 示例 `message`                                                          |
 |--------------------------------------------------------|-----------------------------------|----------------------------------------------------------------------------|
-| `tools/call` 缺少或 `name` 非字符串                 | `api/mcp/dispatch.ts` `dispatchToolsCall` 参数守卫 | `Invalid params: missing tool name`                                        |
-| `tools/call` 的 `name` 不在注册表中    | `api/mcp/dispatch.ts` `dispatchToolsCall` 注册表查找 | `Unknown tool: get_foo`                                                    |
-| `prompts/get` 缺少或 `name` 非字符串                | `api/mcp/handler.ts` `prompts/get` 分支          | `Invalid params: missing prompt name`                                      |
-| `prompts/get` 名称未知或缺少必填参数 | `api/mcp/prompts/index.ts` `buildPromptResponse`   | `Unknown prompt: …` / `Missing required argument "iso2" for prompt "country-briefing"` |
-| `resources/read` 缺少/未知/格式错误的 `uri`       | `api/mcp/resources/index.ts`（`buildPublicResourceResponse` / `buildResourceResponse`）  | `Invalid params: missing resource uri` / `Unknown resource uri "..."` |
-| `logging/setLevel` 级别非字符串或不在集合内 | `api/mcp/handler.ts` `logging/setLevel` 分支          | `Invalid params: level must be one of debug, info, notice, warning, error, critical, alert, emergency` |
+| `tools/call` 缺少或 `name` 非字符串                 | `api/_mcp/dispatch.ts` `dispatchToolsCall` 参数守卫 | `Invalid params: missing tool name`                                        |
+| `tools/call` 的 `name` 不在注册表中    | `api/_mcp/dispatch.ts` `dispatchToolsCall` 注册表查找 | `Unknown tool: get_foo`                                                    |
+| `prompts/get` 缺少或 `name` 非字符串                | `api/_mcp/handler.ts` `prompts/get` 分支          | `Invalid params: missing prompt name`                                      |
+| `prompts/get` 名称未知或缺少必填参数 | `api/_mcp/prompts/index.ts` `buildPromptResponse`   | `Unknown prompt: …` / `Missing required argument "iso2" for prompt "country-briefing"` |
+| `resources/read` 缺少/未知/格式错误的 `uri`       | `api/_mcp/resources/index.ts`（`buildPublicResourceResponse` / `buildResourceResponse`）  | `Invalid params: missing resource uri` / `Unknown resource uri "..."` |
+| `logging/setLevel` 级别非字符串或不在集合内 | `api/_mcp/handler.ts` `logging/setLevel` 分支          | `Invalid params: level must be one of debug, info, notice, warning, error, critical, alert, emergency` |
 
 ```json
 {
@@ -339,13 +339,13 @@ Content-Type: application/json
 
 | 触发条件                                         | `message`                                              | 站点                              |
 |-------------------------------------------------|--------------------------------------------------------|-----------------------------------|
-| 鉴权/权益后端抛出（Convex 抖动、Pro token 或 `wm_…` key 校验故障） | `Auth service temporarily unavailable. Try again.` | `api/mcp/auth.ts` 的解析与校验路径 |
-| 匿名免费层限流后端不可达（故障关闭） | `Rate-limit service temporarily unavailable. Try again.` | `api/mcp/auth.ts` 免费层限流守卫 |
-| `MCP_INTERNAL_HMAC_SECRET` 未设置（Pro 路径）     | `Service temporarily unavailable, retry in a moment.`  | `api/mcp/auth.ts` `runProPreChecks` 密钥预检 |
-| Pro 或免费账户额度预留 Redis 失败（非上限） | `Service temporarily unavailable, retry in a moment.` | `api/mcp/dispatch.ts` 额度预留守卫 |
-| 续订校验进行中 | `Renewal verification pending. Retry shortly.` | `api/mcp/auth.ts` 预检查或 `api/mcp/dispatch.ts` 执行中重发 |
+| 鉴权/权益后端抛出（Convex 抖动、Pro token 或 `wm_…` key 校验故障） | `Auth service temporarily unavailable. Try again.` | `api/_mcp/auth.ts` 的解析与校验路径 |
+| 匿名免费层限流后端不可达（故障关闭） | `Rate-limit service temporarily unavailable. Try again.` | `api/_mcp/auth.ts` 免费层限流守卫 |
+| `MCP_INTERNAL_HMAC_SECRET` 未设置（Pro 路径）     | `Service temporarily unavailable, retry in a moment.`  | `api/_mcp/auth.ts` `runProPreChecks` 密钥预检 |
+| Pro 或免费账户额度预留 Redis 失败（非上限） | `Service temporarily unavailable, retry in a moment.` | `api/_mcp/dispatch.ts` 额度预留守卫 |
+| 续订校验进行中 | `Renewal verification pending. Retry shortly.` | `api/_mcp/auth.ts` 预检查或 `api/_mcp/dispatch.ts` 执行中重发 |
 | 续订校验失败并处于冷却期 | `Renewal verification failed. Retry shortly.` | 同上 |
-| 权益后端不可达 | `Unable to verify API access. Retry shortly.` | `api/mcp/auth.ts` 预检查或 `api/mcp/dispatch.ts` 执行中重发 |
+| 权益后端不可达 | `Unable to verify API access. Retry shortly.` | `api/_mcp/auth.ts` 预检查或 `api/_mcp/dispatch.ts` 执行中重发 |
 
 非计费校验基础设施故障遵循固定 `Retry-After: 5`。计费校验行会携带 `X-Billing-Verification`，其 `data.code` 与该响应头一致；`renewal_verification_pending` / `renewal_verification_failed` 使用与实际提供方复查相匹配的动态 `Retry-After`（1–60 秒），客户端必须遵循响应头而不是假定 5 秒。`entitlement_verification_unavailable` 表示权益后端没有给出结论，固定使用 `Retry-After: 5`。续订校验状态表示本地订阅刚到期、服务器正在向计费提供方复核；已续订账户通常会在一到两次重试内恢复。
 

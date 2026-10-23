@@ -509,7 +509,7 @@ export async function verifyInternalMcpRequestDetailed(
   // route file (api/<domain>/v1/[rpc].ts) and injects the matched segment into
   // the function's request URL as a query parameter (?rpc=<segment>) — see
   // "named parameters are automatically passed through in the query string"
-  // in Vercel's routing docs. The signer (api/mcp/auth.ts buildAuthHeaders)
+  // in Vercel's routing docs. The signer (api/_mcp/auth.ts buildAuthHeaders)
   // signs the OUTBOUND url, which never carries that param, so hashing the
   // inbound query verbatim 401s EVERY legitimate Pro tool fetch
   // (WORLDMONITOR-R1 / WORLDMONITOR-T8 — deterministic since U7 shipped,

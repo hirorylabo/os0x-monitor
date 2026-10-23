@@ -9,7 +9,7 @@ import {
 
 // Unit coverage for the REST gateway's universal `?jmespath=` projection helper
 // (server/gateway.ts applies it to every JSON GET response). Mirrors the MCP
-// jmespath contract (api/mcp/jmespath.ts): projects on success, returns a
+// jmespath contract (api/_mcp/jmespath.ts): projects on success, returns a
 // {_jmespath_error, original_keys} envelope on failure, never throws.
 
 const BODY = JSON.stringify({ compositeScore: 42, compositeLabel: 'Greed', nested: { a: 1 } });

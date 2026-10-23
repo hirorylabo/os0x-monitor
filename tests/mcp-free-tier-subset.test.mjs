@@ -17,12 +17,12 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { Ratelimit } from '@upstash/ratelimit';
 
-import { TOOL_REGISTRY, TOOL_LIST_RESPONSE } from '../api/mcp/registry/index.ts';
-import { buildAuthHeaders } from '../api/mcp/auth.ts';
-import { setUsageContext, createMcpUsage } from '../api/mcp/usage.ts';
-import { principalIdForLog } from '../api/mcp/telemetry.ts';
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
-import { mcpHandler } from '../api/mcp/handler.ts';
+import { TOOL_REGISTRY, TOOL_LIST_RESPONSE } from '../api/_mcp/registry/index.ts';
+import { buildAuthHeaders } from '../api/_mcp/auth.ts';
+import { setUsageContext, createMcpUsage } from '../api/_mcp/usage.ts';
+import { principalIdForLog } from '../api/_mcp/telemetry.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
+import { mcpHandler } from '../api/_mcp/handler.ts';
 
 const freeTools = TOOL_REGISTRY.filter((t) => t._freeTier === true);
 const ORIGINAL_SLIDING_WINDOW = Ratelimit.slidingWindow;
@@ -50,7 +50,7 @@ async function withFreeTierLimiterStub({ success = true, throws = false, reason 
   });
   try {
     limiterImportNonce += 1;
-    const mod = await import(`../api/mcp/auth.ts?free-tier=${limiterImportNonce}-${Date.now()}`);
+    const mod = await import(`../api/_mcp/auth.ts?free-tier=${limiterImportNonce}-${Date.now()}`);
     return await fn(mod, calls);
   } finally {
     Ratelimit.slidingWindow = ORIGINAL_SLIDING_WINDOW;
@@ -337,14 +337,14 @@ describe('free-tier ceiling fails closed', () => {
   });
 
   it('classifies a limiter outage separately from an exhausted bucket in usage telemetry', async () => {
-    const { mcpReasonFor } = await import('../api/mcp/usage.ts');
+    const { mcpReasonFor } = await import('../api/_mcp/usage.ts');
     assert.equal(mcpReasonFor('limit', 429), 'rate_limit_429');
     assert.equal(mcpReasonFor('limit', 503), 'rate_limit_degraded');
   });
 
   it('is a tighter budget than the 60/min discovery limiter it sits beside', async () => {
     const source = await import('node:fs').then((fs) =>
-      fs.readFileSync(new URL('../api/mcp/auth.ts', import.meta.url), 'utf8'));
+      fs.readFileSync(new URL('../api/_mcp/auth.ts', import.meta.url), 'utf8'));
     const match = source.match(/FREE_TIER_LIMIT_PER_MINUTE\s*=\s*(\d+)/);
     assert.ok(match, 'the free-tier budget must be a named constant');
     assert.ok(Number(match[1]) < 60, 'free data calls must be bounded tighter than metadata discovery');

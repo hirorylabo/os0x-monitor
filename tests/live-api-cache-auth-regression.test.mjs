@@ -575,7 +575,7 @@ describe(`live API cache/auth regression sweep (${LIVE ? 'ENABLED' : 'SKIPPED - 
         `anonymous resources/read ${resource.uri} must not error: ${JSON.stringify(readBody.error)}`);
       const content = readBody.result?.contents?.[0];
       // `ui://` entries are MCP-Apps app shells, not metadata: production
-      // declares them `text/html;profile=mcp-app` (api/mcp/ui/shell.ts
+      // declares them `text/html;profile=mcp-app` (api/_mcp/ui/shell.ts
       // UI_RESOURCE_MIME_TYPE). Same rule as the in-process sibling check in
       // tests/mcp-resources.test.mjs. Still an exact-match assertion per URI
       // scheme — a resource declaring the WRONG one of the two still fails.

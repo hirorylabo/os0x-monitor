@@ -11,9 +11,9 @@
  *
  * MUST NOT be wired into `checkProMcpAccess`. That gate has five callers;
  * relaxing it centrally would grant free-tier access on the REST gateway and
- * both OAuth mint paths. Reinterpretation lives only in `api/mcp/auth.ts`.
+ * both OAuth mint paths. Reinterpretation lives only in `api/_mcp/auth.ts`.
  *
- * Scope note: the allowance covers CACHE-BACKED tools only. `api/mcp/dispatch.ts`
+ * Scope note: the allowance covers CACHE-BACKED tools only. `api/_mcp/dispatch.ts`
  * refuses a tool with `_execute` before calling in here, because those fan out to
  * `server/gateway.ts`, whose own `checkProMcpAccess` re-check this feature does
  * not relax — admitting one would charge a slot for a call the gateway rejects.

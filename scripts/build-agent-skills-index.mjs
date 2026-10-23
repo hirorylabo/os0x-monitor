@@ -33,7 +33,7 @@ const ROOT = resolve(dirname(__filename), '..');
 const SKILLS_DIR = resolve(ROOT, 'public/.well-known/agent-skills');
 const PLUGIN_SKILLS_DIR = resolve(ROOT, 'skills');
 const INDEX_PATH = join(SKILLS_DIR, 'index.json');
-const MCP_SKILLS_PATH = resolve(ROOT, 'api/mcp/skill-extension/generated.ts');
+const MCP_SKILLS_PATH = resolve(ROOT, 'api/_mcp/skill-extension/generated.ts');
 // The apex serves `/.well-known/*` directly — that path is on the Cloudflare
 // apex→www exemption list (ARCHITECTURE.md §2), so skill URLs stay apex.
 const PUBLIC_BASE = 'https://worldmonitor.app';

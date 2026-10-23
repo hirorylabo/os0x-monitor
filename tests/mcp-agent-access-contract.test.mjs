@@ -2,7 +2,7 @@ import { describe, it } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { readFileSync } from 'node:fs';
 
-import { SERVER_INSTRUCTIONS } from '../api/mcp/constants.ts';
+import { SERVER_INSTRUCTIONS } from '../api/_mcp/constants.ts';
 import { PREMIUM_RPC_PATHS } from '../src/shared/premium-paths.ts';
 import { getRequiredTier } from '../server/_shared/entitlement-check.ts';
 import {
@@ -11,8 +11,8 @@ import {
   TOOL_REGISTRY,
   toolAccess,
   toolWeight,
-} from '../api/mcp/registry/index.ts';
-import { RESOURCE_TEMPLATE_LIST_RESPONSE } from '../api/mcp/resources/index.ts';
+} from '../api/_mcp/registry/index.ts';
+import { RESOURCE_TEMPLATE_LIST_RESPONSE } from '../api/_mcp/resources/index.ts';
 
 const accessFor = (name) => TOOL_LIST_RESPONSE
   .find((tool) => tool.name === name)?._meta?.['worldmonitor/access'];

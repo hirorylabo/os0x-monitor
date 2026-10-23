@@ -5,12 +5,12 @@ import { describe, it, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
-import { coverageGap, sealAliases } from '../api/mcp/alias.ts';
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
+import { coverageGap, sealAliases } from '../api/_mcp/alias.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
 import { mcpHandler } from '../api/mcp.ts';
-import { RETIRED_TOOLS, TOOL_ALIASES, TOOL_LIST_RESPONSE, TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
-import { MCP_TOOLCALL_TELEMETRY_KEYS } from '../api/mcp/telemetry.ts';
-import { createMcpUsage, setUsageRpc } from '../api/mcp/usage.ts';
+import { RETIRED_TOOLS, TOOL_ALIASES, TOOL_LIST_RESPONSE, TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
+import { MCP_TOOLCALL_TELEMETRY_KEYS } from '../api/_mcp/telemetry.ts';
+import { createMcpUsage, setUsageRpc } from '../api/_mcp/usage.ts';
 import { BASE_URL, HMAC_SECRET, callBody, makeProDeps, proReq } from './helpers/mcp-pro-deps.mjs';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');

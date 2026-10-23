@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import { strict as assert } from 'node:assert';
 
-import { mcpErrorFingerprint } from '../api/mcp/error-fingerprint.ts';
+import { mcpErrorFingerprint } from '../api/_mcp/error-fingerprint.ts';
 
 // Regression guard for WORLDMONITOR-T8: the minified edge bundle gives every
 // api/mcp error identical anonymous frames, so without an explicit fingerprint

@@ -8,7 +8,7 @@ import {
   composeChinaDecisionSignals,
   isChinaDecisionSignalSnapshot,
 } from '../shared/china-decision-signals';
-import { TOOL_REGISTRY } from '../api/mcp/registry';
+import { TOOL_REGISTRY } from '../api/_mcp/registry';
 import {
   DECISION_SIGNAL_PROVENANCE_FAMILY_REGISTRATIONS,
   validateDecisionSignalProvenance,

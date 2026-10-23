@@ -251,7 +251,7 @@ describe('pro-mcp-token', () => {
     // The three cases above each prove the NEGATIVE half of the fail-soft
     // contract: a blip writes no sentinel. None of them proves the POSITIVE
     // half — that the caller the blip degraded can actually come back. That
-    // gap matters, because api/mcp/auth.ts answers a transient verdict with a
+    // gap matters, because api/_mcp/auth.ts answers a transient verdict with a
     // retryable 503 + `Retry-After: 5` and reports it at `warning` rather than
     // `error` on exactly that premise (WORLDMONITOR-ZR). "No sentinel was
     // written" is not the same claim as "the retry succeeds"; this pins the

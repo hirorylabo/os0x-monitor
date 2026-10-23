@@ -25,7 +25,7 @@ import {
 import { checkRateLimit } from './_rate-limit.js';
 import { CHECKOUT_PER_IP_RATE_POLICY, ENDPOINT_RATE_POLICIES } from '../server/_shared/rate-limit';
 import { validateBearerToken } from '../server/auth-session';
-// From the canonical shared module, not via api/mcp/upgrade — the checkout edge
+// From the canonical shared module, not via api/_mcp/upgrade — the checkout edge
 // function has no reason to depend on the MCP transport tree (#6716).
 import { normalizeCheckoutAttributionSource } from '../shared/mcp-attribution';
 import { publicCheckoutError } from '../shared/checkout-errors';

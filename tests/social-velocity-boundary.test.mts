@@ -4,7 +4,7 @@ import { runInNewContext } from 'node:vm';
 import { afterEach, test } from 'node:test';
 import { getSocialVelocity } from '../server/worldmonitor/intelligence/v1/get-social-velocity.ts';
 import { createRedisFetch } from './helpers/fake-upstash-redis.mts';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 import { normalizeSocialVelocity } from '../api/_social-velocity.js';
 import { sanitizeBootstrapValue } from '../api/_bootstrap-public-payload.js';
 import { assembleBootstrapTierPayload } from '../scripts/publish-bootstrap-tiers.mjs';

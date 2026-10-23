@@ -188,8 +188,8 @@ describe('UI, API, and methodology surfaces', () => {
   const credDoc = readSrc('docs/methodology/news-credibility.mdx');
   const digestDoc = readSrc('docs/methodology/news-digest-and-briefing.mdx');
   const openApiYaml = readSrc('docs/api/NewsService.openapi.yaml');
-  const mcpCacheSrc = readSrc('api/mcp/registry/cache-tools.ts');
-  const mcpNlpSrc = readSrc('api/mcp/registry/nlp-tools.ts');
+  const mcpCacheSrc = readSrc('api/_mcp/registry/cache-tools.ts');
+  const mcpNlpSrc = readSrc('api/_mcp/registry/nlp-tools.ts');
 
   it('NewsPanel renders CRED badges and still sorts by importanceScore', () => {
     assert.match(panelSrc, /renderCredibilityBadge\(item\.source, item\)/);

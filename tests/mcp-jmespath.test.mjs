@@ -2,7 +2,7 @@ import { describe, it, beforeEach, afterEach } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { readFileSync } from 'node:fs';
 
-import { SERVER_VERSION } from '../api/mcp/constants.ts';
+import { SERVER_VERSION } from '../api/_mcp/constants.ts';
 
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };
@@ -338,7 +338,7 @@ describe('api/mcp.ts — JMESPath projection (v1.7.0)', () => {
   // ============================================================
   describe('initialize handshake', () => {
     it('serverInfo.version === SERVER_VERSION', async () => {
-      // Reads SERVER_VERSION from api/mcp/constants.ts so a deliberate bump
+      // Reads SERVER_VERSION from api/_mcp/constants.ts so a deliberate bump
       // does not need to edit this file; the bump itself is pinned by the
       // published-versions ledger in tests/mcp-registry-artifacts.test.mjs.
       const res = await mod.default(makeReq(initBody(1)));

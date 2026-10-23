@@ -3,14 +3,14 @@ import { afterEach, beforeEach, describe, it } from 'node:test';
 import Ajv2020 from 'ajv/dist/2020.js';
 
 import handler from '../api/mcp.ts';
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { TOOL_REGISTRY, buildPublicTool } from '../api/mcp/registry/index.ts';
-import { validateToolArgs } from '../api/mcp/_validate-args.ts';
-import { RpcValidationError } from '../api/mcp/billing-denial.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { TOOL_REGISTRY, buildPublicTool } from '../api/_mcp/registry/index.ts';
+import { validateToolArgs } from '../api/_mcp/_validate-args.ts';
+import { RpcValidationError } from '../api/_mcp/billing-denial.ts';
 import { CII_RISK_SCORE_CACHE_KEYS } from '../api/_cii-risk-cache-keys.js';
-import { filterNaturalDisastersPanelData } from '../api/mcp/_natural-disasters-reuse.ts';
-import { filterConflictPanelEvents } from '../api/mcp/registry/cache-tools.ts';
-import { filterRows, locationPoint, locator } from '../api/mcp/_geo-filter.ts';
+import { filterNaturalDisastersPanelData } from '../api/_mcp/_natural-disasters-reuse.ts';
+import { filterConflictPanelEvents } from '../api/_mcp/registry/cache-tools.ts';
+import { filterRows, locationPoint, locator } from '../api/_mcp/_geo-filter.ts';
 
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };

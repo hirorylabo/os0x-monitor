@@ -7,7 +7,7 @@
  *   `cachedFetchJson<UserKeyResult>` was CAST, never validated. A poisoned
  *   cache entry or a Convex response shape drift (e.g. `{}`) produced a truthy
  *   object, and every caller — server/gateway.ts, server/_shared/premium-check.ts,
- *   api/mcp/auth.ts — treats truthy as "authenticated principal", reading
+ *   api/_mcp/auth.ts — treats truthy as "authenticated principal", reading
  *   `.userId` as `undefined`.
  *
  * Gap 3 (malformed-key amplification): the only guard was `startsWith('wm_')`,

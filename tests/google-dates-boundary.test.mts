@@ -10,7 +10,7 @@ import { installRedis } from './helpers/fake-upstash-redis.mts';
 import { readLimiterRequest } from './helpers/upstash-limiter-wire.mjs';
 import { decodeTfs, loadGoogleFlightsRelay, pageFixture, relayTransport, resultsPage } from './helpers/google-flights-page.mts';
 import { issueSessionToken } from '../api/_session.js';
-import { RpcValidationError, assertToolFetchOk } from '../api/mcp/billing-denial.ts';
+import { RpcValidationError, assertToolFetchOk } from '../api/_mcp/billing-denial.ts';
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };
 const PATH = '/api/aviation/v1/search-google-dates';

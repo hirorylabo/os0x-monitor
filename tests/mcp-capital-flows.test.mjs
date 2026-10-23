@@ -4,9 +4,9 @@
 
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
-import { rankingRow } from '../api/mcp/registry/_capital-flows.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
+import { rankingRow } from '../api/_mcp/registry/_capital-flows.ts';
 import { assembleCapitalFlows } from '../scripts/seed-capital-flows.mjs';
 import { nextQuarter } from '../scripts/_capital-flow-episodes.mjs';
 import { validate } from './helpers/json-schema-mini.mjs';

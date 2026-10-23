@@ -3535,7 +3535,7 @@ function classifyKey(name, redisKey, opts, ctx) {
   //
   // Grace requires POSITIVE proof (#6095): the marker was READ and came back
   // absent. An unreadable marker is unknown state, not evidence of a producer
-  // that never ran, and earns nothing — the same rule api/mcp/freshness.ts and
+  // that never ran, and earns nothing — the same rule api/_mcp/freshness.ts and
   // api/seed-health.js apply, so the three surfaces cannot answer differently
   // for one input class. The opposite policy from the ON_DEMAND grace above,
   // and for a reason: this one suppresses an alarm on a key that HAS data and

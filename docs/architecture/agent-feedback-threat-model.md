@@ -47,8 +47,8 @@ about the caller.
 | | REST `POST /api/feedback/v1/submit-report` | MCP `report_issue` |
 |---|---|---|
 | Registration | `PUBLIC_NO_AUTH_RPC_PATHS` | `_freeTier: true` |
-| Caller identity | **Always anonymous.** Public no-auth routes skip `validateApiKey` on purpose (`server/gateway.ts`, the `isPublicNoAuthRpc` branch), so no key or session is resolved. | Anonymous, or a principal resolved by the MCP free-tier branch (`api/mcp/handler.ts`). |
-| Client IP, UA, request id | From the gateway request | **Not available today.** `_execute` receives only `McpToolExecutionContext` (`api/mcp/types.ts`). Phase 6 must extend it with server-derived IP, user agent, and `x-vercel-id`, using the same client-IP rules `applyFreeTierLimit` applies. Tests pin that these never come from `params`. |
+| Caller identity | **Always anonymous.** Public no-auth routes skip `validateApiKey` on purpose (`server/gateway.ts`, the `isPublicNoAuthRpc` branch), so no key or session is resolved. | Anonymous, or a principal resolved by the MCP free-tier branch (`api/_mcp/handler.ts`). |
+| Client IP, UA, request id | From the gateway request | **Not available today.** `_execute` receives only `McpToolExecutionContext` (`api/_mcp/types.ts`). Phase 6 must extend it with server-derived IP, user agent, and `x-vercel-id`, using the same client-IP rules `applyFreeTierLimit` applies. Tests pin that these never come from `params`. |
 | Existing limiter | Gateway `checkEndpointRateLimit` | Free-tier 10 calls per minute per IP (`FREE_TIER_LIMIT_PER_MINUTE`) |
 
 Neither existing limiter can carry this model (Decision 2), so both doors call
@@ -335,7 +335,7 @@ Each call does at most five Redis bucket checks and one Convex mutation.
 | `openWorldHint` | `false` | It makes no synchronous external call. The email is scheduled later by Convex, outside the call. |
 | Downstream path | Edge to Convex through a shared-secret internal HTTP action | See the free-tier amendment below. |
 
-**Free-tier amendment.** The `_freeTier` contract in `api/mcp/types.ts` says a
+**Free-tier amendment.** The `_freeTier` contract in `api/_mcp/types.ts` says a
 free-tier tool "MUST reach no credentialed downstream", and
 `tests/mcp-free-tier-subset.test.mjs` enforces it only through `_apiPaths: []`.
 A shared-secret Convex write is a credentialed downstream. So this is a

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 
 const tool = CACHE_TOOLS.find((entry) => entry.name === 'get_cyber_threats');
 const unknowns = [undefined, null, '', 'unknown', 'CRITICALITY_LEVEL_UNSPECIFIED', 'urgent', 4, {}, 'constructor', '__proto__'];

@@ -146,6 +146,27 @@ describe('culledIndices (#4561 U1/P2)', () => {
   it('returns all indices at a world viewport', () => {
     assert.deepEqual(culledIndices(zones, [-170, -80, 170, 80]), [0, 1, 2]);
   });
+
+  it('keeps both visible sides of an unwrapped dateline viewport without unrelated zones', () => {
+    const dateline = [
+      polygon('east', [174, -5, 179, 5]),
+      polygon('west', [-179, -5, -174, 5]),
+      polygon('outside', [0, -5, 5, 5]),
+    ];
+    assert.deepEqual(culledIndices(dateline, [170, -10, 190, 10], 0), [0, 1]);
+    assert.deepEqual(culledIndices(dateline, [-190, -10, -170, 10], 0), [0, 1]);
+    assert.deepEqual(culledIndices(dateline, [530, -10, 550, 10], 0), [0, 1]);
+  });
+
+  it('applies padding across the dateline once and preserves feature order', () => {
+    const dateline = [
+      polygon('wrapped-padding', [-178, 0, -176, 5]),
+      polygon('east', [176, 0, 179, 5]),
+      polygon('outside', [120, 0, 125, 5]),
+    ];
+    assert.deepEqual(culledIndices(dateline, [170, -5, 180, 10], 0), [1]);
+    assert.deepEqual(culledIndices(dateline, [170, -5, 180, 10]), [0, 1]);
+  });
 });
 
 // ── U2: low-zoom simplification ────────────────────────────────────────────────

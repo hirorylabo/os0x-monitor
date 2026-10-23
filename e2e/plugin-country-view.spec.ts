@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import us from './fixtures/country-brief-us.json' with { type: 'json' };
 import norwayFactors from './fixtures/country-factors-no.json' with { type: 'json' };
-import { readCountryView } from '../api/mcp/ui/news-dashboard-app';
+import { readCountryView } from '../api/_mcp/ui/news-dashboard-app';
 import { assembleRawSignals, failedRawSignal, validateRawSignal, RAW_SIGNAL_FAMILIES, type RawSignalsValue } from '../shared/country-raw-signals';
 import type { CountrySignalCounts } from '../src/types';
 import { buildDefenseIndustrialResponse } from '../shared/defense-industrial-response';

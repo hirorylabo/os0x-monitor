@@ -1,4 +1,4 @@
-// Drift guard named by api/mcp/types.ts::_weight.
+// Drift guard named by api/_mcp/types.ts::_weight.
 //
 // The shared API-tier budget charges 1 for a cache read, 2 for one downstream
 // fetch, and 1 + N when a tool's execution fans out to N signed fetches. The
@@ -17,11 +17,11 @@ import { strict as assert } from 'node:assert';
 import { readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { TOOL_REGISTRY, toolWeight } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY, toolWeight } from '../api/_mcp/registry/index.ts';
 import { COUNTRY_READERS } from '../shared/country-brief-host.ts';
 import COUNTRY_BBOXES from '../shared/country-bboxes.js';
 
-const REGISTRY_DIR = fileURLToPath(new URL('../api/mcp/registry/', import.meta.url));
+const REGISTRY_DIR = fileURLToPath(new URL('../api/_mcp/registry/', import.meta.url));
 
 /** Downstream fetch call sites, including the shared transport policy. */
 const countFetch = (src) => (src.match(/\b(?:fetch|fetchMcpDownstream)\s*\(/g) ?? []).length;

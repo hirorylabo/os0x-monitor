@@ -5,7 +5,7 @@
  * billing-verification denials (403/503 + `code` + X-Billing-Verification +
  * Retry-After) BEFORE its legacy generic 403, using the same
  * getBillingVerificationDenial helper as the gateway (server/gateway.ts) and
- * MCP (api/mcp/auth.ts). Mirrors the vi.mock pattern of
+ * MCP (api/_mcp/auth.ts). Mirrors the vi.mock pattern of
  * gateway-user-key-apiaccess.test.ts: auth-session and getEntitlements are
  * stubbed, the denial helper itself is the REAL implementation, and the
  * assertions run against the actual Response the handler returns.

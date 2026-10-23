@@ -14,8 +14,8 @@
 import assert from 'node:assert/strict';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { McpSourceUnavailableError } from '../api/mcp/source-unavailable.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { McpSourceUnavailableError } from '../api/_mcp/source-unavailable.ts';
 
 const NOW = Date.parse('2026-10-02T03:00:00.000Z');
 const TOOL = {

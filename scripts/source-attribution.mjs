@@ -1039,6 +1039,13 @@ const EXCLUDED_HOSTS = new Set([
   'openrouter.ai',
   // AI model provider (server/_shared/llm-anthropic.ts), not an ingested dataset.
   'api.anthropic.com',
+  'api.groq.com',
+  'generativelanguage.googleapis.com',
+  // os0x scheduler, first-party deployment and license documentation are
+  // operational/control-plane references, not upstream intelligence datasets.
+  'qstash.upstash.io',
+  'worldmonitor-ja-private.vercel.app',
+  'www.gnu.org',
   'api.typesafe.ai',
   'tts.baidu.com',
   'api.indexnow.org',

@@ -117,7 +117,7 @@ export function makePipelineMock({
         });
       } else if (cmd[0] === 'EVAL' && Number(cmd[2]) === 2) {
         // reserveQuota: INCR + owner-only reject/clamp in one turn, matching
-        // api/mcp/quota.ts RESERVE_QUOTA_SCRIPT. ARGV[1] empty = unlimited.
+        // api/_mcp/quota.ts RESERVE_QUOTA_SCRIPT. ARGV[1] empty = unlimited.
         // limitFloor (-1 = unlimited seen) is the clamp floor.
         const limitRaw = cmd[5];
         const unlimited = limitRaw === '' || limitRaw === undefined || limitRaw === null;

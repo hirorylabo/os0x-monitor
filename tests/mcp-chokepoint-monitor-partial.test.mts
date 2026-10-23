@@ -6,7 +6,7 @@ import { describe, it, before, after } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { Window } from 'happy-dom';
 
-import { CHOKEPOINT_MONITOR_APP_HTML } from '../api/mcp/ui/chokepoint-monitor-app';
+import { CHOKEPOINT_MONITOR_APP_HTML } from '../api/_mcp/ui/chokepoint-monitor-app';
 
 const PAYLOAD = {
   cached_at: '2026-08-25T12:00:00Z',

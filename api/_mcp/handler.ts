@@ -186,7 +186,7 @@ type StoredSseSession = {
 const SSE_CONTENT_TYPE = 'text/event-stream; charset=utf-8';
 // no-store forbids storage outright; no-cache is vacuous alongside it (RFC 9111
 // §5.2) so it is omitted. no-transform is load-bearing for SSE framing. This also
-// matches the sibling no-store work in api/mcp/rpc.ts (#4502).
+// matches the sibling no-store work in api/_mcp/rpc.ts (#4502).
 const MCP_CACHE_CONTROL = 'no-store, no-transform';
 // JSON-RPC IDs are client-controlled and get echoed in every success/error
 // envelope. Keep ordinary scalar IDs correlatable, but reject IDs that could

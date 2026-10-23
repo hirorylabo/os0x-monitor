@@ -3868,13 +3868,13 @@ describe('agent readiness: MCP/OAuth origin alignment', () => {
   it('api/mcp.ts resource_metadata is host-derived, not hardcoded', () => {
     // After the structural split (refactor PR), the host-derivation
     // (`requestHost = req.headers.get('host') ?? ...`) lives in
-    // api/mcp/handler.ts and the template-literal that emits
-    // `resource_metadata="${url}"` lives in api/mcp/auth.ts (the
+    // api/_mcp/handler.ts and the template-literal that emits
+    // `resource_metadata="${url}"` lives in api/_mcp/auth.ts (the
     // `wwwAuthHeader` helper). Concatenate both so the three sub-greps
     // below still see the same byte surface they did pre-split.
-    const source = readFileSync(resolve(__dirname, '../api/mcp/handler.ts'), 'utf-8')
+    const source = readFileSync(resolve(__dirname, '../api/_mcp/handler.ts'), 'utf-8')
       + '\n'
-      + readFileSync(resolve(__dirname, '../api/mcp/auth.ts'), 'utf-8');
+      + readFileSync(resolve(__dirname, '../api/_mcp/auth.ts'), 'utf-8');
     // Must NOT contain a hardcoded apex or api URL for resource_metadata —
     // that regressed once (PR #3351 review: apex pointer emitted from
     // api.worldmonitor.app/mcp 401s) and the grep-only test didn't catch it.
@@ -4915,7 +4915,7 @@ describe('agent readiness: crawl-budget disallows (#7660)', () => {
           // order) is not a parameter and must not trip this.
           const asQueryKey = new RegExp(`['"\`]${needle}['"\`]|[?&]${needle}=`);
           // MCP tool arguments travel in JSON-RPC POST bodies, never in a URL.
-          const mcpArgument = relative(resolve(__dirname, '..'), full).startsWith(join('api', 'mcp') + sep);
+          const mcpArgument = relative(resolve(__dirname, '..'), full).startsWith(join('api', '_mcp') + sep);
           if (asQueryKey.test(body)) acc.push({ path: full, apiScoped: body.includes('/api/') || mcpArgument });
         }
         return acc;

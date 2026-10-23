@@ -379,7 +379,7 @@ describe('seedTransitSummaries (relay)', () => {
     // #7457 second half. seedTransitSummaries leaves todayTotal null for an
     // empty window, but seedChokepointTransits writes total: recent.length
     // unconditionally. Both keys ship in ONE get-chokepoint-status bundle
-    // (api/mcp/registry/cache-tools.ts exposes 'transit-summaries' and
+    // (api/_mcp/registry/cache-tools.ts exposes 'transit-summaries' and
     // 'chokepoint_transits' as sub-datasets), so before the `available` flag a
     // single response said Suez was both "unknown" and "0" and the answer
     // depended on which half the reader picked.

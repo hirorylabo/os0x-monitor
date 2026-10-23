@@ -410,7 +410,7 @@ async function buildProductionRows(
   // `customer_id` and no `tag` / `user_id` / `dimension` / `limit` column at all
   // (server/_shared/usage.ts); MCP limiter telemetry never reaches Axiom in the
   // first place, because `emitTelemetry` is a bare console.log to the Vercel log
-  // drain (api/mcp/telemetry.ts); and `emitMcpRateLimitHit` sets `user_id` only
+  // drain (api/_mcp/telemetry.ts); and `emitMcpRateLimitHit` sets `user_id` only
   // for the `pro` auth context, so wm_-key callers would be invisible even if
   // the other two were repaired. A query that can only ever return zero rows
   // reads as a passing check while measuring nothing. Blocking says plainly that
@@ -457,7 +457,7 @@ async function buildProductionRows(
     // mcp_daily_calls comes off the dedicated `mcp:pro-usage` counter for EVERY
     // MCP plan, shared-budget ones included. While API_RATE_LIMIT_ENFORCE is off
     // that counter is precisely where an API tier's MCP calls are charged, at
-    // the sold allowance (`budgetCounterKey` with counter: 'mcp' — api/mcp/
+    // the sold allowance (`budgetCounterKey` with counter: 'mcp' — api/_mcp/
     // quota.ts). Skipping those plans here is what left an API Starter customer
     // with no warning at all before their first 429, which is the defect this
     // scan exists to prevent. Convex cannot read the edge's flag and does not

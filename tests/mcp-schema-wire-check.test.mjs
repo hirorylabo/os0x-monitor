@@ -5,7 +5,7 @@ import {
   collectRequiredCapabilityFailures,
   collectToolSchemaWireFailures,
 } from '../scripts/mcp-schema-wire-check.mjs';
-import { TOOL_LIST_RESPONSE } from '../api/mcp/registry/index.ts';
+import { TOOL_LIST_RESPONSE } from '../api/_mcp/registry/index.ts';
 
 describe('collectToolSchemaWireFailures', () => {
   it('accepts valid type strings and union arrays at arbitrary depth', () => {

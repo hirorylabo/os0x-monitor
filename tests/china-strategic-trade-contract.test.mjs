@@ -14,7 +14,7 @@ import {
 } from '../scripts/seed-trade-flows.mjs';
 import { HS4_CODES as bilateralHs4Codes } from '../scripts/seed-comtrade-bilateral-hs4.mjs';
 import strategicProducts from '../scripts/shared/comtrade-strategic-products.json' with { type: 'json' };
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 
 const requiredStrategicProducts = [
   'semiconductors',

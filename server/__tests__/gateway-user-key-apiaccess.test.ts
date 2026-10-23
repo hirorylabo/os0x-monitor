@@ -556,7 +556,7 @@ describe("#5379 + #4770 — entitlement resolution outcomes are pinned", () => {
     // and re-resolving returns the same shape every time. Closed by defaulting
     // the expiry checks with `?? 0` in
     // server/gateway.ts, which also makes the gateway agree with the sibling MCP
-    // gate (api/mcp/auth.ts reads `ent?.validUntil ?? 0`).
+    // gate (api/_mcp/auth.ts reads `ent?.validUntil ?? 0`).
     //
     // Reachability was narrow but real: getEntitlements' cached-row freshness
     // check treats a row with no validUntil as stale and refetches from Convex,

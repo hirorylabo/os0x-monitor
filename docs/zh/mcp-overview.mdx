@@ -382,7 +382,7 @@ npx @modelcontextprotocol/inspector https://worldmonitor.app/mcp
 
 ## API 覆盖
 
-只有当确切的 `METHOD /api/...` 路径声明在某个工具的注册表 `_apiPaths` 条目中时，该 API 端点才算**由 MCP 暴露**。下表是这些声明来自 `api/mcp/registry/cache-tools.ts` 和 `api/mcp/registry/rpc-tools.ts` 的面向人类的呈现；它比公共 OpenAPI 目录更窄。
+只有当确切的 `METHOD /api/...` 路径声明在某个工具的注册表 `_apiPaths` 条目中时，该 API 端点才算**由 MCP 暴露**。下表是这些声明来自 `api/_mcp/registry/cache-tools.ts` 和 `api/_mcp/registry/rpc-tools.ts` 的面向人类的呈现；它比公共 OpenAPI 目录更窄。
 
 一个 REST 路由可以存在于 OpenAPI 中，但仍然是仅限 REST 的。parity 测试将这一区别保持明确：每个公共 OpenAPI 操作要么出现在 `_apiPaths` 中，要么在 `tests/mcp-api-parity.test.mjs` 中列出并附带一个已分类的排除原因。
 
@@ -399,7 +399,7 @@ npx @modelcontextprotocol/inspector https://worldmonitor.app/mcp
 1. 从 OpenAPI 页面复制确切的方法和路径，例如 `GET /api/research/v1/list-tech-events`。
 2. 搜索此表。如果该路由出现，则调用所列的 MCP 工具。
 3. 如果它未出现，则该 REST 路由未作为 API 等价路径通过 MCP 暴露。仅缓存的 MCP 工具可能仍返回相关领域数据，但它并不声称覆盖该 REST 路由。
-4. 如需代码级验证，请在 `api/mcp/registry/cache-tools.ts` 和 `api/mcp/registry/rpc-tools.ts` 中搜索 `_apiPaths`；parity 测试会解释有意的仅限 REST 排除项。
+4. 如需代码级验证，请在 `api/_mcp/registry/cache-tools.ts` 和 `api/_mcp/registry/rpc-tools.ts` 中搜索 `_apiPaths`；parity 测试会解释有意的仅限 REST 排除项。
 
 | MCP 工具 | 服务的 API 端点 |
 |----------|---------------------|

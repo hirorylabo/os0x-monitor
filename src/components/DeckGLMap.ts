@@ -11,7 +11,7 @@ import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&ur
 import type { StyleSpecification } from 'maplibre-gl';
 import { FALLBACK_DARK_STYLE, FALLBACK_LIGHT_STYLE, getMapProvider, getMapTheme, isLightMapTheme } from '@/config/basemap';
 import { getStyleForProvider } from '@/config/basemap-styles';
-import { OS0X_MAP_CENTER } from '@/config/os0x';
+import { OS0X_MAP_CENTER, OS0X_MAP_RENDER_WORLD_COPIES } from '@/config/os0x';
 import Supercluster from 'supercluster';
 import type {
   MapLayers,
@@ -1140,7 +1140,7 @@ export class DeckGLMap {
       // mount, so seeding from this.state.zoom here only undershoots the preset
       // on the default desktop view.
       zoom: preset.zoom,
-      renderWorldCopies: false,
+      renderWorldCopies: OS0X_MAP_RENDER_WORLD_COPIES,
       attributionControl: false,
       interactive: true,
       canvasContextAttributes: { powerPreference: 'high-performance' },
@@ -1211,7 +1211,7 @@ export class DeckGLMap {
           style: fallback,
           center: center ? [center.lon, center.lat] : [preset.longitude, preset.latitude],
           zoom: this.state.zoom,
-          renderWorldCopies: false,
+          renderWorldCopies: OS0X_MAP_RENDER_WORLD_COPIES,
           attributionControl: false,
           interactive: true,
           canvasContextAttributes: { powerPreference: 'high-performance' },
@@ -2943,10 +2943,8 @@ export class DeckGLMap {
       return this.conflictZoneGeoJson;
     }
 
-    // getBounds() lng stays in the zone-data lng range only because both map
-    // inits set renderWorldCopies: false — off-copy zones genuinely aren't drawn,
-    // so culling them is correct. Flipping that flag would need the cull to
-    // handle wrapped longitudes (#4561 review P3-a).
+    // World copies keep Japan centered across the antimeridian. culledIndices
+    // matches these unwrapped bounds against the canonical zone-data copies.
     const viewport: BBox = [
       mapBounds.getWest(), mapBounds.getSouth(), mapBounds.getEast(), mapBounds.getNorth(),
     ];

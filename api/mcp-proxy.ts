@@ -12,9 +12,9 @@ import {
   readBoundedResponseBody,
   RequestBodyTooLargeError,
   ResponseBodyTooLargeError,
-} from './mcp/bounded-body.js';
-import { MAX_JSON_RPC_BODY_BYTES, MAX_MCP_PROXY_RESPONSE_BYTES } from './mcp/body-limits.js';
-import { McpProxyJsonDepthError, parseMcpProxyJson } from './mcp/bounded-json.js';
+} from './_mcp/bounded-body.js';
+import { MAX_JSON_RPC_BODY_BYTES, MAX_MCP_PROXY_RESPONSE_BYTES } from './_mcp/body-limits.js';
+import { McpProxyJsonDepthError, parseMcpProxyJson } from './_mcp/bounded-json.js';
 import { ENDPOINT_RATE_POLICIES, checkScopedRateLimit, checkIpScopedEdgeProof, getClientIp, rateLimitKeyForIp } from '../server/_shared/rate-limit.js';
 import { captureSilentError } from './_sentry-node.js';
 import {

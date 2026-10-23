@@ -910,7 +910,7 @@ describe('api/mcp.ts — /.well-known/mcp dual-role alias', () => {
   it('redirects discovery reads when deployment static-asset self-fetches fail', async () => {
     // Import the implementation directly with a unique query so its module-scope
     // document caches start empty; api/mcp.ts re-exports a shared handler module.
-    const fresh = await import(`../api/mcp/handler.ts?fallback=${Date.now()}-${Math.random()}`);
+    const fresh = await import(`../api/_mcp/handler.ts?fallback=${Date.now()}-${Math.random()}`);
     const fallbackServer = await startMcpServer(fresh.mcpHandler, deps);
     const fallbackAliasUrl = fallbackServer.url.replace('/mcp', '/.well-known/mcp');
     const successfulStaticFetch = globalThis.fetch;
@@ -1212,9 +1212,9 @@ describe('api/mcp.ts — rate-limit denials stay correlatable over the wire (#78
   });
 });
 
-describe('api/mcp/handler.ts — SSE replay byte budget', () => {
+describe('api/_mcp/handler.ts — SSE replay byte budget', () => {
   it('one principal at its session cap cannot evict another principal\'s replay', async () => {
-    const { __sseReplayStoreForTest: store } = await import('../api/mcp/handler.ts');
+    const { __sseReplayStoreForTest: store } = await import('../api/_mcp/handler.ts');
     store.reset();
     try {
       const big = 'x'.repeat(120 * 1024);

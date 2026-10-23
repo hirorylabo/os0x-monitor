@@ -120,15 +120,15 @@ View -> Host: ui/notifications/size-changed
 
 ## 添加新的 MCP App
 
-1. 在 `api/mcp/ui/*-app.ts` 下添加自包含的应用外壳。
-2. 复用 `api/mcp/ui/shell.ts` 中的 `buildAppHtml()`，除非有协议方面的理由不这样做。
-3. 在 `api/mcp/ui/registry.ts` 中添加规范的 `*_UI_URI` 常量和注册表条目。
-4. 在 `api/mcp/registry/rpc-tools.ts` 或 `api/mcp/registry/cache-tools.ts` 中，恰好为一个后备工具设置 `_uiResourceUri`。
+1. 在 `api/_mcp/ui/*-app.ts` 下添加自包含的应用外壳。
+2. 复用 `api/_mcp/ui/shell.ts` 中的 `buildAppHtml()`，除非有协议方面的理由不这样做。
+3. 在 `api/_mcp/ui/registry.ts` 中添加规范的 `*_UI_URI` 常量和注册表条目。
+4. 在 `api/_mcp/registry/rpc-tools.ts` 或 `api/_mcp/registry/cache-tools.ts` 中，恰好为一个后备工具设置 `_uiResourceUri`。
 5. 更新 `docs/mcp-apps.mdx`、简短的 [MCP 概述](/zh/mcp-overview#mcp-apps（交互式-ui）)以及 `public/.well-known/mcp/server-card.json`。
 6. 运行 `npm run docs:stats` 以刷新 `docs/generated/stats.json`。
 7. 运行 `npm run docs:check` 以及针对性的 MCP 资源/工具测试。
 
-docs-stat 门禁从 `api/mcp/ui/registry.ts` 和工具注册表派生应用清单。它在以下情况失败：
+docs-stat 门禁从 `api/_mcp/ui/registry.ts` 和工具注册表派生应用清单。它在以下情况失败：
 
 - `docs/mcp-apps.mdx`、`docs/mcp-overview.mdx` 或 `public/mcp-server.md` 遗漏了某个关联工具或 `ui://` URI。
 - `public/.well-known/mcp/server-card.json.metadata.mcpApps` 与代码派生的应用列表、规范版本或 MIME 类型不一致。
@@ -139,11 +139,11 @@ docs-stat 门禁从 `api/mcp/ui/registry.ts` 和工具注册表派生应用清�
 
 | 源文件 | 负责 |
 |---|---|
-| `api/mcp/ui/shell.ts` | 共享 HTML 构建器、协议桥接、MIME 类型、规范版本、CSP、主题、软错误处理。 |
-| `api/mcp/ui/registry.ts` | 规范的 `ui://` 资源清单和 `resources/read` 响应构建器。 |
-| `api/mcp/registry/rpc-tools.ts` | RPC 后备工具（如 `get_world_brief`、`get_country_brief` 和 `get_country_risk`）的 UI 链接。 |
-| `api/mcp/registry/cache-tools.ts` | 缓存后备工具（如 `get_market_data` 和 `get_chokepoint_status`）的 UI 链接。 |
-| `api/mcp/handler.ts` | 公开 `ui://` 读取提升、`resources/list`、`resources/read` 以及 `initialize` 能力声明。 |
+| `api/_mcp/ui/shell.ts` | 共享 HTML 构建器、协议桥接、MIME 类型、规范版本、CSP、主题、软错误处理。 |
+| `api/_mcp/ui/registry.ts` | 规范的 `ui://` 资源清单和 `resources/read` 响应构建器。 |
+| `api/_mcp/registry/rpc-tools.ts` | RPC 后备工具（如 `get_world_brief`、`get_country_brief` 和 `get_country_risk`）的 UI 链接。 |
+| `api/_mcp/registry/cache-tools.ts` | 缓存后备工具（如 `get_market_data` 和 `get_chokepoint_status`）的 UI 链接。 |
+| `api/_mcp/handler.ts` | 公开 `ui://` 读取提升、`resources/list`、`resources/read` 以及 `initialize` 能力声明。 |
 | `public/.well-known/mcp/server-card.json` | 供扫描器和智能体使用的静态预连接发现元数据。 |
 | `scripts/docs-stats.mjs` | 针对文档、服务器卡片元数据、导航和应用清单的漂移守护。 |
 

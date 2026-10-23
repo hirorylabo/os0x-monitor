@@ -119,7 +119,7 @@ describe('country view MCP boundary', () => {
       assert.equal(item.fixture.pipe.ops.flat().filter(command => command[0] === 'EVAL').length, 0, item.name);
     }
     assert.equal(requests.length, 0); assert.equal(paidPipe.count, 1);
-    const { COUNTRY_VIEW_TOOLS } = await import('../api/mcp/registry/country-view.ts');
+    const { COUNTRY_VIEW_TOOLS } = await import('../api/_mcp/registry/country-view.ts');
     const tool = COUNTRY_VIEW_TOOLS.find(tool => tool.name === 'get_country_brief_section');
     await assert.rejects(tool._execute(args, 'https://example.test', { kind: 'env_key', apiKey: 'weight-test' }), error => error.name === 'RpcValidationError' && error.violations.some(value => value.field === 'panel_request' && /paid country panel/i.test(value.description)));
     await assert.rejects(tool._execute(args, 'https://example.test', { kind: 'env_key', apiKey: 'weight-test' }, { countryPanelCode: 'CN' }), error => error.name === 'RpcValidationError' && error.violations.some(value => value.field === 'panel_request'));
@@ -216,7 +216,7 @@ describe('country view MCP boundary', () => {
       { section: 'signalsRaw', arguments: { country_code: 'US' }, panel_request: 'forged' },
       { section: 'signalsRaw', arguments: { country_code: 'US' }, panel_request: token.slice(0, -1) + (token.endsWith('a') ? 'b' : 'a') },
     ]) assert.equal((await paid(args)).error?.code, -32602, JSON.stringify(args));
-    const { authorizePanelRead } = await import('../api/mcp/panel-requests.ts');
+    const { authorizePanelRead } = await import('../api/_mcp/panel-requests.ts');
     const context = { kind: 'pro', userId: PRO_USER_ID, tokenId: 'fixture', subscriptionTier: 'mcp_pro' };
     const read = { section: 'signalsRaw', arguments: { country_code: 'US' } };
     await assert.rejects(authorizePanelRead({ ...context, userId: 'other-user' }, pipe.pipeline, 'get_country_brief_section', read, token));
@@ -279,7 +279,7 @@ describe('country view MCP boundary', () => {
     assert.equal(result.value.sources.earthquakes.state, 'unavailable');
   });
   for (const stall of ['signing', 'fetch', 'body']) it(`bounds the country-qualified ${stall} phase with the same deadline`, async t => {
-    const { COUNTRY_VIEW_TOOLS } = await import('../api/mcp/registry/country-view.ts');
+    const { COUNTRY_VIEW_TOOLS } = await import('../api/_mcp/registry/country-view.ts');
     const tool = COUNTRY_VIEW_TOOLS.find(tool => tool.name === 'get_country_brief_section');
     const deadline = new AbortController(); const timeout = AbortSignal.timeout;
     let deadlines = 0, cancelled = false, started;
@@ -476,7 +476,7 @@ describe('country view MCP boundary', () => {
     assert.ok(Buffer.byteLength(JSON.stringify(result)) <= 524288);
   });
   it('serves only the fixed country build with no credentials and a separate CSP', async () => {
-    const { readCountryView, COUNTRY_VIEW_META } = await import('../api/mcp/ui/news-dashboard-app.ts');
+    const { readCountryView, COUNTRY_VIEW_META } = await import('../api/_mcp/ui/news-dashboard-app.ts');
     globalThis.fetch = async (url, init) => {
       assert.equal(String(url), 'https://www.worldmonitor.app/plugin/country.html');
       assert.equal(new Headers(init.headers).get('Authorization'), null);
@@ -491,7 +491,7 @@ describe('country view MCP boundary', () => {
     assert.ok(new Set(COUNTRY_VIEW_META.ui.csp.resourceDomains).has('https://upload.wikimedia.org'));
   });
   it('advertises each served app resource in the discovery card', async () => {
-    const { UI_RESOURCE_LIST_RESPONSE } = await import('../api/mcp/ui/registry.ts');
+    const { UI_RESOURCE_LIST_RESPONSE } = await import('../api/_mcp/ui/registry.ts');
     const card = JSON.parse(readFileSync(new URL('../public/.well-known/mcp/server-card.json', import.meta.url), 'utf8'));
     assert.deepEqual([...card.metadata.mcpApps.uiResources].sort(), UI_RESOURCE_LIST_RESPONSE.map(resource => resource.uri).sort());
     assert.match(card.metadata.mcpApps.note, /open_country_brief → country-view-v3\.html/);

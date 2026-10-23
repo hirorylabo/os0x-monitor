@@ -5,7 +5,7 @@ import {
   MAX_MCP_PROXY_JSON_DEPTH,
   McpProxyJsonDepthError,
   parseMcpProxyJson,
-} from '../api/mcp/bounded-json.ts';
+} from '../api/_mcp/bounded-json.ts';
 
 function nestedArray(depth) {
   return '['.repeat(depth) + '0' + ']'.repeat(depth);

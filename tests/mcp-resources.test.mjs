@@ -32,8 +32,8 @@ import {
   makeProDeps,
   proReq,
 } from './helpers/mcp-pro-deps.mjs';
-import { buildUiResourceRead, isUiResourceUri, UI_RESOURCE_LIST_RESPONSE, UI_RESOURCE_REGISTRY } from '../api/mcp/ui/registry.ts';
-import { buildAppHtml } from '../api/mcp/ui/shell.ts';
+import { buildUiResourceRead, isUiResourceUri, UI_RESOURCE_LIST_RESPONSE, UI_RESOURCE_REGISTRY } from '../api/_mcp/ui/registry.ts';
+import { buildAppHtml } from '../api/_mcp/ui/shell.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const originalFetch = globalThis.fetch;
@@ -1634,12 +1634,12 @@ describe('api/mcp.ts — resources capability + stability + auth-symmetry', () =
     assert.deepEqual(actualSorted, expected, 'CHOKEPOINT_SLUGS contents must match the snapshot byte-for-byte');
   });
 
-  it('api/mcp/resources/slugs.ts file-on-disk parses to the same CHOKEPOINT_SLUGS export', () => {
+  it('api/_mcp/resources/slugs.ts file-on-disk parses to the same CHOKEPOINT_SLUGS export', () => {
     // Defense-in-depth: the snapshot test above runs against the
     // already-loaded module; this one re-reads the source file from disk
     // so a sabotage that edits ONLY the in-memory const (test bypass)
     // would still fail here.
-    const src = readFileSync(resolve(__dirname, '..', 'api', 'mcp', 'resources', 'slugs.ts'), 'utf8');
+    const src = readFileSync(resolve(__dirname, '..', 'api', '_mcp', 'resources', 'slugs.ts'), 'utf8');
     for (const slug of Object.keys(CHOKEPOINT_SLUGS)) {
       assert.ok(src.includes(`'${slug}'`),
         `slugs.ts must contain a literal entry for slug "${slug}"`);

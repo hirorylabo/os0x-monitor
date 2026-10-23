@@ -56,7 +56,7 @@ before(async () => {
   ({ getGoldIntelligence } = await import('../server/worldmonitor/market/v1/get-gold-intelligence.ts'));
   const { createMarketServiceRoutes } = await import('../src/generated/server/worldmonitor/market/v1/service_server.ts');
   goldRoute = createMarketServiceRoutes({ getGoldIntelligence }).find(route => route.path.endsWith('/get-gold-intelligence'));
-  const { PUBLIC_DOMAIN_TOOLS } = await import('../api/mcp/registry/public-domain-tools.ts');
+  const { PUBLIC_DOMAIN_TOOLS } = await import('../api/_mcp/registry/public-domain-tools.ts');
   goldTool = PUBLIC_DOMAIN_TOOLS.find(tool => tool.name === 'get_gold_intelligence');
 });
 

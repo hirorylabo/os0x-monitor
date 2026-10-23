@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
-import { buildUiResourceRead, MARKET_RADAR_UI_URI } from '../api/mcp/ui/registry';
+import { buildUiResourceRead, MARKET_RADAR_UI_URI } from '../api/_mcp/ui/registry';
 import { terminalChart } from '../src/utils/terminal-chart';
 
 test.describe.configure({ mode: 'serial' });

@@ -98,7 +98,7 @@ export const issueProMcpToken = internalMutation({
       && mergedFeatures.mcpAccess === false,
     );
     // The token proves IDENTITY, not entitlement: `validateProMcpToken` returns
-    // only `{userId, lastUsedAt}`, and api/mcp/auth.ts re-derives the verdict on
+    // only `{userId, lastUsedAt}`, and api/_mcp/auth.ts re-derives the verdict on
     // every gated call. Issuing to a free account therefore grants nothing on
     // its own — the allowance and its cache-backed-tool restriction are applied
     // at the call site.

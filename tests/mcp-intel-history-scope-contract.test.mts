@@ -28,9 +28,9 @@
 import { afterEach, describe, it } from 'node:test';
 import { strict as assert } from 'node:assert';
 
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
-import { RpcValidationError } from '../api/mcp/billing-denial.ts';
-import { downstreamErrorTags } from '../api/mcp/downstream.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
+import { RpcValidationError } from '../api/_mcp/billing-denial.ts';
+import { downstreamErrorTags } from '../api/_mcp/downstream.ts';
 
 const ORIGINAL_FETCH = globalThis.fetch;
 process.env.MCP_TELEMETRY = 'false';

@@ -11,16 +11,16 @@
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { mcpHandler } from '../api/mcp/handler.ts';
+import { mcpHandler } from '../api/_mcp/handler.ts';
 import {
   MCP_CHECKOUT_PLANS,
   checkoutProductIdForPlan,
   recommendedPlanFor,
   relayMcpCheckout,
-} from '../api/mcp/checkout.ts';
-import { buildMcpStructuredDenial } from '../api/mcp/upgrade.ts';
+} from '../api/_mcp/checkout.ts';
+import { buildMcpStructuredDenial } from '../api/_mcp/upgrade.ts';
 import { MCP_ATTRIBUTION_SOURCE, MCP_UPGRADE_URL } from '../shared/mcp-attribution.ts';
-import { TOOL_REGISTRY, isQuotaExemptMetadataTool, toolAccess } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY, isQuotaExemptMetadataTool, toolAccess } from '../api/_mcp/registry/index.ts';
 import { PRODUCT_CATALOG } from '../convex/config/productCatalog.ts';
 import { BASE_URL, HMAC_SECRET, PRO_USER_ID, callBody, makeProDeps, proReq } from './helpers/mcp-pro-deps.mjs';
 

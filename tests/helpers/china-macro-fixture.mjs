@@ -118,7 +118,7 @@ export const CHINA_MACRO_FIXTURE_SERIES_IDS = Object.freeze([
  *
  * Tests that go through a read path which RE-DERIVES freshness against the wall
  * clock must pass `Date.now()` instead. The MCP projection
- * (api/mcp/registry/cache-tools.ts -> normalizeChinaMacroObservations) does
+ * (api/_mcp/registry/cache-tools.ts -> normalizeChinaMacroObservations) does
  * exactly that, and against the pinned literal it flips
  * `transportStatus: 'fresh'` to `'stale'` once real time passes
  * CHINA_MACRO_MAX_TRANSPORT_AGE_MIN (72h) after it -- turning the assertion into

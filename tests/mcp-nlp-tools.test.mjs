@@ -1574,7 +1574,7 @@ describe('#5697 spike-tool Redis key drift', () => {
 
     // Read the whole registry dir: pinning one filename is how a static guard
     // silently loses reach when the code it guards moves to a sibling module.
-    const registryDir = new URL('../api/mcp/registry/', import.meta.url);
+    const registryDir = new URL('../api/_mcp/registry/', import.meta.url);
     const src = readdirSync(registryDir)
       .filter((f) => f.endsWith('.ts') && f !== 'index.ts')
       .map((f) => readFileSync(new URL(f, registryDir), 'utf8'))

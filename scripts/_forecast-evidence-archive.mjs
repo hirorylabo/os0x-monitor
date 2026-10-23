@@ -54,7 +54,7 @@ export const FORECAST_EVIDENCE_MAX_LOOKBACK_MS = 14 * 24 * 60 * 60 * 1000;
  *   seed-forecast-bets.mjs:295 ensemble news         full:en, 3d (via
  *                                                    readDigestAccumulatorArchive)
  *   scripts/lib/watchlist-story-scan.mjs             24h
- *   api/mcp/registry/nlp-tools.ts keyword spikes     48h
+ *   api/_mcp/registry/nlp-tools.ts keyword spikes     48h
  *   seed-forecast-resolutions (judged)               none since #8995: judging
  *                                                    reads only the archive
  *   backfill-forecast-evidence-archive.mjs           14d, operator repair tool

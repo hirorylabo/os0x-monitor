@@ -7,11 +7,11 @@ import assert from 'node:assert/strict';
 
 import Ajv2020 from 'ajv/dist/2020.js';
 
-import { TOOL_REGISTRY, buildPublicTool, toolAccess, toolWeight } from '../api/mcp/registry/index.ts';
-import { applyJmespath } from '../api/mcp/jmespath.ts';
-import { buildStructuredContent } from '../api/mcp/structured-content.ts';
-import { RpcValidationError } from '../api/mcp/billing-denial.ts';
-import { tradeCountryCode } from '../api/mcp/registry/tariff-tools.ts';
+import { TOOL_REGISTRY, buildPublicTool, toolAccess, toolWeight } from '../api/_mcp/registry/index.ts';
+import { applyJmespath } from '../api/_mcp/jmespath.ts';
+import { buildStructuredContent } from '../api/_mcp/structured-content.ts';
+import { RpcValidationError } from '../api/_mcp/billing-denial.ts';
+import { tradeCountryCode } from '../api/_mcp/registry/tariff-tools.ts';
 import { M49_TO_WTO_CODE, PRODUCT_GROUPS, witsCountry } from '../server/worldmonitor/trade/v1/_tradestats-tariff.ts';
 import { tariffTrendSeedKey } from '../scripts/seed-supply-chain-trade.mjs';
 

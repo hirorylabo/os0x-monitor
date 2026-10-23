@@ -201,7 +201,7 @@ describe('get_world_brief story corroboration (#4925 item 3)', () => {
   });
 
   it('documents the roster on topStories items', async () => {
-    const { RPC_TOOLS } = await import('../api/mcp/registry/rpc-tools.ts');
+    const { RPC_TOOLS } = await import('../api/_mcp/registry/rpc-tools.ts');
     const tool = RPC_TOOLS.find((entry) => entry.name === 'get_world_brief');
     const item = tool.outputSchema.properties.topStories.items;
     assert.deepEqual(item.properties.publishers.items.required, ['name', 'tier', 'labels', 'labelsUnlisted']);
@@ -303,7 +303,7 @@ describe('get_world_brief story corroboration (#4925 item 3)', () => {
 
   it('stays inside the 64KB output budget with a worst-case snapshot', async () => {
     // 12 stories (the headline cap) each at the 500-char title clip and the
-    // 12-outlet cap. If this ever exceeds the budget, api/mcp/dispatch.ts
+    // 12-outlet cap. If this ever exceeds the budget, api/_mcp/dispatch.ts
     // replaces the entire response with { _budget_exceeded: true } — a
     // user-visible regression, not a silent truncation.
     // Each story also carries ten publisher families of six case-variant

@@ -6,7 +6,7 @@
 import { afterEach, describe, it } from 'node:test';
 import { strict as assert } from 'node:assert';
 
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
 
 const ORIGINAL_FETCH = globalThis.fetch;
 process.env.MCP_TELEMETRY = 'false';

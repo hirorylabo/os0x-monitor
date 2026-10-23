@@ -4,7 +4,7 @@
 // Sibling of api/_content-freshness.js, and it exists for the same reason that
 // module states: keep the rule in ONE place so health, seed-health, and MCP
 // cannot silently invent different deadlines. Before this module, api/health.js
-// classifyKey and api/mcp/freshness.ts evaluateFreshness each hand-implemented
+// classifyKey and api/_mcp/freshness.ts evaluateFreshness each hand-implemented
 // `contentAgeMin == null || isFutureDated || contentAgeMin > maxContentAgeMin`
 // off the same trio — the #6080 divergence class that #7141 was itself fixing.
 //

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { afterEach, describe, it } from 'node:test';
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
 
 const originalFetch = globalThis.fetch;
 afterEach(() => { globalThis.fetch = originalFetch; });

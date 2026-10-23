@@ -1,11 +1,11 @@
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { mcpHandler } from '../api/mcp/handler.ts';
+import { mcpHandler } from '../api/_mcp/handler.ts';
 import Ajv2020 from 'ajv/dist/2020.js';
-import { SHARED_API_BUDGET } from '../api/mcp/quota.ts';
+import { SHARED_API_BUDGET } from '../api/_mcp/quota.ts';
 import { apiKeyDailyKey } from '../server/_shared/api-key-rate-limit.ts';
 import { envPrefix } from '../server/_shared/pro-mcp-token.ts';
-import { TOOL_REGISTRY, toolAccess, buildPublicTool, isQuotaExemptMetadataTool } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY, toolAccess, buildPublicTool, isQuotaExemptMetadataTool } from '../api/_mcp/registry/index.ts';
 import { dailyCounterKey } from '../server/_shared/pro-mcp-token.ts';
 import { READ_FREE_ACCOUNT_ALLOWANCE_SCRIPT } from '../shared/free-account-allowance-scripts.mjs';
 import { BASE_URL, HMAC_SECRET, PRO_USER_ID, makeProDeps, proReq, callBody } from './helpers/mcp-pro-deps.mjs';

@@ -4,7 +4,7 @@
  *
  * Source chain:
  *   convex/config/productCatalog.ts (lifecycle, plans, prices, public copy)
- *   api/mcp/registry/index.ts        (machine-readable MCP server card)
+ *   api/_mcp/registry/index.ts        (machine-readable MCP server card)
  *
  * These outputs are committed because lifecycle, prices, entitlements, and
  * catalog identities are reviewed product contracts. Extensible inventory
@@ -25,10 +25,10 @@ import { UNDERSEA_CABLES } from '../src/config/geo-map.ts';
 import { getCompleteLayerCatalogKeys } from '../src/config/map-layer-definitions.ts';
 import { INTEL_HOTSPOTS } from '../shared/geo-data.ts';
 import { PIPELINES } from '../shared/pipelines-data.ts';
-import { TOOL_REGISTRY, toolAccess } from '../api/mcp/registry/index.ts';
-import { MCP_DOMAIN_SUMMARY, MCP_TAGS, MCP_TOOL_CATEGORIES, TOOL_CATEGORY_BY_NAME } from '../api/mcp/domains.ts';
-import { UI_RESOURCE_LIST_RESPONSE } from '../api/mcp/ui/registry.ts';
-import { FREE_ACCOUNT_CALLS_PER_DAY } from '../api/mcp/upgrade-constants.ts';
+import { TOOL_REGISTRY, toolAccess } from '../api/_mcp/registry/index.ts';
+import { MCP_DOMAIN_SUMMARY, MCP_TAGS, MCP_TOOL_CATEGORIES, TOOL_CATEGORY_BY_NAME } from '../api/_mcp/domains.ts';
+import { UI_RESOURCE_LIST_RESPONSE } from '../api/_mcp/ui/registry.ts';
+import { FREE_ACCOUNT_CALLS_PER_DAY } from '../api/_mcp/upgrade-constants.ts';
 import { publishedRankedCountries } from './build-crawlable-corpus.mjs';
 import { commandPaletteCommandCount } from './lib/command-palette-count.mjs';
 import { defaultOnLayerStats } from './lib/default-map-layer-count.mjs';
@@ -395,7 +395,7 @@ transform('public/.well-known/mcp/server-card.json', (source) => {
     'get_country_risk → country-risk-v3.html',
   );
   card.metadata.mcpApps.uiResources = UI_RESOURCE_LIST_RESPONSE.map(resource => resource.uri);
-  // Categories and tags come from api/mcp/domains.ts. The per-tool category is
+  // Categories and tags come from api/_mcp/domains.ts. The per-tool category is
   // card-only; the live tools/list _meta stays access + weight (no wire change).
   // ui.resourceUri mirrors the live MCP Apps link so a scanner that cannot
   // authenticate still sees which tools render an app.
@@ -403,7 +403,7 @@ transform('public/.well-known/mcp/server-card.json', (source) => {
   card.tags = [...MCP_TAGS];
   card.tools = TOOL_REGISTRY.map((tool) => {
     const category = TOOL_CATEGORY_BY_NAME[tool.name];
-    if (!category) throw new Error(`${tool.name} has no category in api/mcp/domains.ts`);
+    if (!category) throw new Error(`${tool.name} has no category in api/_mcp/domains.ts`);
     return {
       name: tool.name,
       description: tool.description,

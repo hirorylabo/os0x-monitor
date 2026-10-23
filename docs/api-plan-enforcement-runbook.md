@@ -10,7 +10,7 @@ exists because the blast radius is not obvious from the code.
 
 ## Why this matters more than it looks
 
-MCP already meters API-tier callers at the sold allowance. `api/mcp/quota.ts`
+MCP already meters API-tier callers at the sold allowance. `api/_mcp/quota.ts`
 gives API Starter 1,000 units/day and API Business 10,000, charged at the
 per-tool weight, and while the flag is off it books them on MCP's own
 `mcp:pro-usage:<userId>:<date>` counter rather than the shared
@@ -48,7 +48,7 @@ Then, for how far over each account actually runs:
 
 Both queries read `wm_api_usage`, which is a REST-only view. MCP tool calls
 have never appeared in it: the MCP edge signs its downstream fetches with the
-internal HMAC (`api/mcp/auth.ts:178`), and the gateway's whole per-account
+internal HMAC (`api/_mcp/auth.ts:178`), and the gateway's whole per-account
 meter block sits behind `if (!internalMcpVerified)` (`server/gateway.ts:1909`),
 so an MCP-originated request never touches `rl:apikey:day:` and never emits a
 `wm_api_usage` row. The measurement below is therefore a floor, not the
@@ -123,7 +123,7 @@ direction.
 **Shipped.** The script takes an `ARGV[4]` clamp flag
 (`shared/mcp-quota-reserve-script.mjs:46`, applied at `:91`), and `reserveQuota`
 passes `0` exactly when the budget resolves to the shared counter
-(`api/mcp/quota.ts:212`, from the `isSharedRestCounter` predicate at `:144` that
+(`api/_mcp/quota.ts:212`, from the `isSharedRestCounter` predicate at `:144` that
 also picks the key). Absent or unparseable defaults to ENABLED, so the dedicated
 MCP counter — where this script is the only writer, and the clamp is sound —
 keeps correcting residue exactly as before. `docker/redis-rest-proxy.mjs` carries
@@ -171,7 +171,7 @@ whether that combination needs a per-tool retry ceiling documented on the error
 page, or whether the plan-limit notice reaching the customer first is enough.
 
 Size it before deciding. A tool failure charges the budget and is never refunded
-(`api/mcp/dispatch.ts:492` and `:512` — GHSA-hcq5: `_execute()` already cost us
+(`api/_mcp/dispatch.ts:492` and `:512` — GHSA-hcq5: `_execute()` already cost us
 the fetch, so refunding it was the cost-cap bypass). At API Starter's 60
 calls/minute and weight 3, a client retrying a failing `get_country_brief` in a
 tight loop spends 180 units a minute, so it burns 1,000 units in about **5.5

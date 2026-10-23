@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, beforeEach, test } from 'node:test';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
-import { executeTool } from '../api/mcp/dispatch.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
 import { installRedis } from './helpers/fake-upstash-redis.mts';
 import Ajv2020 from 'ajv/dist/2020.js';
 

@@ -9,7 +9,7 @@ import { hasCurrentEntitlementCoverage } from './entitlement-coverage';
  *   - `api/internal/mcp-grant-mint.ts`    — mints the signed grant
  *   - `api/oauth/authorize-pro.ts`        — finishes authorization on the
  *                                          api subdomain
- *   - `api/mcp/auth.ts`                   — protects MCP-edge requests
+ *   - `api/_mcp/auth.ts`                   — protects MCP-edge requests
  *   - `server/gateway.ts`                 — re-checks signed internal MCP calls
  *
  * The decision lives here so the OAuth handshake cannot authorize an account
@@ -18,7 +18,7 @@ import { hasCurrentEntitlementCoverage } from './entitlement-coverage';
  *
  * What this module owns, precisely: the ACCESS decision, for all five. The
  * `ProMcpGateDenial` union is consumed as a rendered decision only by the three
- * grant-flow callers (via `proMcpGateDenialResponse`). `api/mcp/auth.ts` and
+ * grant-flow callers (via `proMcpGateDenialResponse`). `api/_mcp/auth.ts` and
  * `server/gateway.ts` read the return value as pass/deny and render billing
  * denials through their own helpers — which bottom out in the same
  * `entitlement-check.ts::classifyBillingVerification`. That function, not this

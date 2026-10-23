@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { after, before, describe, it } from 'node:test';
 
-import { buildAuthHeaders, resolveAuthContext } from '../api/mcp/auth.ts';
-import { buildMcpDownstreamHeaders, createMcpToolExecutionContext, fetchMcpDownstream } from '../api/mcp/downstream.ts';
+import { buildAuthHeaders, resolveAuthContext } from '../api/_mcp/auth.ts';
+import { buildMcpDownstreamHeaders, createMcpToolExecutionContext, fetchMcpDownstream } from '../api/_mcp/downstream.ts';
 
 const SIDECAR_TOKEN = 'sidecar-transport-token-abc123';
 const VALID_KEY = 'wm_selfhost_valid_key';

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { TOOL_REGISTRY, buildPublicTool } from '../api/mcp/registry/index.ts';
-import { NEWS_DASHBOARD_META } from '../api/mcp/ui/news-dashboard-app.ts';
+import { TOOL_REGISTRY, buildPublicTool } from '../api/_mcp/registry/index.ts';
+import { NEWS_DASHBOARD_META } from '../api/_mcp/ui/news-dashboard-app.ts';
 import Ajv2020 from 'ajv/dist/2020.js';
 
 test('public headline schema advertises one translation headline and up to eight brief headlines', () => {
@@ -36,8 +36,8 @@ test('dashboard entry opens the actual feed panels with empty arguments', () => 
 });
 
 import { afterEach } from 'node:test';
-import { readNewsDashboard } from '../api/mcp/ui/news-dashboard-app.ts';
-import { buildUiResourceRead, isUiResourceUri } from '../api/mcp/ui/registry.ts';
+import { readNewsDashboard } from '../api/_mcp/ui/news-dashboard-app.ts';
+import { buildUiResourceRead, isUiResourceUri } from '../api/_mcp/ui/registry.ts';
 const realFetch = globalThis.fetch;
 afterEach(() => { globalThis.fetch = realFetch; });
 

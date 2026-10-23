@@ -595,7 +595,7 @@ describe("api plan-limit usage scanner", () => {
   test("mcp_daily_calls for a Pro Business account also uses the Redis counter, not the Axiom row", async () => {
     // Same single-source invariant as the Pro case above. Pro Business is
     // metered by the SAME `mcp:pro-usage` counter (it rides the pro context in
-    // api/mcp/dispatch.ts), so leaving it out of the isPro set would dual-source
+    // api/_mcp/dispatch.ts), so leaving it out of the isPro set would dual-source
     // its usage and flap the notice within one scan.
     const t = convexTest(schema, modules);
     await seedEntitlement(t, "user-pro-business", "pro_business_monthly");

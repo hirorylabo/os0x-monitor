@@ -11,9 +11,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { SOURCE_TOOLS, outletRecord } from '../api/mcp/registry/source-tools.ts';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
+import { SOURCE_TOOLS, outletRecord } from '../api/_mcp/registry/source-tools.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
 import { validate } from './helpers/json-schema-mini.mjs';
 
 const tool = SOURCE_TOOLS.find((t) => t.name === 'get_sources');

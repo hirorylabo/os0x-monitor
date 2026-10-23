@@ -8,10 +8,10 @@
 // "Invalid input: expected string, received null" and cannot associate the
 // denial with its pending request. That is what the 2026-09-06 Ora scan saw.
 //
-// These tests drive the PRODUCTION handler (`api/mcp/handler.ts`) with the real
+// These tests drive the PRODUCTION handler (`api/_mcp/handler.ts`) with the real
 // limiter path, forcing a denial by stubbing only the Upstash sliding-window
 // backend. Nothing here manufactures a response: every envelope asserted below
-// is built by `rpcError` inside `api/mcp/auth.ts`.
+// is built by `rpcError` inside `api/_mcp/auth.ts`.
 //
 // Test seam: `Ratelimit.slidingWindow` is a writable STATIC whose returned
 // factory is what a `Ratelimit` instance delegates `limit()` to, so overriding
@@ -25,11 +25,11 @@ import { strict as assert } from 'node:assert';
 import { Ratelimit } from '@upstash/ratelimit';
 import { hashKeySync } from '../server/_shared/usage-identity.ts';
 
-import { mcpHandler } from '../api/mcp/handler.ts';
+import { mcpHandler } from '../api/_mcp/handler.ts';
 import {
   applyAnonDiscoveryLimit,
   applyPerMinuteLimit,
-} from '../api/mcp/auth.ts';
+} from '../api/_mcp/auth.ts';
 import { HMAC_SECRET, PRO_BEARER, makeProDeps } from './helpers/mcp-pro-deps.mjs';
 import { assertJsonRpcError, assertJsonRpcResult } from './helpers/mcp-jsonrpc-schema.mjs';
 

@@ -19,7 +19,7 @@
  * `resource_metadata` is host-derived (resolveMetadataOrigin) so the pointer is
  * self-consistent across apex/www/variant hosts and a spoofed Host cannot be
  * reflected into it. The WWW-Authenticate string matches wwwAuthHeader() in
- * api/mcp/auth.ts byte-for-byte so both surfaces present one identical challenge.
+ * api/_mcp/auth.ts byte-for-byte so both surfaces present one identical challenge.
  */
 
 import { authSkillUrl, resolveMetadataOrigin } from './_agent-metadata';

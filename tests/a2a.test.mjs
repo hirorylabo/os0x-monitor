@@ -246,7 +246,7 @@ describe('a2a: JSON-RPC endpoint', () => {
   });
 
   it('rejects an oversized JSON-RPC body before parsing (#7406)', async () => {
-    const { MAX_JSON_RPC_BODY_BYTES } = await import('../api/mcp/body-limits.ts');
+    const { MAX_JSON_RPC_BODY_BYTES } = await import('../api/_mcp/body-limits.ts');
     const rpcBody = '{"jsonrpc":"2.0","id":1,"method":"message/send","params":{}}';
     const oversized = `${rpcBody.slice(0, -1)}${' '.repeat(MAX_JSON_RPC_BODY_BYTES - rpcBody.length + 1)}}`;
     assert.ok(
@@ -267,7 +267,7 @@ describe('a2a: JSON-RPC endpoint', () => {
   });
 
   it('accepts a JSON-RPC body at the exact byte cap (#7406)', async () => {
-    const { MAX_JSON_RPC_BODY_BYTES } = await import('../api/mcp/body-limits.ts');
+    const { MAX_JSON_RPC_BODY_BYTES } = await import('../api/_mcp/body-limits.ts');
     const rpcBody = '{"jsonrpc":"2.0","id":1,"method":"tasks/get","params":{}}';
     const atCap = `${rpcBody.slice(0, -1)}${' '.repeat(MAX_JSON_RPC_BODY_BYTES - rpcBody.length)}}`;
     assert.equal(new TextEncoder().encode(atCap).byteLength, MAX_JSON_RPC_BODY_BYTES);

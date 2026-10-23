@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { HMAC_SECRET, PRO_USER_ID } from './helpers/mcp-pro-deps.mjs';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 
 const ORIGINAL_FETCH = globalThis.fetch;
 const ORIGINAL_HMAC = process.env.MCP_INTERNAL_HMAC_SECRET;

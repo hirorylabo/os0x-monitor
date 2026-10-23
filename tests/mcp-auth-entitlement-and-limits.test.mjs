@@ -1,5 +1,5 @@
 // #5379 U3 — direct unit coverage for the three untested surfaces in
-// `api/mcp/auth.ts`:
+// `api/_mcp/auth.ts`:
 //
 //   Gap 4  `checkMcpEntitlementGate` — the four rejection predicates
 //          (`!ent`, `tier < 1`, `!mcpAccess`, `validUntil < Date.now()`) were
@@ -54,7 +54,7 @@ let bust = 0;
 /** Fresh auth.ts instance — resets the three memoized limiter singletons. */
 async function loadAuth() {
   bust += 1;
-  return import(`../api/mcp/auth.ts?u3=${bust}-${Date.now()}`);
+  return import(`../api/_mcp/auth.ts?u3=${bust}-${Date.now()}`);
 }
 
 /**
@@ -194,7 +194,7 @@ async function assertRejected(res, label) {
   assert.equal(res.headers.get('Cache-Control'), 'no-store', `${label}: auth rejections must never be cached`);
 }
 
-describe('api/mcp/auth.ts — checkMcpEntitlementGate predicates (#5379 Gap 4)', () => {
+describe('api/_mcp/auth.ts — checkMcpEntitlementGate predicates (#5379 Gap 4)', () => {
   for (const entry of GATE_ENTRIES) {
     describe(`${entry.kind} context`, () => {
       for (const c of ENTITLEMENT_CASES) {
@@ -364,7 +364,7 @@ const withSharedLimits = (planKey, apiRequestsPerDay, tier = 2) => ({
   validUntil: Date.now() + DAY,
 });
 
-describe('api/mcp/auth.ts — pre-check resolves the plan MCP daily limit (U3 / KTD6)', () => {
+describe('api/_mcp/auth.ts — pre-check resolves the plan MCP daily limit (U3 / KTD6)', () => {
   it('pro context carries the plan limit through to the caller (pro_business → 250)', async () => {
     const { deps } = makeProDeps({ getEntitlements: async () => withLimits('pro_business_monthly', 250) });
     const res = await authMod.runContextPreChecks(PRO_CONTEXT, deps, RESOURCE_META_URL, CORS);
@@ -453,7 +453,7 @@ describe('api/mcp/auth.ts — pre-check resolves the plan MCP daily limit (U3 / 
   });
 });
 
-describe('api/mcp/auth.ts — buildAuthHeaders credential class', () => {
+describe('api/_mcp/auth.ts — buildAuthHeaders credential class', () => {
   it('user_key signs the internal HMAC and never forwards the dashboard key', async () => {
     const { verifyInternalMcpRequest } = await import('../server/_shared/mcp-internal-hmac.ts');
     const url = 'https://example.test/api/intelligence/v1/get-country-risk?countryCode=US';
@@ -491,7 +491,7 @@ async function withTelemetry(fn) {
   return captured.filter((l) => l && typeof l === 'object' && l.tag === 'mcp.rate_limit_hit');
 }
 
-describe('api/mcp/auth.ts — applyPerMinuteLimit (#5379 Gap 9)', () => {
+describe('api/_mcp/auth.ts — applyPerMinuteLimit (#5379 Gap 9)', () => {
   const PER_MINUTE_CONTEXTS = [
     { kind: 'env_key', context: ENV_KEY_CONTEXT, key: `rl:mcp:key:${hashKeySync(ENV_KEY)}`, message: 'Rate limit exceeded. Max 60 requests per minute per API key.' },
     { kind: 'pro', context: PRO_CONTEXT, key: `rl:mcp:pro-min:pro-user:${PRO_USER_ID}`, message: 'Rate limit exceeded. Max 60 requests per minute per user.' },
@@ -630,7 +630,7 @@ const withBurst = (planKey, mcpBurstRequestsPerMinute, tier = 2) => ({
   validUntil: Date.now() + DAY,
 });
 
-describe('api/mcp/auth.ts — the minute burst is the plan\'s, not a constant', () => {
+describe('api/_mcp/auth.ts — the minute burst is the plan\'s, not a constant', () => {
   it('the pre-check resolves the plan burst for both credential doors', async () => {
     for (const context of [PRO_CONTEXT, USER_KEY_CONTEXT]) {
       const { deps } = makeProDeps({ getEntitlements: async () => withBurst('api_business', 300) });
@@ -755,7 +755,7 @@ function anonReq(headers = {}) {
   return new Request('https://worldmonitor.app/mcp', { method: 'POST', headers });
 }
 
-describe('api/mcp/auth.ts — applyAnonDiscoveryLimit (#5379 Gap 10)', () => {
+describe('api/_mcp/auth.ts — applyAnonDiscoveryLimit (#5379 Gap 10)', () => {
   it('no Upstash env → limiter absent → null (discovery stays open)', async () => {
     const calls = stubLimiter({ success: false });
     const res = await authMod.applyAnonDiscoveryLimit(anonReq({ 'x-real-ip': '9.9.9.9' }), CORS);
@@ -883,7 +883,7 @@ describe('api/mcp/auth.ts — applyAnonDiscoveryLimit (#5379 Gap 10)', () => {
 // from source text — the same lever tests/rate-limit.test.mts uses on the
 // rate-limit capture, for exactly this reason.
 // ---------------------------------------------------------------------------
-describe('api/mcp/auth.ts — a transient Convex verdict degrades, it does not page (WORLDMONITOR-ZR)', () => {
+describe('api/_mcp/auth.ts — a transient Convex verdict degrades, it does not page (WORLDMONITOR-ZR)', () => {
   it('a transient validate verdict still fails closed on a retryable 503', async () => {
     const { deps } = makeProDeps({ validateProMcpToken: async () => ({ ok: 'transient' }) });
     const res = await authMod.runContextPreChecks(PRO_CONTEXT, deps, RESOURCE_META_URL, CORS);
@@ -900,7 +900,7 @@ describe('api/mcp/auth.ts — a transient Convex verdict degrades, it does not p
 
   it('the transient capture carries level: warning, and the thrown-validator catch does NOT', async () => {
     const fs = await import('node:fs');
-    const src = fs.readFileSync(new URL('../api/mcp/auth.ts', import.meta.url), 'utf8');
+    const src = fs.readFileSync(new URL('../api/_mcp/auth.ts', import.meta.url), 'utf8');
 
     const transientAt = src.indexOf("validation.ok === 'transient'");
     assert.ok(transientAt > 0, 'the transient branch still exists');

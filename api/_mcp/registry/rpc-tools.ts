@@ -747,7 +747,7 @@ function addIntelHistoryNumber(query: URLSearchParams, name: string, value: unkn
  *  hand the model only the tool's compressed `description` and `inputSchema`,
  *  dropping `outputSchema` entirely, so an agent can read every field here and
  *  never see a word of it. SERVER_INSTRUCTIONS carries the content-safety rule
- *  for agents (api/mcp/constants.ts); what these descriptions serve is the
+ *  for agents (api/_mcp/constants.ts); what these descriptions serve is the
  *  surfaces that DO read the schema — `describe_tool`, the generated OpenAPI,
  *  and REST clients. Keep all of them in step. */
 const INTEL_HISTORY_RECORD_SCHEMA = {

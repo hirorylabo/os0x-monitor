@@ -5,7 +5,7 @@
 // this is expected; use tsx (the project's standard test runner).
 import { strict as assert } from 'node:assert';
 import { describe, it, beforeEach, afterEach, before } from 'node:test';
-import { MAX_MCP_PROXY_JSON_DEPTH } from '../api/mcp/bounded-json.ts';
+import { MAX_MCP_PROXY_JSON_DEPTH } from '../api/_mcp/bounded-json.ts';
 
 // validateApiKey runs with forceKey:true on this endpoint (PR #3768 review
 // finding — wms_ session tokens are anonymous and freely mintable via
@@ -1090,7 +1090,7 @@ describe('api/mcp-proxy', () => {
     });
 
     it('rejects an oversized POST body before forwarding (#7406)', async () => {
-      const { MAX_JSON_RPC_BODY_BYTES } = await import('../api/mcp/body-limits.ts');
+      const { MAX_JSON_RPC_BODY_BYTES } = await import('../api/_mcp/body-limits.ts');
       const previousUpstashUrl = process.env.UPSTASH_REDIS_REST_URL;
       const previousUpstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
       delete process.env.UPSTASH_REDIS_REST_URL;
@@ -2172,8 +2172,8 @@ describe('api/mcp-proxy — observability', () => {
   // non-Error cannot put an arbitrary value into the fingerprint.
   it('classifies failures into bounded fingerprint classes', async () => {
     const { proxyFailureFor } = await import(`../api/mcp-proxy.ts?failure-class=${Date.now()}`);
-    const { ResponseBodyTooLargeError } = await import('../api/mcp/bounded-body.ts');
-    const { McpProxyJsonDepthError } = await import('../api/mcp/bounded-json.ts');
+    const { ResponseBodyTooLargeError } = await import('../api/_mcp/bounded-body.ts');
+    const { McpProxyJsonDepthError } = await import('../api/_mcp/bounded-json.ts');
 
     assert.equal(proxyFailureFor(new Error('MCP server timed out after 10s')).errorClass, 'timeout');
     assert.equal(proxyFailureFor(new ResponseBodyTooLargeError(1024)).errorClass, 'ResponseBodyTooLargeError');

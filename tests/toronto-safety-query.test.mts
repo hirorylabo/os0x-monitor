@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import { queryTorontoSafety } from '../server/worldmonitor/safety/v1/get-toronto-safety.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
 import { validationFailure } from './helpers/validation-failure.mts';
 
 const MCI_KEY = 'safety:toronto:tps-mci:v1';

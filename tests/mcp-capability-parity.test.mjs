@@ -31,9 +31,9 @@ import { strict as assert } from 'node:assert';
 import { readFileSync } from 'node:fs';
 
 import { BASE_URL } from './helpers/mcp-pro-deps.mjs';
-import { resolveMcpBudget } from '../api/mcp/quota.ts';
-import { MCP_DEFAULT_BURST_PER_MINUTE, MCP_PROTOCOL_BURST_PER_MINUTE, resolveMcpBurstPerMinute } from '../api/mcp/auth.ts';
-import { PANEL_READ_LIMIT } from '../api/mcp/panel-requests.ts';
+import { resolveMcpBudget } from '../api/_mcp/quota.ts';
+import { MCP_DEFAULT_BURST_PER_MINUTE, MCP_PROTOCOL_BURST_PER_MINUTE, resolveMcpBurstPerMinute } from '../api/_mcp/auth.ts';
+import { PANEL_READ_LIMIT } from '../api/_mcp/panel-requests.ts';
 import { PRODUCT_CATALOG } from '../convex/config/productCatalog.ts';
 import { OPERATOR_KEY_DAILY_CEILINGS } from '../server/_shared/high-usage-alarm.ts';
 

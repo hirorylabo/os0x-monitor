@@ -37,7 +37,7 @@ async function post(url, body, headers = {}) {
 }
 
 async function request(url, init = {}, ctx = { skip: false }) {
-  const { mcpHandler } = await import('../api/mcp/handler.ts');
+  const { mcpHandler } = await import('../api/_mcp/handler.ts');
   const host = new URL(url).host;
   return mcpHandler(new Request(url, {
     ...init,
@@ -221,7 +221,7 @@ describe('product MCP host aliases are migration-only', () => {
     assert.equal(missingMethodBody.id, 'missing-method');
     assert.equal(missingMethodBody.error.code, -32600);
 
-    const { MAX_JSON_RPC_BODY_BYTES } = await import('../api/mcp/constants.ts');
+    const { MAX_JSON_RPC_BODY_BYTES } = await import('../api/_mcp/constants.ts');
     const oversized = await request(`https://${'api'}.worldmonitor.app/api/mcp`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: 'x'.repeat(MAX_JSON_RPC_BODY_BYTES + 1),
     });
@@ -249,7 +249,7 @@ describe('product MCP host aliases are migration-only', () => {
   });
 
   it('classifies every handler-originated alias response as a migration event', async () => {
-    const { mcpReasonFor } = await import('../api/mcp/usage.ts');
+    const { mcpReasonFor } = await import('../api/_mcp/usage.ts');
     assert.equal(mcpReasonFor('migration', 308), 'canonical_endpoint_required');
     assert.equal(mcpReasonFor('migration', 410), 'canonical_endpoint_required');
     assert.equal(mcpReasonFor('migration', 405), 'canonical_endpoint_required');
@@ -340,7 +340,7 @@ describe('the machine-discovery aliases keep the full anonymous handshake', () =
 
 describe('what is not a handshake is untouched', () => {
   it('a plain GET to /mcp is still the human-readable server guide, not a challenge', async () => {
-    const { mcpHandler } = await import('../api/mcp/handler.ts');
+    const { mcpHandler } = await import('../api/_mcp/handler.ts');
     const res = await mcpHandler(new Request('https://worldmonitor.app/mcp', {
       method: 'GET', headers: { host: 'worldmonitor.app', Accept: 'text/html' },
     }), undefined, { skip: false });
@@ -348,7 +348,7 @@ describe('what is not a handshake is untouched', () => {
   });
 
   it('CORS preflight is still answered', async () => {
-    const { mcpHandler } = await import('../api/mcp/handler.ts');
+    const { mcpHandler } = await import('../api/_mcp/handler.ts');
     const res = await mcpHandler(new Request('https://worldmonitor.app/mcp', {
       method: 'OPTIONS', headers: { host: 'worldmonitor.app' },
     }), undefined, { skip: false });

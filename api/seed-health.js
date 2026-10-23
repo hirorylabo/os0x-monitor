@@ -585,7 +585,7 @@ async function getSeedBatch(entries) {
     probeMap.set(slot.domain, data[slot.index]?.result ?? null);
   }
   // Both maps are THREE-valued (#6095, matching api/health.js and
-  // api/mcp/freshness.ts): `readExistsFlags` adds a domain only when the
+  // api/_mcp/freshness.ts): `readExistsFlags` adds a domain only when the
   // EXISTS entry has an explicit result of 0 or 1. Per-command errors,
   // `{}`, null results, and missing slots remain unknown, so a malformed
   // pipeline body can never be interpreted as clean absence (#6115).
@@ -770,7 +770,7 @@ export async function handleSeedHealth(req, options = {}) {
     );
     // Grace requires POSITIVE proof (#6095): the marker was READ and came back
     // absent. An unreadable marker is unknown state, not evidence of a producer
-    // that never ran — the same rule api/health.js and api/mcp/freshness.ts
+    // that never ran — the same rule api/health.js and api/_mcp/freshness.ts
     // apply, so the three surfaces cannot answer differently for one input
     // class. The clean-absent arm is also bounded by the shared rollout window
     // (#6111), so marker eviction or an empty Redis restore cannot excuse the

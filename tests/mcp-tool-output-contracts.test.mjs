@@ -26,7 +26,7 @@ import { strict as assert } from 'node:assert';
 
 import Ajv2020 from 'ajv/dist/2020.js';
 
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 import { assembleRawSignals, failedRawSignal, RAW_SIGNAL_FAMILIES } from '../shared/country-raw-signals.ts';
 import { validate } from './helpers/json-schema-mini.mjs';
 import {

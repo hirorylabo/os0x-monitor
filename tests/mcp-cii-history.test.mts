@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { afterEach, beforeEach, test } from 'node:test';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index';
 import { CII_FORMULA_VERSION } from '../server/worldmonitor/intelligence/v1/_risk-config';
 
 const tool = TOOL_REGISTRY.find(t => t.name === 'get_country_risk')!;

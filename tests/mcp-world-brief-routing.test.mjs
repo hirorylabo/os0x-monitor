@@ -5,7 +5,7 @@ import {
   MCP_DOWNSTREAM_TELEMETRY_KEYS,
   mcpHandler,
 } from '../api/mcp.ts';
-import { createMcpToolExecutionContext } from '../api/mcp/downstream.ts';
+import { createMcpToolExecutionContext } from '../api/_mcp/downstream.ts';
 import { verifyInternalMcpRequest } from '../server/_shared/mcp-internal-hmac.ts';
 import {
   HMAC_SECRET,

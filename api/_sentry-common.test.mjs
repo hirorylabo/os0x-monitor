@@ -101,7 +101,7 @@ test('caller fingerprint is preserved in the Sentry envelope', async () => {
 // matching the moment the mangled name shifts.
 //
 // `err.name` is the value the class sets explicitly and is minification-proof;
-// `api/mcp/error-fingerprint.ts` already prefers it. The envelope builder must
+// `api/_mcp/error-fingerprint.ts` already prefers it. The envelope builder must
 // agree.
 test('envelope exception type prefers err.name over the minifiable constructor name', async () => {
   delete process.env.NODE_TEST_CONTEXT;

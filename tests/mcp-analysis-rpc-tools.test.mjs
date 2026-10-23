@@ -30,9 +30,9 @@ import { CII_FORMULA_VERSION } from '../server/worldmonitor/intelligence/v1/_ris
 // Entered through the registry barrel, not `rpc-tools.ts` directly: rpc-tools
 // imports TOOL_REGISTRY back from the barrel, so importing it first hits the
 // cycle mid-initialisation ("Cannot access 'RPC_TOOLS' before initialization").
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
-import { dispatchToolsCall } from '../api/mcp/dispatch.ts';
-import { McpSourceUnavailableError } from '../api/mcp/source-unavailable.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
+import { dispatchToolsCall } from '../api/_mcp/dispatch.ts';
+import { McpSourceUnavailableError } from '../api/_mcp/source-unavailable.ts';
 
 const NOW = Date.UTC(2026, 6, 28, 12, 0, 0);
 const MIN = 60_000;

@@ -2,12 +2,12 @@ import assert from 'node:assert/strict';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { HMAC_SECRET, makeProDeps, proReq, callBody } from './helpers/mcp-pro-deps.mjs';
-import { admitNewsPanel, admitCountryPanel, authorizePanelRead } from '../api/mcp/panel-requests.ts';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { admitNewsPanel, admitCountryPanel, authorizePanelRead } from '../api/_mcp/panel-requests.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 import { CHOKEPOINT_THREAT_LEVELS } from '../shared/chokepoint-threat-levels.js';
 import { EIA_OIL_TRANSIT_CHOKEPOINTS } from '../scripts/chokepoint-eia-baselines.mjs';
 import { PORTWATCH_CONTENT_FRESHNESS_ACTIVATION_KEY } from '../api/_content-freshness.js';
-import { executeChokepointPanelRead } from '../api/mcp/dispatch.ts';
+import { executeChokepointPanelRead } from '../api/_mcp/dispatch.ts';
 import { dailyCounterKey } from '../server/_shared/pro-mcp-token.ts';
 
 const originalFetch = globalThis.fetch, OriginalDate = Date, originalEnv = { ...process.env };

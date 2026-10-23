@@ -5,8 +5,8 @@ import { buildSync } from 'esbuild';
 import { Window } from 'happy-dom';
 import { toSeedEtfFlow } from '../scripts/shared/etf-flow-provider.mjs';
 import { buildProducerBackedMarketFixture } from './helpers/mcp-producer-fixtures.mjs';
-import { buildUiResourceRead, MARKET_RADAR_UI_URI } from '../api/mcp/ui/registry';
-import { presentDefaultMarketData } from '../api/mcp/registry/cache-tools';
+import { buildUiResourceRead, MARKET_RADAR_UI_URI } from '../api/_mcp/ui/registry';
+import { presentDefaultMarketData } from '../api/_mcp/registry/cache-tools';
 
 const bundle = buildSync({
   entryPoints: ['src/plugin-market-main.ts'], bundle: true, write: false, format: 'iife', platform: 'browser',

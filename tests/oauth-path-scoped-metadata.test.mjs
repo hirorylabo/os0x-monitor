@@ -139,7 +139,7 @@ describe('authorization-server metadata — registration method', () => {
 
 describe('the MCP 401 challenge points at the path-scoped document', () => {
   it('wwwAuthHeader carries the /mcp resource metadata URL', async () => {
-    const { wwwAuthHeader } = await import('../api/mcp/auth.ts');
+    const { wwwAuthHeader } = await import('../api/_mcp/auth.ts');
     assert.equal(
       wwwAuthHeader('https://worldmonitor.app/.well-known/oauth-protected-resource/mcp'),
       'Bearer realm="worldmonitor", resource_metadata="https://worldmonitor.app/.well-known/oauth-protected-resource/mcp"',
@@ -147,7 +147,7 @@ describe('the MCP 401 challenge points at the path-scoped document', () => {
   });
 
   const call = async (url, host) => {
-    const { mcpHandler } = await import('../api/mcp/handler.ts');
+    const { mcpHandler } = await import('../api/_mcp/handler.ts');
     return mcpHandler(new Request(url, {
       method: 'POST',
       headers: { host, 'Content-Type': 'application/json', Accept: 'application/json' },

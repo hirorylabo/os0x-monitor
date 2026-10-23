@@ -20,10 +20,10 @@ import {
   PORTWATCH_CONTENT_FRESHNESS_ACTIVATION_KEY,
 } from '../api/_content-freshness.js';
 import { __testing__ } from '../api/health.js';
-import { evaluateFreshness } from '../api/mcp/freshness.ts';
-import { executeTool } from '../api/mcp/dispatch.ts';
-import { CACHE_TOOLS } from '../api/mcp/registry/cache-tools.ts';
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { evaluateFreshness } from '../api/_mcp/freshness.ts';
+import { executeTool } from '../api/_mcp/dispatch.ts';
+import { CACHE_TOOLS } from '../api/_mcp/registry/cache-tools.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 
 // The seed-health handler is imported dynamically so the env below is set
 // first. Its credential reads are lazy today, so a static import would also

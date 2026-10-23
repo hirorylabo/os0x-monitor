@@ -2,7 +2,7 @@
 // interactive app shell for the `get_world_brief` tool: the flagship reader of
 // the fleet. Renders the LLM-summarised geopolitical brief as paragraphs, the
 // grounding headlines, and the source feed articles. Built on the shared
-// api/mcp/ui/shell.ts foundation (DOCTYPE / CSP / dark-mode / bridge), so the
+// api/_mcp/ui/shell.ts foundation (DOCTYPE / CSP / dark-mode / bridge), so the
 // only per-widget code is the layout + render mapping below.
 //
 // Tool result shape (RPC tool — content[0].text JSON):

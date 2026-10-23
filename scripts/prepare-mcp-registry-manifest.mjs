@@ -39,7 +39,7 @@ function pinnedEntry(version, ledger) {
   return pinned;
 }
 
-const BUMP_INSTRUCTIONS = 'bump SERVER_VERSION (api/mcp/constants.ts) plus the matching '
+const BUMP_INSTRUCTIONS = 'bump SERVER_VERSION (api/_mcp/constants.ts) plus the matching '
   + '`version` and `serverInfo.version` in public/.well-known/mcp/server-card.json and '
   + 'server.json, then add the new version to scripts/mcp-registry-published-versions.json';
 

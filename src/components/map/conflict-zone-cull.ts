@@ -11,7 +11,8 @@
  * The cull is deliberately conservative so it never hides a zone that should be
  * visible (R5): it tests each zone's axis-aligned bounding box (never the
  * polygon itself → over-inclusion, never under-inclusion), pads the viewport,
- * and never culls at world/low zoom or across the antimeridian.
+ * and never culls at world/low zoom or ambiguous normalized antimeridian bounds.
+ * Unwrapped MapLibre bounds are compared against adjacent world copies.
  */
 import type { Feature, Geometry, Position } from 'geojson';
 
@@ -98,7 +99,7 @@ export function padViewport(viewport: BBox, fraction = CULL_PAD_FRACTION): BBox 
 
 /**
  * Indices (into `features`, order preserved) whose bounds intersect the padded
- * viewport. At world/low zoom (or across the antimeridian) returns every index
+ * viewport. At world/low zoom (or ambiguous normalized dateline bounds) returns every index
  * so we never under-cull. Index identity (not zone id) is what callers key their
  * tessellation cache on: a multi-country zone emits one feature per country, all
  * sharing the zone id, so an id-based key could collide two distinct feature sets.
@@ -110,10 +111,16 @@ export function culledIndices(
 ): number[] {
   if (isWorldViewport(viewport)) return features.map((_, i) => i);
   const padded = padViewport(viewport, padFraction);
+  const span = padded[2] - padded[0];
+  if (span >= 360) return features.map((_, i) => i);
+  const west = ((padded[0] + 180) % 360 + 360) % 360 - 180;
+  const copies: BBox[] = [-360, 0, 360].map((offset) => [
+    west + offset, padded[1], west + span + offset, padded[3],
+  ]);
   const out: number[] = [];
   for (let i = 0; i < features.length; i++) {
     const f = features[i];
-    if (f && bboxIntersects(f.bounds, padded)) out.push(i);
+    if (f && copies.some((copy) => bboxIntersects(f.bounds, copy))) out.push(i);
   }
   return out;
 }

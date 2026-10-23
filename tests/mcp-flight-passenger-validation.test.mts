@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { afterEach, beforeEach, describe, it } from 'node:test';
 
-import { TOOL_REGISTRY } from '../api/mcp/registry/index.ts';
+import { TOOL_REGISTRY } from '../api/_mcp/registry/index.ts';
 
 const BASE_URL = 'https://worldmonitor.app';
 const AUTH = { kind: 'pro', userId: 'user_flight_passengers', mcpTokenId: 'mcp_flight_passengers' } as const;

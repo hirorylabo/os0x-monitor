@@ -18,8 +18,8 @@ import { afterEach, beforeEach, describe, it } from 'node:test';
 import Ajv2020 from 'ajv/dist/2020.js';
 
 import { HMAC_SECRET, callBody, makeProDeps, proReq } from './helpers/mcp-pro-deps.mjs';
-import { TOOL_ALIASES } from '../api/mcp/registry/index.ts';
-import { DEPRECATION_NOTICE_SCHEMA } from '../api/mcp/structured-content.ts';
+import { TOOL_ALIASES } from '../api/_mcp/registry/index.ts';
+import { DEPRECATION_NOTICE_SCHEMA } from '../api/_mcp/structured-content.ts';
 
 const originalFetch = globalThis.fetch;
 const originalEnv = { ...process.env };

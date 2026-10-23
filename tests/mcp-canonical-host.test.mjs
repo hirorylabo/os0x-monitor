@@ -9,8 +9,8 @@ import { strict as assert } from 'node:assert';
 import { afterEach, describe, it } from 'node:test';
 
 import { mcpHandler } from '../api/mcp.ts';
-import { MAX_JSON_RPC_BODY_BYTES } from '../api/mcp/body-limits.ts';
-import { mcpReasonFor } from '../api/mcp/usage.ts';
+import { MAX_JSON_RPC_BODY_BYTES } from '../api/_mcp/body-limits.ts';
+import { mcpReasonFor } from '../api/_mcp/usage.ts';
 import {
   MCP_CANONICAL_ENDPOINT,
   MCP_CANONICAL_ENDPOINT_ERROR_CODE,
